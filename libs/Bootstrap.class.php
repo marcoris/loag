@@ -10,7 +10,7 @@ class Bootstrap
      * 
      * @return boolean|string
      */
-    function __construct()
+    public function __construct()
     {
         // Sets the private $url
         $this->getUrl();
@@ -62,7 +62,7 @@ class Bootstrap
             $this->controller = new $this->url[0];
             $this->controller->loadModel($this->url[0]);
         } else {
-            $this->error();   
+            $this->error("Die Seite \"{$this->url[0]}\" existiert nicht!");   
         }
     }
 
@@ -76,14 +76,14 @@ class Bootstrap
             if (method_exists($this->controller, $this->url[1])) {
                 $this->controller->{$this->url[1]}($this->url[2]);
             } else {
-                $this->error();
+                $this->error("Parameter \"{$this->url[2]}\" in \"{$this->url[1]}\" existiert nicht!");
             }
         } else {
             if (isset($this->url[1])) {
                 if (method_exists($this->controller, $this->url[1])) {
                     $this->controller->{$this->url[1]}();
                 } else {
-                    $this->error();
+                    $this->error("Methode \"{$this->url[1]}\" existiert nicht!");
                 }
             } else {
                 $this->controller->index();
@@ -94,10 +94,10 @@ class Bootstrap
     /**
      * This handles the errors
      */
-    function error() {
+    public function error($msg = '') {
         require 'controllers/error.php';
         $this->controller = new ErrorHandler();
-        $this->controller->index();
+        $this->controller->index($msg);
         return false;
     }
 }
