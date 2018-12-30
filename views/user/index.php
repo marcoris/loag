@@ -12,25 +12,29 @@
     <input type="submit">
 </form>
 <hr>
-<table border="1">
-    <tr>
-        <th>ID</td>
-        <th>Login</td>
-        <th>Role</td>
-        <th>Modify</td>
-    </tr>
-    <?php
-        foreach($this->userList as $key => $value) {
-            echo '<tr>';
-            echo '<td>' . $value['userid'] . '</td>';
-            echo '<td>' . $value['login'] . '</td>';
-            echo '<td>' . $value['role'] . '</td>';
-            echo '<td>
-                <a href="' . URL . 'user/edit/' . $value['userid'] . '">Edit</a>';
-            if ($value['role'] != 'admin')
-            echo ' | 
-                <a href="' . URL . 'user/delete/' . $value['userid'] . '">Delete</a></td>';
-            echo '</tr>';
-        }
-    ?>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</td>
+            <th>Login</td>
+            <th>Role</td>
+            <th>Modify</td>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+            foreach($this->userList as $key => $value) {
+                echo '<tr>';
+                echo '<td>' . $value['userid'] . '</td>';
+                echo '<td>' . $value['login'] . '</td>';
+                echo '<td>' . $value['role'] . '</td>';
+                echo '<td>
+                    <a href="' . URL . 'user/edit/' . $value['userid'] . '">Edit</a>';
+                if ($value['role'] != 'admin')
+                echo ' | 
+                    <a href="' . URL . 'user/delete/' . $value['userid'] . '">Delete</a></td>';
+                echo '</tr>';
+            }
+        ?>
+    </tbody>
 </table>

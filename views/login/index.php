@@ -4,6 +4,6 @@
     <form action="login/login" method="post">
         <label for="login">Login</label><input type="text" id="login" name="login"><br>
         <label for="password">Passwort</label><input type="password" id="password" name="password"><br>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary btn-lg">Login</button>
     </form>
 </div>

@@ -4,41 +4,36 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo URL; ?>public/css/style.css">
     <title>PHP-MVC</title>
 </head>
 <body>
     <div class="header">
-        <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="index">Ländliche Ostbahnen AG</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <?php if (Session::get('loggedIn')) : ?>
-                    <li><a href="<?php echo URL; ?>dashboard">Dashboard</a></li>
-                    <li><a href="<?php echo URL; ?>useplan">Einsatzplan</a></li>
-                    <?php if (Session::get('usergroup') > 1) : ?>
-                        <li><a href="<?php echo URL; ?>user">Users</a></li>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+                <ul class="navbar-nav mr-auto">
+                    <?php if (Session::get('loggedIn')) : ?>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>dashboard">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>useplan">Einsatzplan</a></li>
+                        <?php if (Session::get('usergroup') > 1) : ?>
+                            <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>user">Users</a></li>
+                        <?php endif; ?>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>login/logout">Logout (<?php echo Session::get('login'); ?>)</a></li>
+                    <?php else : ?>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>schedule">Fahrplan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about">Über uns</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact">Kontakt</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>login">Login</a></li>
                     <?php endif; ?>
-                    <li><a href="<?php echo URL; ?>login/logout">Logout (<?php echo Session::get('login'); ?>)</a></li>
-                <?php else : ?>
-                    <li><a href="<?php echo URL; ?>schedule">Fahrplan</a></li>
-                    <li><a href="about">Über uns</a></li>
-                    <li><a href="contact">Kontakt</a></li>
-                    <li><a href="<?php echo URL; ?>login">Login</a></li>
-                <?php endif; ?>
-            </ul>
-            </div><!--/.nav-collapse -->
-        </div>
+                </ul>
+                </div>
         </nav>
     </div>
     <div class="content">
+
+    
