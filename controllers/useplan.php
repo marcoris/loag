@@ -2,14 +2,19 @@
 
 class Useplan extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
-        Auth::checkLoggedIn();
+        Auth::check();
     }
 
-    function index()
+    public function index()
     {
         $this->view->render('useplan/index');
+    }
+
+    public function getUseplan()
+    {
+        $this->model->getUseplan();
     }
 }
