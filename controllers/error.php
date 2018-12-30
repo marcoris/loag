@@ -1,14 +1,15 @@
 <?php
 
 class ErrorHandler extends Controller {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
 
-    function index()
+    public function index($msg)
     {
-        $this->view->msg = 'This page doesnt exist';
+        $this->view->message = $msg;
         $this->view->render('error/index');
+        exit;
     }
 }

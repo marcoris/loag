@@ -2,16 +2,16 @@
 
 class Dashboard extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         // Session::init();
-        Auth::checkLoggedIn();
+        Auth::check();
 
         // $this->view->js = array('dashboard/js/default.js');
     }
 
-    function index()
+    public function index()
     {
         $this->view->render('dashboard/index');
     }

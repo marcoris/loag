@@ -2,22 +2,22 @@
 
 class Login extends Controller
 {
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
 
-    function index()
+    public function index()
     {
         $this->view->render('login/index');
     }
 
-    function login()
+    public function login()
     {
         $this->model->login();
     }
 
-    function logout()
+    public function logout()
     {
        $this->model->logout();
     }
