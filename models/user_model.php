@@ -50,11 +50,19 @@ class User_Model extends Model
      */
     public function editSave($data)
     {
-        $updateArray = array(
-            'login' => $data['login'],
-            'password' => Hash::create($data['password']),
-            'role' => $data['role']
-        );
+        // if the password was not empty set it with the inserted password
+        if (!empty($data['password'])) {
+            $updateArray = array(
+                'login' => $data['login'],
+                'password' => Hash::create($data['password']),
+                'role' => $data['role']
+            );
+        } else {
+            $updateArray = array(
+                'login' => $data['login'],
+                'role' => $data['role']
+            );
+        }
 
         $this->db->update('users', $updateArray, "`userid`={$data['userid']}");
     }
