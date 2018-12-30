@@ -2,7 +2,7 @@
 
 class Auth
 {
-    public static function checkLoggedIn()
+    public static function check()
     {
         Session::init();
         $logged = Session::get('loggedIn');

@@ -5,7 +5,7 @@ class User extends Controller
     public function __construct()
     {
         parent::__construct();
-        Auth::checkLoggedIn();
+        Auth::check();
         $usergroup = Session::get('usergroup');
 
         if ($usergroup < 2) {
