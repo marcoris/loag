@@ -1,0 +1,18 @@
+body {
+    background: #ccc;
+}
+
+.header {
+    background: #ddd;
+    padding: 20px;
+}
+
+.content {
+    background: white;
+    padding: 20px;
+}
+
+.footer {
+    background: #eee;
+    padding: 20px;
+}
