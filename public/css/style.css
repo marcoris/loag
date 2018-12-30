@@ -1,5 +1,9 @@
+html, body {
+    height: 100%;
+}
+  
 body {
-    background: #ccc;
+    background: white;
 }
 
 .header {
@@ -7,16 +11,16 @@ body {
     padding: 20px;
 }
 
-.content {
-    background: white;
-    padding: 20px;
+.jumbotron {
+    height: calc(100% - 120px);
+    background-color: white;
+    overflow: auto;
+    margin-bottom: 0;
+    padding: 50px 20px 100px;
 }
 
 .footer {
-    background: #eee;
     padding: 20px;
-}
-
-.btn {
-    margin: 20px;
+    background-color: white;
+    border-top: 2px solid #ddd;
 }
