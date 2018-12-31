@@ -16,11 +16,12 @@ class Login_Model extends Model
         // $this->db->select();
         $stmt = $this->db->prepare(
             'SELECT
-                userid,
+                employeeid,
                 login,
-                role
+                roles.role
             FROM
-                users 
+                employees
+                LEFT JOIN roles ON employees.roleid = roles.roleid 
             WHERE
                 login = :login AND
                 password = :password');
@@ -31,10 +32,9 @@ class Login_Model extends Model
         ));
 
         $data = $stmt->fetch();
-
         $count = $stmt->rowCount();
+
         if ($count > 0) {
-            Session::init();
             // set usergroup
             switch ($data['role']) {
                 case 'admin':
@@ -47,6 +47,7 @@ class Login_Model extends Model
                     $usergroup = 1;
                     break;
             }
+            Session::init();
             Session::set('usergroup', $usergroup);
             Session::set('login', $data['login']);
             Session::set('loggedIn', true);

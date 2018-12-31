@@ -14,7 +14,47 @@ class User_Model extends Model
      */
     public function userList()
     {
-        return $this->db->select('SELECT userid, login, role FROM users');
+        return $this->db->select('SELECT employeeid, name, surname, login, roles.role FROM employees LEFT JOIN roles ON roles.roleid = employees.roleid');
+    }
+    
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function roleData()
+    {
+        return $this->db->select('SELECT roleid, role FROM roles ORDER BY roleid DESC');
+    }
+    
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function categoryData()
+    {
+        return $this->db->select('SELECT categoryid, category FROM categories');
+    }
+    
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function absenceData()
+    {
+        return $this->db->select('SELECT absenceid, absence FROM absences');
+    }
+    
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function lineData()
+    {
+        return $this->db->select('SELECT lineid, `line` FROM `lines`');
     }
 
     /**
@@ -24,7 +64,7 @@ class User_Model extends Model
      */
     public function userEdit($id)
     {
-        return $this->db->select('SELECT userid, login, role FROM users WHERE userid = :id', array(':id' => $id));
+        return $this->db->select('SELECT employeeid, personalnumber, name, surname, category, absence, line, login, employees.roleid, roles.role FROM employees LEFT JOIN roles ON (employees.roleid = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
     }
 
     /**
@@ -35,12 +75,18 @@ class User_Model extends Model
     public function create($data)
     {
         $insertArray = array(
+            'personalnumber' => $data['personalnumber'],
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'category' => $data['category'],
+            'absence' => $data['absence'],
+            'line' => $data['line'],
             'login' => $data['login'],
             'password' => Hash::create($data['password']),
-            'role' => $data['role']
+            'roleid' => $data['role']
         );
 
-        $this->db->insert('users', $insertArray);
+        $this->db->insert('employees', $insertArray);
     }
 
     /**
@@ -50,21 +96,19 @@ class User_Model extends Model
      */
     public function editSave($data)
     {
-        // if the password was not empty set it with the inserted password
-        if (!empty($data['password'])) {
-            $updateArray = array(
-                'login' => $data['login'],
-                'password' => Hash::create($data['password']),
-                'role' => $data['role']
-            );
-        } else {
-            $updateArray = array(
-                'login' => $data['login'],
-                'role' => $data['role']
-            );
-        }
+        $updateArray = array(
+            'personalnumber' => $data['personalnumber'],
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'category' => $data['category'],
+            'absence' => $data['absence'],
+            'line' => $data['line'],
+            'login' => $data['login'],
+            'password' => Hash::create($data['password']),
+            'roleid' => $data['roleid']
+        );
 
-        $this->db->update('users', $updateArray, "`userid`={$data['userid']}");
+        $this->db->update('employees', $updateArray, "`employeeid`={$data['employeeid']}");
     }
 
     /**
@@ -74,11 +118,12 @@ class User_Model extends Model
      */
     public function delete($id)
     {
-        $result = $this->db->select('SELECT role FROM users WHERE userid = :id', array(':id' => $id));
+        $result = $this->db->select('SELECT employees.roleid, roles.role FROM employees LEFT JOIN roles ON (employees.roleid = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
 
-        if (isset($result[0]) && $result[0]['role'] == 'admin')
+        // dont delete the admin or when you ar the disponent your selfe
+        if (isset($result[0]) && $result[0]['role'] == 'admin' || (isset($result[0]) && $result[0]['role'] == 'disponent' && Session::get('usergroup') == 2))
         return false;
 
-        $this->db->delete('users', "userid = '$id'");
+        $this->db->delete('employees', "employeeid = '$id'");
     }
 }

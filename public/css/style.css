@@ -1,8 +1,14 @@
 html, body {
     font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
     height: 100%;
 }
-  
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
 body {
     background: white;
 }
@@ -19,6 +25,17 @@ body {
     margin-bottom: 0;
     padding: 50px 20px 100px;
 }
+
+.required {
+    border: 1px solid red;
+    background: pink;
+}
+
+.required-star {
+    color: red;
+    font-weight: bold;
+}
+
 
 .footer {
     padding: 20px;

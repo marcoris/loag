@@ -2,6 +2,8 @@
 
 class User extends Controller
 {
+    private $path = 'user';
+
     public function __construct()
     {
         parent::__construct();
@@ -11,16 +13,22 @@ class User extends Controller
         if ($usergroup < 2) {
             header('location: ' . URL . 'login');
         }
+
+        $this->view->js = array($this->path . '/js/checkValidation.js');
     }
 
     /**
-     * Shows the user index page
+     * Shows the user index page and lists the user and sets the role in the select box
      *
      */
     public function index()
     {
         $this->view->userList = $this->model->userList();
-        $this->view->render('user/index');
+        $this->view->roleData = $this->model->roleData();
+        $this->view->categoryData = $this->model->categoryData();
+        $this->view->absenceData = $this->model->absenceData();
+        $this->view->lineData = $this->model->lineData();
+        $this->view->render($this->path . '/index');
     }
 
     /**
@@ -30,13 +38,18 @@ class User extends Controller
     public function create()
     {
         $data = array();
+        $data['personalnumber'] = $_POST['personalnumber'];
+        $data['name'] = $_POST['name'];
+        $data['surname'] = $_POST['surname'];
+        $data['category'] = $_POST['category'];
+        $data['absence'] = $_POST['absence'];
+        $data['line'] = $_POST['line'];
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
         $data['role'] = $_POST['role'];
 
-        // @TODO: put your error checking!
         $this->model->create($data);
-        header('location: ' . URL . 'user');
+        header('location: ' . URL . $this->path);
     }
 
     /**
@@ -47,7 +60,11 @@ class User extends Controller
     public function edit($id)
     {
         $this->view->user = $this->model->userEdit($id);
-        $this->view->render('user/edit');
+        $this->view->roleData = $this->model->roleData();
+        $this->view->categoryData = $this->model->categoryData();
+        $this->view->absenceData = $this->model->absenceData();
+        $this->view->lineData = $this->model->lineData();
+        $this->view->render($this->path . '/edit');
         
     }
 
@@ -59,14 +76,20 @@ class User extends Controller
     public function editSave($id)
     {
         $data = array();
-        $data['userid'] = $id;
+        $data['employeeid'] = $id;
+        $data['personalnumber'] = $_POST['personalnumber'];
+        $data['name'] = $_POST['name'];
+        $data['surname'] = $_POST['surname'];
+        $data['category'] = $_POST['category'];
+        $data['absence'] = $_POST['absence'];
+        $data['line'] = $_POST['line'];
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
-        $data['role'] = $_POST['role'];
+        $data['roleid'] = $_POST['role'];
 
         // @TODO: put your error checking!
         $this->model->editSave($data);
-        header('location: ' . URL . 'user');
+        header('location: ' . URL . $this->path);
     }
 
     /**
@@ -77,6 +100,6 @@ class User extends Controller
     public function delete($id)
     {
         $this->model->delete($id);
-        header('location: ' . URL . 'user');
+        header('location: ' . URL . $this->path);
     }
 }
