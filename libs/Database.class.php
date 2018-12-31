@@ -29,7 +29,12 @@ class Database extends PDO
             $stmt->bindValue("$key", $value);
         }
 
-        $stmt->execute();
+        if(!$stmt->execute()) {
+            echo "SQL Fehler({$stmt->errorInfo()[1]})<br>";
+            echo $stmt->errorInfo()[2];
+            die;
+        }
+
         return $stmt->fetchAll($fetchMode);
     }
 
@@ -51,7 +56,12 @@ class Database extends PDO
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);
         }
-        $stmt->execute();
+        
+        if(!$stmt->execute()) {
+            echo "SQL Fehler({$stmt->errorInfo()[1]})<br>";
+            echo $stmt->errorInfo()[2];
+            die;
+        }
     }
 
     /**
@@ -78,7 +88,12 @@ class Database extends PDO
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);
         }
-        $stmt->execute();
+        
+        if(!$stmt->execute()) {
+            echo "SQL Fehler({$stmt->errorInfo()[1]})<br>";
+            echo $stmt->errorInfo()[2];
+            die;
+        }
     }
 
     /**
