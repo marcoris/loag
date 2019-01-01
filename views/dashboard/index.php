@@ -1,7 +1,9 @@
 <div class="jumbotron jumbotron-fluid">
     <h1>Dashboard</h1>
-    <p>Willkommen <?php echo Session::get('login'); ?></p>
+    <p>Willkommen <?php echo Session::get('login') . "/" . Session::get('role'); ?></p>
     <br>
+    <h2>Mitarbeiterdaten</h2>
+    Hier muss noch die logik für das anzeigen der daten her
     <?php if (Session::get('usergroup') > 1) : ?>
         <form id="randomInsert" action="<?php echo URL; ?>dashboard/xhrInsert" method="post">
             <input id="textfield" type="text" name="text"><br>
