@@ -2,9 +2,9 @@
     <h1>Neuer Mitarbeiter erfassen</h1>
 
     <form action="<?php echo URL; ?>user/create" method="post">
-        <label for="personalnumber">Personalnummer<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber"><br>
-        <label for="name">Vorname<span class="required-star">*</span></label><input type="text" id="name" name="name"><br>
-        <label for="surname">Name<span class="required-star">*</span></label><input type="text" id="surname" name="surname"><br>
+        <label for="personalnumber">Personalnummer</label><span class="required-star">*</span><input type="text" id="personalnumber" name="personalnumber"><br>
+        <label for="name">Vorname</label><span class="required-star">*</span><input type="text" id="name" name="name"><br>
+        <label for="surname">Name</label><span class="required-star">*</span><input type="text" id="surname" name="surname"><br>
         <label for="category">Kategorie</label>
         <select name="category" id="category">
         <?php foreach($this->categoryData as $key => $value) {
@@ -26,8 +26,8 @@
             }
         ?>
         </select><br>
-        <label for="login">Login<span class="required-star">*</span></label><input type="text" id="login" name="login"><br>
-        <label for="password">Passwort</label><input type="text" id="password" name="password"><br>
+        <label for="login">Login</label><span class="required-star">*</span><input type="text" id="login" name="login"><br>
+        <label for="password">Passwort</label><span class="required-star">*</span><input type="text" id="password" name="password"><br>
         <label for="role">Rolle</label>
         <select name="role" id="role">
         <?php foreach($this->roleData as $key => $value) {
@@ -35,36 +35,41 @@
             }
         ?>
         </select><br>
-        <input type="submit">
+        <input class="btn btn-success" type="submit">
     </form>
     <hr>
     <h2>Mitarbeiterliste</h2>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>ID</td>
-                <th>Login</td>
-                <th>Rolle</td>
+                <th>Nr.</td>
+                <th>Personalnummer</td>
                 <th>Vorname</td>
                 <th>Name</td>
+                <th>Login</td>
+                <th>Rolle</td>
                 <th>Bearbeiten</td>
             </tr>
         </thead>
         <tbody>
             <?php
-                foreach($this->userList as $key => $value) {
-                    echo '<tr>';
-                    echo '<td>' . $value['employeeid'] . '</td>';
-                    echo '<td>' . $value['login'] . '</td>';
-                    echo '<td>' . ucfirst($value['role']) . '</td>';
-                    echo '<td>' . $value['name'] . '</td>';
-                    echo '<td>' . $value['surname'] . '</td>';
-                    echo '<td>
-                        <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employeeid'] . '">Edit</a>';
-                    if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 3))
-                    echo '<a class="btn btn-danger" href="' . URL . 'user/delete/' . $value['employeeid'] . '">Delete</a></td>';
-                    echo '</tr>';
-                }
+            $i = 1;
+            foreach($this->userList as $key => $value) {
+                echo '<tr>';
+                echo '<td>' . $i . '.</td>';
+                echo '<td>' . $value['personalnumber'] . '</td>';
+                echo '<td>' . $value['name'] . '</td>';
+                echo '<td>' . $value['surname'] . '</td>';
+                echo '<td>' . $value['login'] . '</td>';
+                echo '<td>' . $value['role'] . '</td>';
+                echo '<td>
+                    <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employeeid'] . '">Edit</a>';
+                if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 3))
+                echo '<a class="btn btn-danger" href="' . URL . 'user/delete/' . $value['employeeid'] . '">Delete</a>';
+                echo '</td>';
+                echo '</tr>';
+                $i++;
+            }
             ?>
         </tbody>
     </table>

@@ -14,7 +14,7 @@ class User_Model extends Model
      */
     public function userList()
     {
-        return $this->db->select('SELECT employeeid, name, surname, login, roles.role FROM employees LEFT JOIN roles ON roles.roleid = employees.roleid');
+        return $this->db->select('SELECT employeeid, personalnumber, name, surname, login, roles.role FROM employees LEFT JOIN roles ON roles.roleid = employees.roleid');
     }
     
     /**
