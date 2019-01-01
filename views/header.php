@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">    <link rel="stylesheet" href="<?php echo URL; ?>public/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">    <link rel="stylesheet" href="<?php echo URL; ?>public/css/style.css">
     <title>PHP-MVC</title>
 </head>
 <body>
@@ -21,7 +21,9 @@
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>dashboard">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>useplan">Einsatzplan</a></li>
                         <?php if (Session::get('usergroup') > 1) : ?>
-                            <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>user">Users</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>line">Linien</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>rollmaterial">Rollmaterial</a></li>
+                            <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>user">Mitarbeiter</a></li>
                         <?php endif; ?>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>login/logout">Logout (<?php echo Session::get('login'); ?>)</a></li>
                     <?php else : ?>
