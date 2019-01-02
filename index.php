@@ -15,4 +15,4 @@ function classLoader($class)
     }
 }
 
-$app = new Bootstrap();
+$app = new App();
