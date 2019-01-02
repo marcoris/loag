@@ -14,10 +14,11 @@
         </select><br>
         <label for="absence">Absenz</label>
         <select name="absence" id="absence">
-        <?php foreach($this->absenceData as $key => $value) {
+            <?php
+            foreach($this->absenceData as $key => $value) {
                 echo "<option value='{$value['absenceid']}'>" . $value['absence'] . "</option>";
             }
-        ?>
+            ?>
         </select><br>
         <label for="line">Linie</label>
         <select name="line" id="line">
@@ -30,10 +31,11 @@
         <label for="password">Passwort</label><span class="required-star">*</span><input type="text" id="password" name="password"><br>
         <label for="role">Rolle</label>
         <select name="role" id="role">
-        <?php foreach($this->roleData as $key => $value) {
-                echo "<option value='{$value['roleid']}'>" . ucfirst($value['role']) . "</option>";
+            <?php
+            foreach($this->roleData as $key => $value) {
+                    echo "<option value='{$value['roleid']}'>" . ucfirst($value['role']) . "</option>";
             }
-        ?>
+            ?>
         </select><br>
         <input class="btn btn-success" type="submit">
     </form>
@@ -55,7 +57,13 @@
             <?php
             $i = 1;
             foreach($this->userList as $key => $value) {
-                echo '<tr>';
+                if (strtolower($value['absence']) == 'krank') {
+                    echo '<tr class="krank">';
+                } elseif (strtolower($value['absence']) == "ferien") {
+                    echo '<tr class="ferien">';
+                } else {
+                    echo '<tr>';
+                }
                 echo '<td>' . $i . '.</td>';
                 echo '<td>' . $value['personalnumber'] . '</td>';
                 echo '<td>' . $value['name'] . '</td>';
@@ -64,7 +72,7 @@
                 echo '<td>' . $value['role'] . '</td>';
                 echo '<td>
                     <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employeeid'] . '">Edit</a>';
-                if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 3))
+                if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 1))
                 echo '<a class="btn btn-danger" href="' . URL . 'user/delete/' . $value['employeeid'] . '">Delete</a>';
                 echo '</td>';
                 echo '</tr>';
@@ -73,4 +81,7 @@
             ?>
         </tbody>
     </table>
+    <label>Legende</label><br>
+    <label class="ferien">Ferien</label>
+    <label class="krank">Krank</label>
 </div>

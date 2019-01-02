@@ -10,7 +10,7 @@ class User extends Controller
         Auth::check();
         $usergroup = Session::get('usergroup');
 
-        if ($usergroup < 2) {
+        if ($usergroup > 2) {
             header('location: ' . URL . 'login');
         }
 
@@ -60,10 +60,10 @@ class User extends Controller
     public function edit($id)
     {
         $this->view->user = $this->model->userEdit($id);
-        $this->view->roleData = $this->model->roleData();
         $this->view->categoryData = $this->model->categoryData();
         $this->view->absenceData = $this->model->absenceData();
         $this->view->lineData = $this->model->lineData();
+        $this->view->roleData = $this->model->roleData();
         $this->view->render($this->path . '/edit');
         
     }
@@ -80,12 +80,12 @@ class User extends Controller
         $data['personalnumber'] = $_POST['personalnumber'];
         $data['name'] = $_POST['name'];
         $data['surname'] = $_POST['surname'];
-        $data['category'] = $_POST['category'];
-        $data['absence'] = $_POST['absence'];
-        $data['line'] = $_POST['line'];
+        $data['fk_category'] = $_POST['category'];
+        $data['fk_absence'] = $_POST['absence'];
+        $data['fk_line'] = $_POST['line'];
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
-        $data['roleid'] = $_POST['role'];
+        $data['fk_role'] = $_POST['role'];
 
         // @TODO: put your error checking!
         $this->model->editSave($data);

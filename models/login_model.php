@@ -21,7 +21,7 @@ class Login_Model extends Model
                 roles.role
             FROM
                 employees
-                LEFT JOIN roles ON employees.roleid = roles.roleid 
+                LEFT JOIN roles ON employees.fk_role = roles.roleid 
             WHERE
                 login = :login AND
                 password = :password');
@@ -38,13 +38,13 @@ class Login_Model extends Model
             // set usergroup
             switch ($data['role']) {
                 case 'admin':
-                    $usergroup = 3;
+                    $usergroup = 1;
                     break;
                 case 'disponent':
                     $usergroup = 2;
                     break;
                 default:
-                    $usergroup = 1;
+                    $usergroup = 3;
                     break;
             }
             Session::init();

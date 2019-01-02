@@ -9,10 +9,10 @@
         <?php
         foreach($this->categoryData as $key => $value) {
             echo "<option value='{$value['categoryid']}'";
-            if($this->user[0]['category'] == $value['categoryid']) {
+            if($this->user[0]['fk_category'] == $value['categoryid']) {
                 echo 'selected';
             }
-            echo '>' . ucfirst($value['category']) . "</option>";
+            echo '>' . $value['category'] . "</option>";
         }
         ?>
         </select><br>
@@ -21,7 +21,7 @@
         <?php
         foreach($this->absenceData as $key => $value) {
             echo "<option value='{$value['absenceid']}'";
-            if($this->user[0]['absence'] == $value['absenceid']) {
+            if($this->user[0]['fk_absence'] == $value['absenceid']) {
                 echo 'selected';
             }
             echo '>' . ucfirst($value['absence']) . "</option>";
@@ -33,7 +33,7 @@
         <?php
         foreach($this->lineData as $key => $value) {
             echo "<option value='{$value['lineid']}'";
-            if($this->user[0]['line'] == $value['lineid']) {
+            if($this->user[0]['fk_line'] == $value['lineid']) {
                 echo 'selected';
             }
             echo '>' . ucfirst($value['line']) . "</option>";
@@ -47,7 +47,7 @@
         <?php
         foreach($this->roleData as $key => $value) {
             echo "<option value='{$value['roleid']}'";
-            if($this->user[0]['role'] == $value['role']) {
+            if($this->user[0]['fk_role'] == $value['role']) {
                 echo 'selected';
             }
             echo '>' . ucfirst($value['role']) . "</option>";

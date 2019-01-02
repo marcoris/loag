@@ -1,6 +1,6 @@
 <div class="jumbotron jumbotron-fluid">
     <h1>Dashboard</h1>
-    <p>Willkommen <?php echo Session::get('login') . "/" . Session::get('role'); ?></p>
+    <p>Willkommen <?php echo Session::get('login'); ?></p>
     <br>
     <h2>Mitarbeiterdaten</h2>
     Hier muss noch die logik für das anzeigen der daten her

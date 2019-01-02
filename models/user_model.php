@@ -6,16 +6,6 @@ class User_Model extends Model
     {
         parent::__construct();
     }
-
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function userList()
-    {
-        return $this->db->select('SELECT employeeid, personalnumber, name, surname, login, roles.role FROM employees LEFT JOIN roles ON roles.roleid = employees.roleid');
-    }
     
     /**
      * Shows the list of users
@@ -58,15 +48,15 @@ class User_Model extends Model
     }
 
     /**
-     * Shows the affected user to edit
+     * Shows the list of users
      *
-     * @param int $id The id of the affected user
+     * @return data The users list
      */
-    public function userEdit($id)
+    public function userList()
     {
-        return $this->db->select('SELECT employeeid, personalnumber, name, surname, category, absence, line, login, employees.roleid, roles.role FROM employees LEFT JOIN roles ON (employees.roleid = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
+        return $this->db->select('SELECT employeeid, personalnumber, name, surname, absences.absence AS absence, login, roles.role FROM employees LEFT JOIN absences ON fk_absence = absenceid LEFT JOIN roles ON roles.roleid = employees.fk_role');
     }
-
+    
     /**
      * Creates a user
      *
@@ -78,15 +68,25 @@ class User_Model extends Model
             'personalnumber' => $data['personalnumber'],
             'name' => $data['name'],
             'surname' => $data['surname'],
-            'category' => $data['category'],
-            'absence' => $data['absence'],
-            'line' => $data['line'],
+            'fk_category' => $data['category'],
+            'fk_absence' => $data['absence'],
+            'fk_line' => $data['line'],
             'login' => $data['login'],
             'password' => Hash::create($data['password']),
-            'roleid' => $data['role']
+            'fk_role' => $data['role']
         );
 
         $this->db->insert('employees', $insertArray);
+    }
+
+    /**
+     * Shows the affected user to edit
+     *
+     * @param int $id The id of the affected user
+     */
+    public function userEdit($id)
+    {
+        return $this->db->select('SELECT employeeid, personalnumber, name, surname, fk_category, fk_absence, fk_line, login, fk_role, roles.role FROM employees LEFT JOIN roles ON (fk_role = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
     }
 
     /**
@@ -100,12 +100,12 @@ class User_Model extends Model
             'personalnumber' => $data['personalnumber'],
             'name' => $data['name'],
             'surname' => $data['surname'],
-            'category' => $data['category'],
-            'absence' => $data['absence'],
-            'line' => $data['line'],
+            'fk_category' => $data['fk_category'],
+            'fk_absence' => $data['fk_absence'],
+            'fk_line' => $data['fk_line'],
             'login' => $data['login'],
             'password' => Hash::create($data['password']),
-            'roleid' => $data['roleid']
+            'fk_role' => $data['fk_role']
         );
 
         $this->db->update('employees', $updateArray, "`employeeid`={$data['employeeid']}");
@@ -118,7 +118,7 @@ class User_Model extends Model
      */
     public function delete($id)
     {
-        $result = $this->db->select('SELECT employees.roleid, roles.role FROM employees LEFT JOIN roles ON (employees.roleid = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
+        $result = $this->db->select('SELECT employees.fk_role, roles.role FROM employees LEFT JOIN roles ON (employees.fk_role = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
 
         // dont delete the admin or when you ar the disponent your selfe
         if (isset($result[0]) && $result[0]['role'] == 'admin' || (isset($result[0]) && $result[0]['role'] == 'disponent' && Session::get('usergroup') == 2))
