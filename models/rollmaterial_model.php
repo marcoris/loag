@@ -38,16 +38,6 @@ class Rollmaterial_Model extends Model
     }
 
     /**
-     * Shows the affected user to edit
-     *
-     * @param int $id The id of the affected user
-     */
-    public function rollmaterialEdit($id)
-    {
-        return $this->db->select('SELECT rollmaterialid, number, type, date_of_commissioning, date_of_last_revision, date_of_next_revision, class, seating, availability FROM loag.rollmaterials WHERE rollmaterialid = :id', array(':id' => $id));
-    }
-
-    /**
      * Creates a user
      *
      * @param array $data The data
@@ -66,6 +56,16 @@ class Rollmaterial_Model extends Model
         );
 
         $this->db->insert('rollmaterials', $insertArray);
+    }
+
+    /**
+     * Shows the affected user to edit
+     *
+     * @param int $id The id of the affected user
+     */
+    public function rollmaterialEdit($id)
+    {
+        return $this->db->select('SELECT rollmaterialid, number, type, date_of_commissioning, date_of_last_revision, date_of_next_revision, class, seating, availability FROM loag.rollmaterials WHERE rollmaterialid = :id', array(':id' => $id));
     }
 
     /**

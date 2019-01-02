@@ -10,7 +10,7 @@ class Rollmaterial extends Controller
         Auth::check();
         $usergroup = Session::get('usergroup');
 
-        if ($usergroup < 2) {
+        if ($usergroup > 2) {
             header('location: ' . URL . 'login');
         }
 
