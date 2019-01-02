@@ -44,6 +44,102 @@ body {
     background-color: #94ffffaa !important;
 }
 
+.bold {
+    font-weight: bold;
+}
+
+.title-box {
+    margin: -70px 85px 0;
+}
+
+.title-box p {
+    margin: 0;
+}
+
+.line-box {
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    font-size: 60px;
+    font-weight: bold;
+    color: white;
+}
+
+.line-1 {
+    background-color: cornflowerblue;
+}
+
+.line-2 {
+    background-color: red;
+}
+
+.line-3 {
+    background-color: yellowgreen;
+}
+
+.line-4 {
+    background-color: gold;
+}
+
+.table th {
+    padding: 10px;
+    line-height: 30px;
+}
+
+.fa-clock {
+    font-size: 30px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.short-tablerow {
+    line-height: 0 !important;
+}
+
+.table-ball {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.table-start-ball,
+.timetable tr:last-child span:not(.table-ball-mainstation) {
+    background-color: silver;
+}
+
+.table-ball-mainstation {
+    background-color: black;
+}
+
+.table-padding {
+    padding-left: 17px !important;
+}
+
+.schedule-top {
+    display: flex;
+    justify-content: center;
+    line-height: 40px;
+    background-color: #dee2e6;
+    padding: 5px;
+    margin-bottom: 30px;
+}
+
+.reverse-trigger {
+    font-size: 40px;
+}
+
+.reverse-trigger:before,
+.reverse-trigger:after {
+    color: black;
+    margin: 0 30px;
+}
+
 .footer {
     padding: 20px;
     background-color: white;
