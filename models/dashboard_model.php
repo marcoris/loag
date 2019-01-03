@@ -7,6 +7,15 @@ class Dashboard_Model extends Model
         parent::__construct();
     }
 
+    public function editSave($data)
+    {
+        $updateArray = array(
+            'password' => Hash::create($data['password'])
+        );
+
+        $this->db->update('employees', $updateArray, "`employeeid`={$data['employeeid']}");
+    }
+
     public function xhrInsert()
     {
         $this->db->insert('data', array('text' => $_POST['text']));

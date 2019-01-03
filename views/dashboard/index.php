@@ -1,16 +1,14 @@
 <div class="jumbotron jumbotron-fluid">
     <h1>Dashboard</h1>
     <p>Willkommen <?php echo Session::get('login'); ?></p>
-    <br>
-    <h2>Mitarbeiterdaten</h2>
-    Hier muss noch die logik für das anzeigen der daten her
-    <?php if (Session::get('usergroup') > 1) : ?>
-        <form id="randomInsert" action="<?php echo URL; ?>dashboard/xhrInsert" method="post">
-            <input id="textfield" type="text" name="text"><br>
-            <input type="submit">
-        </form>
-    <?php endif; ?>
-    <br>
-    <p>Hier könnte eine Liste mit Mitteilungen an den jeweiligen Mitarbeiter sein, die vom Disponent gesendet worden sind:</p>
-    <ul id="listInserts"><ul>
+    <hr>
+    <h2>Logindaten</h2>
+    <p>Hier kannst du dein Passwort ändern:</p>
+    <div class="">
+    <form action="<?php echo URL; ?>dashboard/editSave/<?php echo Session::get('employeeid'); ?>" method="post">
+        <label for="login">Login: </label><input disabled value="<?php echo Session::get('login'); ?>"><br>
+        <label for="password">Passwort: </label><span class="required-star">*</span><input type="text" id="password" name="password"><br>
+        <input class="btn btn-primary" type="submit" value="Speichern">
+    </form>
+    </div>
 </div>
