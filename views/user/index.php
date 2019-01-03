@@ -71,9 +71,9 @@
                 echo '<td>' . $value['login'] . '</td>';
                 echo '<td>' . $value['role'] . '</td>';
                 echo '<td>
-                    <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employeeid'] . '">Edit</a>';
+                    <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employeeid'] . '"><i class="fas fa-pen"></i></a>';
                 if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 1))
-                echo '<a class="btn btn-danger" href="' . URL . 'user/delete/' . $value['employeeid'] . '">Delete</a>';
+                echo '<a class="btn btn-danger delete" href="' . URL . 'user/delete/' . $value['employeeid'] . '"><i class="fas fa-trash"></i></a>';
                 echo '</td>';
                 echo '</tr>';
                 $i++;

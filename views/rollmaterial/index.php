@@ -56,8 +56,8 @@
                 echo '<td>' . $value['date_of_next_revision'] . '</td>';
                 echo '<td>' . $value['class'] . '</td>';
                 echo '<td>' . ($value['availability'] ? 'Ja' : 'Nein') . '</td>';
-                echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterialid'] . '">Edit</a>';
-                echo '<a class="btn btn-danger" href="' . URL . 'rollmaterial/delete/' . $value['rollmaterialid'] . '">Delete</a>';
+                echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterialid'] . '"><i class="fas fa-pen"></i></a>';
+                echo '<a class="btn btn-danger delete" href="' . URL . 'rollmaterial/delete/' . $value['rollmaterialid'] . '"><i class="fas fa-trash"></i></a>';
                 echo '</td>';
                 echo '</tr>';
                 $i++;
