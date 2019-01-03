@@ -29,11 +29,26 @@ class Schedule_Model extends Model
     public function getFirstAndLastStation()
     {
         return $this->db->select(
-            'SELECT fk_line, station FROM loag.stations WHERE stationid = (SELECT stationid FROM loag.stations ORDER BY stationid ASC LIMIT 1) OR
-            stationid = (SELECT stationid FROM loag.stations ORDER BY stationid DESC LIMIT 1)
+            'SELECT * FROM loag.stations WHERE sequence = 1 OR
+            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 2) AND fk_line = 2 OR 
+            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 3) AND fk_line = 3 OR
+            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 4) AND fk_line = 4 OR
+            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 5) AND fk_line = 5
             ');
+            // 'SELECT fk_line, station FROM loag.stations WHERE stationid = (SELECT stationid FROM loag.stations ORDER BY stationid ASC LIMIT 1) OR
+            // stationid = (SELECT stationid FROM loag.stations ORDER BY stationid DESC LIMIT 1)
     }
 
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function getStationCount()
+    {
+        return $this->db->select('SELECT fk_line FROM loag.stations GROUP BY fk_line');
+    }
+    
     /**
      * Shows the list of users
      *

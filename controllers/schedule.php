@@ -9,6 +9,7 @@ class Schedule extends Controller {
     public function index()
     {
         $this->view->getLine = $this->model->getLine();
+        $this->view->getStationCount = $this->model->getStationCount();
         $this->view->getFirstAndLastStation = $this->model->getFirstAndLastStation();
         $this->view->render('schedule/index');
     }

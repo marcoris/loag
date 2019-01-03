@@ -140,6 +140,10 @@ body {
     margin: 0 30px;
 }
 
+.btn+.btn {
+    margin-left: 5px;
+}
+
 .footer {
     padding: 20px;
     background-color: white;
