@@ -15,7 +15,7 @@ class Line_Model extends Model
     public function getLine($id = null)
     {
         if ($id) {
-            return $this->db->select('SELECT line FROM loag.lines WHERE lineid = :id', array(':id' => $id));
+            return $this->db->select('SELECT lineid, line FROM loag.lines WHERE lineid = :id', array(':id' => $id));
         } else {
             return $this->db->select('SELECT lineid, line FROM loag.lines WHERE line != "-"');
         }
@@ -28,7 +28,7 @@ class Line_Model extends Model
      */
     public function getStations($id)
     {
-        return $this->db->select('SELECT stationid, station, fk_line, sequence FROM loag.stations WHERE fk_line = :id ORDER BY sequence ASC', array(':id' => $id));
+        return $this->db->select('SELECT stationid, station, fk_line, mainstation, sequence FROM loag.stations WHERE fk_line = :id ORDER BY sequence ASC', array(':id' => $id));
     }
     
     /**
@@ -78,23 +78,51 @@ class Line_Model extends Model
      *
      * @param array $data The data
      */
-    public function editSave($data)
+    public function editSave($stationArray, $timeArray, $mainStation, $id)
     {
-        $updateArray = array(
-            'personalnumber' => $data['personalnumber'],
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'fk_category' => $data['fk_category'],
-            'fk_absence' => $data['fk_absence'],
-            'fk_line' => $data['fk_line'],
-            'login' => $data['login'],
-            'password' => Hash::create($data['password']),
-            'fk_role' => $data['fk_role']
-        );
+        echo "<pre>";
+        print_r($stationArray);
+        echo "</pre>";
+        echo "<pre>";
+        print_r($timeArray);
+        echo "</pre>";
+        echo $mainStation."<br>";
+        echo $id;
+        die;
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+        // echo $id;die;
+        // $updateArray = array(
+            // 'personalnumber' => $data['personalnumber'],
+            // 'name' => $data['name'],
+            // 'surname' => $data['surname'],
+            // 'fk_category' => $data['fk_category'],
+            // 'fk_absence' => $data['fk_absence'],
+            // 'fk_line' => $data['fk_line'],
+            // 'login' => $data['login'],
+            // 'password' => Hash::create($data['password']),
+            // 'fk_role' => $data['fk_role']
+        // );
 
-        $this->db->update('employees', $updateArray, "`employeeid`={$data['employeeid']}");
+        // update station names
+        $this->db->update('stations', $stationArray, "`fk_line`={$data['fk_line']}");
+        // update station mainstation
+        $this->db->update('stations', $updateArray, "`fk_line`={$data['fk_line']}");
+        $this->db->update('stations', $updateArray, "`fk_line`={$data['fk_line']}");
+        // update route times
+        $this->db->update('routes', $timeArray, "`fk_line`={$data['fk_line']}");
     }
 
+    public function sortUp($sortPosition, $id)
+    {
+
+    }
+    
+    public function sortDown($sortPosition, $id)
+    {
+
+    }
     /**
      * Deletes the affected user
      *
