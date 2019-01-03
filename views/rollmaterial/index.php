@@ -19,7 +19,7 @@
             }
             ?>
         </select><br>
-        <label for="seating">Sitzplätze<span class="required-star">*</span></label><input type="number" id="seating" name="seating"><br>
+        <label for="seating">Sitzplätze<span class="required-star">*</span></label><input type="number" id="seating" name="seating" value="0"><br>
         <label for="availability">Verfügbar</label>
         <select name="availability" id="availability">
             <option value="1">Ja</option>
