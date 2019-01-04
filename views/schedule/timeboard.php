@@ -6,11 +6,17 @@
         $to = $this->getStations[0]['station'];
         $link = "../" . $this->getStations[0]['fk_line'];
     } else {
-        $from = $this->getStations[0]['station'];
-        $to = $this->getStations[count($this->getStations)-1]['station'];
-        $link = $this->getStations[0]['fk_line'] . "/reverse";
+        $from = isset($this->getStations[0]) ? $this->getStations[0]['station'] : '';
+        $to = isset($this->getStations[count($this->getStations)-1]) ? $this->getStations[count($this->getStations)-1]['station'] : '';
+        $link = isset($this->getStations[0]) ? $this->getStations[0]['fk_line'] . "/reverse" : '';
     }
-    echo "<div class='schedule-top'>" . $from . '<a href="' . $link . '"><i class="fas fa-exchange-alt reverse-trigger text-center"></i></a>' . $to . "</div>";
+    if ($from != '') {
+        echo "<div class='schedule-top'>
+            <span class='from'>" . $from . '</span>
+            <a href="' . $link . '"><i class="fas fa-exchange-alt reverse-trigger text-center"></i></a>
+            <span class="to">' . $to . "</span>
+        </div>";
+    }
     if (isset($this->getLine[0]) && substr($this->getLine[0]['line'], -1) != '-' && count($this->getLine) > 0) : ?>
         <div class="line-box line-<?php echo substr($this->getLine[0]['line'], -1); ?>"><?php echo substr($this->getLine[0]['line'], -1); ?></div>
         <?php
@@ -28,8 +34,8 @@
                 </table>
             </div>
             <div class="col-md">
-                <table class="table timetable">
-                    <thead>
+                <table class="table table-striped timetable">
+                    <thead class="thead-dark">
                         <tr>
                             <th>Ungefähre Reisezeit in Minuten</th>
                             <th></th>
@@ -42,32 +48,57 @@
                     $time = 0;
                     // reverse the stations on reverse value
                     if ($reverse) {
-                        rsort($stations);
-                        rsort($routes);
-                    }
-                    // output the values in table rows
-                    for ($i=0; $i < count($stations); $i++) {
-                        echo "<tr class='short-tablerow'>";
-                        echo "<td>";
-                        echo $stations[$i]['station'];
-                        // if time is set add station white ball
-                        if ($stations[$i]['mainstation']) {
-                            echo "<td><span class='table-ball table-ball-mainstation'></span>";
-                            echo date('H:i', mktime(0, $time += $routes[$i]['time']));
-                            echo "</td>";
-                            if($i+1 < count($stations)) {
-                                echo "<tr class='short-tablerow'><td></td><td class='table-padding'>|</td></tr>";
-                            }
-                        } else {
-                            if (isset($routes[$i-1]['time'])) {
-                                echo "<td><span class='table-ball'></span>";
-                                echo date('H:i', mktime(0, $time += $routes[$i-1]['time']));
+                        // output the values in table rows
+                        for ($i=count($routes); $i > 0; $i--) {
+                            echo "<tr>";
+                            echo "<td>";
+                            echo $stations[$i-1]['station'];
+                            // if time is set add station white ball
+                            if ($stations[$i-1]['mainstation']) {
+                                if (isset($routes[$i-1]['time']) && $stations[$i-1]['sequence'] != count($routes)) {
+                                    echo "<td><span class='table-ball table-ball-mainstation'></span>";
+                                    echo date('H:i', mktime(0, $time += $routes[$i-1]['time']));
+                                } else {
+                                    $time += $routes[$i-1]['time'];
+                                    echo "<td><span class='table-ball table-ball-mainstation'></span>";
+                                }
+                                echo "</td></tr>";
                             } else {
-                                echo "<td><span class='table-ball table-start-ball'></span>";
+                                if (isset($routes[$i-1]['time']) && $stations[$i-1]['sequence'] != count($routes)) {
+                                    echo "<td><span class='table-ball'></span>";
+                                    echo date('H:i', mktime(0, $time += $routes[$i-1]['time']));
+                                } else {
+                                    $time += $routes[$i-1]['time'];
+                                    echo "<td><span class='table-ball'></span>";
+                                }
+                                echo "</td></tr>";
                             }
-                            echo "</td></tr>";
-                            if($i+1 < count($stations)) {
-                                echo "<tr class='short-tablerow'><td></td><td class='table-padding'>|</td></tr>";
+                        }
+                    } else {
+                        // output the values in table rows
+                        for ($i=0; $i < count($stations); $i++) {
+                            echo "<tr>";
+                            echo "<td>";
+                            echo $stations[$i]['station'];
+                            // if time is set add station white ball
+                            if ($stations[$i]['mainstation']) {
+                                if (isset($routes[$i]['time']) && $stations[$i]['sequence'] != 1) {
+                                    echo "<td><span class='table-ball table-ball-mainstation'></span>";
+                                    echo date('H:i', mktime(0, $time += $routes[$i]['time']));
+                                } else {
+                                    $time += $routes[$i]['time'];
+                                    echo "<td><span class='table-ball table-ball-mainstation'></span>";
+                                }
+                                echo "</td></tr>";
+                            } else {
+                                if (isset($routes[$i]['time']) && $stations[$i]['sequence'] != 1) {
+                                    echo "<td><span class='table-ball'></span>";
+                                    echo date('H:i', mktime(0, $time += $routes[$i]['time']));
+                                } else {
+                                    $time += $routes[$i]['time'];
+                                    echo "<td><span class='table-ball'></span>";
+                                }
+                                echo "</td></tr>";
                             }
                         }
                     }

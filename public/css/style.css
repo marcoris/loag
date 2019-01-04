@@ -23,17 +23,45 @@ body {
     background-color: white;
     overflow: auto;
     margin-bottom: 0;
-    padding: 50px 20px 100px;
+    padding: 50px 20px 20px;
+}
+
+label {
+    min-width: 180px;
+    max-width: 180px;
+}
+
+select {
+    margin-left: -3px;
+    border: 1px solid silver;
+}
+
+select,
+input[type='text'],
+input[type='text']:disabled,
+input[type='number'],
+input[type='password'] {
+    box-sizing: border-box;
+    min-width: 180px;
+}
+
+input[type='text'],
+input[type='text']:disabled,
+input[type='number'],
+input[type='password'] {
+    box-sizing:content-box;
+    border: 1px solid silver;
 }
 
 .required {
-    border: 1px solid red;
+    border-color: red !important;
     background: pink;
 }
 
 .required-star {
     color: red;
     font-weight: bold;
+    margin: 0 5px;
 }
 
 .krank {
@@ -104,12 +132,14 @@ body {
     height: 20px;
     display: inline-block;
     border: 1px solid black;
+    background-color: white;
     border-radius: 50%;
     margin-right: 5px;
 }
 
 .table-start-ball,
-.timetable tr:last-child span:not(.table-ball-mainstation) {
+.timetable tr:last-child span:not(.table-ball-mainstation),
+.timetable tr:first-child span:not(.table-ball-mainstation) {
     background-color: silver;
 }
 
@@ -125,8 +155,17 @@ body {
     margin-left: 20px;
 }
 
+.table tbody tr:hover {
+    transition: background-color .4s ease;
+    background-color: #ddd !important;
+}
+
+.schedule-link:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .schedule-top {
-    display: flex;
     justify-content: center;
     line-height: 40px;
     background-color: #dee2e6;
@@ -134,14 +173,21 @@ body {
     margin-bottom: 30px;
 }
 
-.reverse-trigger {
-    font-size: 40px;
+.schedule-top .from {
+    display: inline-block;
+    text-align: right;
+    width: 46%;
 }
 
-.reverse-trigger:before,
-.reverse-trigger:after {
+.schedule-top .to {
+    display: inline-block;
+    width: 46%;
+}
+
+.reverse-trigger {
+    font-size: 40px;
+    width: 7%;
     color: black;
-    margin: 0 30px;
 }
 
 .btn+.btn {
@@ -152,4 +198,18 @@ body {
     padding: 20px;
     background-color: white;
     border-top: 2px solid #ddd;
+}
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact; 
+    }
+
+    .schedule-top {
+        background-color: white;
+    }
+
+    .header {
+        display: none;
+    }
 }

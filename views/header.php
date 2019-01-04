@@ -30,8 +30,8 @@
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>login/logout">Logout (<?php echo Session::get('login'); ?>)</a></li>
                     <?php else : ?>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>schedule">Fahrplan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about">Über uns</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact">Kontakt</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>about">Über uns</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>contact">Kontakt</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>login">Login</a></li>
                     <?php endif; ?>
                 </ul>
