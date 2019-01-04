@@ -38,7 +38,47 @@ class Line_Model extends Model
      */
     public function getRoutes($id)
     {
-        return $this->db->select('SELECT routeid, time, sequence FROM loag.routes WHERE fk_line = :id', array(':id' => $id));
+        return $this->db->select('SELECT routeid, time, sequence FROM loag.routes WHERE fk_line = :id ORDER BY sequence ASC', array(':id' => $id));
+    }
+   
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function getRouteSequence($id)
+    {
+        return $this->db->select('SELECT routeid, sequence FROM loag.routes WHERE fk_line = :id ORDER BY sequence DESC LIMIT 1', array(':id' => $id));
+    }
+    
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function getStationSequence($id)
+    {
+        return $this->db->select('SELECT stationid, sequence FROM loag.stations WHERE fk_line = :id ORDER BY sequence DESC LIMIT 1', array(':id' => $id));
+    }
+    
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function updateSequenceStation($id, $data)
+    {
+        return $this->db->update('stations', $data, "`stationid`={$id}");
+    }
+
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function updateSequenceRoute($id, $data)
+    {
+        return $this->db->update('routes', $data, "`routeid`={$id}");
     }
     
     /**
@@ -48,30 +88,30 @@ class Line_Model extends Model
      */
     public function create($data)
     {
-        $insertArray = array(
-            'personalnumber' => $data['personalnumber'],
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'fk_category' => $data['category'],
-            'fk_absence' => $data['absence'],
-            'fk_line' => $data['line'],
-            'login' => $data['login'],
-            'password' => Hash::create($data['password']),
-            'fk_role' => $data['role']
+        $insertStation = array(
+            'station' => $data['station'],
+            'sequence' => $data['station_sequence'],
+            'fk_line' => $data['fk_line']
+        );
+        $insertRoute = array(
+            'time' => $data['time'],
+            'sequence' => $data['route_sequence'],
+            'fk_line' => $data['fk_line']
         );
 
-        $this->db->insert('employees', $insertArray);
+        $this->db->insert('stations', $insertStation);
+        $this->db->insert('routes', $insertRoute);
     }
 
-    /**
-     * Shows the affected user to edit
-     *
-     * @param int $id The id of the affected user
-     */
-    public function userEdit($id)
-    {
-        return $this->db->select('SELECT employeeid, personalnumber, name, surname, fk_category, fk_absence, fk_line, login, fk_role, roles.role FROM employees LEFT JOIN roles ON (fk_role = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
-    }
+    // /**
+    //  * Shows the affected user to edit
+    //  *
+    //  * @param int $id The id of the affected user
+    //  */
+    // public function userEdit($id)
+    // {
+    //     return $this->db->select('SELECT employeeid, personalnumber, name, surname, fk_category, fk_absence, fk_line, login, fk_role, roles.role FROM employees LEFT JOIN roles ON (fk_role = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
+    // }
 
     /**
      * Saves the edited user data

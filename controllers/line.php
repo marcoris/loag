@@ -3,6 +3,7 @@
 class Line extends Controller
 {
     private $path = 'line/';
+    private $output = '';
 
     public function __construct()
     {
@@ -12,7 +13,7 @@ class Line extends Controller
     }
 
     /**
-     * GEt the lines and show them on the index page
+     * Get the lines and show them on the index page
      */
     public function index()
     {
@@ -21,20 +22,77 @@ class Line extends Controller
     }
 
     /**
-     * get Line, Stations and Routes to show them on the show page
+     * get Line, Stations and Routes to show them in a table on the show page
+     * 
+     * @param integer $id The affected line to get data and show
      */
     public function show($id)
     {
+        // get line, routes and stations
         $this->view->getLine = $this->model->getLine($id);
-        $this->view->getStations = $this->model->getStations($id);
-        $this->view->getRoutes = $this->model->getRoutes($id);
+        $stations = $this->model->getStations($id);
+        $routes =  $this->model->getRoutes($id);
+
+        // output the values in table rows
+        for ($i=0; $i < count($stations); $i++) {
+            $this->output .= "<tr>";
+            $this->output .= "<td><input type='text' name='station_". $stations[$i]['stationid'] ."' id='station_". $stations[$i]['stationid'] ."' value='" . $stations[$i]['station'] . "'></td>";
+            
+            // check if its not the first station time
+            if (isset($routes[$i-1]['time'])) {
+                $this->output .= "<td><input type='text' name='time_". $routes[$i-1]['routeid'] ."' id='time_". $routes[$i-1]['routeid'] ."' value='" . $routes[$i-1]['time'] . "'> min.</td>";
+                $this->output .= "<td><input type='number' min='1' name='sequence_". $stations[$i]['stationid'] ."' id='sequence_". $stations[$i]['stationid'] ."' value='" . $stations[$i]['sequence'] . "'></td>";
+                $this->output .= '<td>';
+            if ($i+1 != count($stations)) {
+                $this->output .= '<a class="btn btn-danger delete" id="delete_' . $stations[$i]['stationid'] . '" href="#"><i class="fas fa-trash"></i></a>';
+            } else {
+                $this->output .= '</td>';
+            }
+            } else {
+                $this->output .= "<td><input disabled></td><td></td><td></td>";
+            }
+            $this->output .= '</tr>';
+        }
+
+        $this->view->output = $this->output;
         $this->view->render($this->path . 'show');
     }
 
+    public function create()
+    {
+        // if there is an empty field dont call the create function in the model
+        if (empty($_POST['station']) || empty($_POST['time'] || empty($_POST['fk_line']))) {
+            header('location: ' . URL . 'index/error');
+        } else {
+            $data = array();
+            $data['station'] = $_POST['station'];
+            $data['time'] = $_POST['time'];
+            $data['fk_line'] = $_POST['fk_line'];
+            $data['station_sequence_id'] = $this->model->getStationSequence($data['fk_line'])[0];
+            $data['route_sequence_id'] = $this->model->getRouteSequence($data['fk_line'])[0];
+            $data['station_sequence'] = $data['station_sequence_id']['sequence'];
+            $data['route_sequence'] = $data['route_sequence_id']['sequence'];
+
+            $stationArray = ['sequence' => $data['station_sequence_id']['sequence']+1];
+            $routeArray = ['sequence' => $data['route_sequence_id']['sequence']+1];
+
+
+            // update sequence from existing station
+            $this->model->updateSequenceStation($data['station_sequence_id']['stationid'], $stationArray);
+            
+            // update sequence from existing route
+            $this->model->updateSequenceRoute($data['route_sequence_id']['routeid'], $routeArray);
+    
+            // call create function
+            $this->model->create($data);
+
+            // send the user to the page
+            header('location: ' . URL . $this->path . 'show/' . $data['fk_line']);
+        }
+    }
+
     public function editSave($id) {
-        echo "<pre>";
-        // print_r($_POST);die;
-        echo "</pre>";
+        // @TODO: put your error checking!
         // loop through all fields
         $stationArray = array();
         $timeArray = array();
@@ -63,8 +121,7 @@ class Line extends Controller
         // echo $id;
         // die;
 
-        // @TODO: put your error checking!
-        $this->model->editSave($stationArray, $timeArray, $mainStation, $id);
+        // $this->model->editSave($stationArray, $timeArray, $mainStation, $id);
         header('location: ' . URL . $this->path . 'show/' . $id);
     }
 
