@@ -121,6 +121,10 @@ body {
     padding-left: 17px !important;
 }
 
+.table td span+span {
+    margin-left: 20px;
+}
+
 .schedule-top {
     display: flex;
     justify-content: center;

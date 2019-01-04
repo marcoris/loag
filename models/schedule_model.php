@@ -20,27 +20,31 @@ class Schedule_Model extends Model
             return $this->db->select('SELECT lineid, line FROM loag.lines WHERE line != "-"');
         }
     }
+   
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function getLineId()
+    {
+        return $this->db->select('SELECT lineid FROM loag.lines WHERE line != "-"');
+    }
 
     /**
      * Shows the list of users
      *
      * @return data The users list
      */
-    public function getFirstAndLastStation()
+    public function getFirstAndLastStation($id)
     {
         return $this->db->select(
-            'SELECT * FROM loag.stations WHERE sequence = 1 OR
-            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 2) AND fk_line = 2 OR 
-            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 3) AND fk_line = 3 OR
-            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 4) AND fk_line = 4 OR
-            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = 5) AND fk_line = 5
-            ');
-            // 'SELECT fk_line, station FROM loag.stations WHERE stationid = (SELECT stationid FROM loag.stations ORDER BY stationid ASC LIMIT 1) OR
-            // stationid = (SELECT stationid FROM loag.stations ORDER BY stationid DESC LIMIT 1)
+            'SELECT * FROM loag.stations WHERE sequence = 1 AND fk_line = :id OR
+            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = :id) AND fk_line = :id', array(':id' => $id));
     }
 
     /**
-     * Shows the list of users
+     * get the ids of the stations (2,3,4,5)
      *
      * @return data The users list
      */
