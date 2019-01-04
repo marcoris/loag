@@ -10,4 +10,9 @@ class Index extends Controller {
     {
         $this->view->render('index/index');
     }
+
+    public function error()
+    {
+        $this->view->render('index/error');
+    }
 }
