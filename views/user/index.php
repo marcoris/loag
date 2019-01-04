@@ -2,17 +2,17 @@
     <h1>Neuer Mitarbeiter erfassen</h1>
 
     <form action="<?php echo URL; ?>user/create" method="post">
-        <label for="personalnumber">Personalnummer</label><span class="required-star">*</span><input type="text" id="personalnumber" name="personalnumber"><br>
-        <label for="name">Vorname</label><span class="required-star">*</span><input type="text" id="name" name="name"><br>
-        <label for="surname">Name</label><span class="required-star">*</span><input type="text" id="surname" name="surname"><br>
-        <label for="category">Kategorie</label>
+        <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber"><br>
+        <label for="name">Vorname:<span class="required-star">*</span></label><input type="text" id="name" name="name"><br>
+        <label for="surname">Name:<span class="required-star">*</span></label><input type="text" id="surname" name="surname"><br>
+        <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
         <?php foreach($this->categoryData as $key => $value) {
                 echo "<option value='{$value['categoryid']}'>" . $value['category'] . "</option>";
             }
         ?>
         </select><br>
-        <label for="absence">Absenz</label>
+        <label for="absence">Absenz:<span class="required-star">*</span></label>
         <select name="absence" id="absence">
             <?php
             foreach($this->absenceData as $key => $value) {
@@ -20,16 +20,16 @@
             }
             ?>
         </select><br>
-        <label for="line">Linie</label>
+        <label for="line">Linie:<span class="required-star">*</span></label>
         <select name="line" id="line">
         <?php foreach($this->lineData as $key => $value) {
                 echo "<option value='{$value['lineid']}'>" . $value['line'] . "</option>";
             }
         ?>
         </select><br>
-        <label for="login">Login</label><span class="required-star">*</span><input type="text" id="login" name="login"><br>
-        <label for="password">Passwort</label><span class="required-star">*</span><input type="text" id="password" name="password"><br>
-        <label for="role">Rolle</label>
+        <label for="login">Login:<span class="required-star">*</span></label><input type="text" id="login" name="login"><br>
+        <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
+        <label for="role">Rolle:<span class="required-star">*</span></label>
         <select name="role" id="role">
             <?php
             foreach($this->roleData as $key => $value) {
@@ -37,7 +37,7 @@
             }
             ?>
         </select><br>
-        <input class="btn btn-success" type="submit">
+        <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
     <hr>
     <h2>Mitarbeiterliste</h2>

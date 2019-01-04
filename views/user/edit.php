@@ -1,10 +1,10 @@
 <div class="jumbotron jumbotron-fluid">
     <h1>Mitarbeiter <strong><?php echo $this->user[0]['login']; ?></strong> bearbeiten</h1>
     <form action="<?php echo URL; ?>user/editSave/<?php echo $this->user[0]['employeeid']; ?>" method="post">
-        <label for="personalnumber">Personalnummer</label><span class="required-star">*</span><input type="text" id="personalnumber" name="personalnumber" value="<?php echo $this->user[0]['personalnumber']; ?>"><br>
-        <label for="name">Vorname</label><span class="required-star">*</span><input type="text" id="name" name="name" value="<?php echo $this->user[0]['name']; ?>"><br>
-        <label for="surname">Name</label><span class="required-star">*</span><input type="text" id="surname" name="surname" value="<?php echo $this->user[0]['surname']; ?>"><br>
-        <label for="category">Kategorie</label>
+        <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber" value="<?php echo $this->user[0]['personalnumber']; ?>"><br>
+        <label for="name">Vorname:<span class="required-star">*</span></label><input type="text" id="name" name="name" value="<?php echo $this->user[0]['name']; ?>"><br>
+        <label for="surname">Name:<span class="required-star">*</span></label><input type="text" id="surname" name="surname" value="<?php echo $this->user[0]['surname']; ?>"><br>
+        <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
         <?php
         foreach($this->categoryData as $key => $value) {
@@ -16,7 +16,7 @@
         }
         ?>
         </select><br>
-        <label for="absence">Absenz</label>
+        <label for="absence">Absenz:<span class="required-star">*</span></label>
         <select name="absence" id="absence">
         <?php
         foreach($this->absenceData as $key => $value) {
@@ -28,7 +28,7 @@
         }
         ?>
         </select><br>
-        <label for="line">Linie</label>
+        <label for="line">Linie:<span class="required-star">*</span></label>
         <select name="line" id="line">
         <?php
         foreach($this->lineData as $key => $value) {
@@ -40,9 +40,9 @@
         }
         ?>
         </select><br>
-        <label for="login">Login</label><span class="required-star">*</span><input type="text" id="login" name="login" value="<?php echo $this->user[0]['login']; ?>"><br>
-        <label for="password">Passwort</label><span class="required-star">*</span><input type="text" id="password" name="password"><br>
-        <label for="role">Rolle</label>
+        <label for="login">Login:<span class="required-star">*</span></label><input type="text" id="login" name="login" value="<?php echo $this->user[0]['login']; ?>"><br>
+        <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
+        <label for="role">Rolle:<span class="required-star">*</span></label>
         <select name="role" id="role">
         <?php
         foreach($this->roleData as $key => $value) {
@@ -54,7 +54,6 @@
         }
         ?>
         </select><br>
-        <input class="btn btn-success" type="submit">
-        <a class="btn btn-primary" href="../">Zurück</a>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
 </div>
