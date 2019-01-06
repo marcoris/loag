@@ -1,7 +1,14 @@
+*,
+html,
+body {
+    max-width: 100%;
+}
+
 html, body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     height: 100%;
+    color: black !important;
 }
 
 h1 {
@@ -23,10 +30,43 @@ body {
     background-color: white;
     overflow: auto;
     margin-bottom: 0;
-    padding: 50px 20px 20px;
+    padding: 15px 0;
 }
 
-label {
+.bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bg-lok {
+    background-image: url('../images/lok3.jpg');
+}
+
+.wrap {
+    padding: 20px;
+    margin-top: 50px;
+    border: 2px solid white;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    background-color: rgba(255,255,255,.65);
+}
+
+.col-5 {
+    margin: 0 auto;
+}
+
+.bg-lok .row h1,
+.bg-lok .row h4,
+.bg-lok .row form,
+.bg-lok .row a,
+.bg-lok .row p {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+label,
+.btn-login,
+.btn-contact {
     min-width: 180px;
     max-width: 180px;
 }
@@ -40,7 +80,8 @@ select,
 input[type='text'],
 input[type='text']:disabled,
 input[type='number'],
-input[type='password'] {
+input[type='password'],
+textarea {
     box-sizing: border-box;
     min-width: 180px;
 }
@@ -94,22 +135,47 @@ input[type='password'] {
     color: white;
 }
 
-.line-1 {
+.line-1:not(a) {
     background-color: cornflowerblue;
 }
 
-.line-2 {
+.line-1:link,
+.line-1:visited {
+    font-weight: bold;
+    color: cornflowerblue;
+}
+
+.line-2:not(a) {
     background-color: red;
 }
 
-.line-3 {
+.line-2:link,
+.line-2:visited {
+    font-weight: bold;
+    color: red;
+}
+.line-3:not(a) {
     background-color: yellowgreen;
 }
 
-.line-4 {
+.line-3:link,
+.line-3:visited {
+    font-weight: bold;
+    color: yellowgreen;
+}
+.line-4:not(a) {
     background-color: gold;
 }
 
+.line-4:link,
+.line-4:visited {
+    font-weight: bold;
+    color: gold;
+}
+
+.row+.row {
+    margin-top: -10px;
+}
 .table th {
     padding: 10px;
     line-height: 30px;
@@ -125,6 +191,10 @@ input[type='password'] {
 
 .short-tablerow {
     line-height: 0 !important;
+}
+
+.table {
+    background-color: rgba(255,255,255,.9);
 }
 
 .table-ball {
@@ -196,7 +266,6 @@ input[type='password'] {
 
 .footer {
     padding: 20px;
-    background-color: white;
     border-top: 2px solid #ddd;
 }
 
@@ -211,5 +280,9 @@ input[type='password'] {
 
     .header {
         display: none;
+    }
+
+    .bg-lok {
+        background-image: linear-gradient(white, white);
     }
 }
