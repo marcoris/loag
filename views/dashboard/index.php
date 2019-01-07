@@ -9,6 +9,21 @@
         <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
+    <?php pvd($_SESSION); ?>
     <hr>
     <h2>Einsatzplan</h2>
+    <div class="useplan">
+        <div>Januar</div>
+        <div>Februar</div>
+        <div>Januar</div>
+        <div>Februar</div>
+        <div>Januar</div>
+        <div>Februar</div>
+        <div>Januar</div>
+        <div>Februar</div>
+        <div>Januar</div>
+        <div>Februar</div>
+        <div>Januar</div>
+        <div>Februar</div>
+    </div>
 </div>

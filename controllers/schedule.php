@@ -25,7 +25,6 @@ class Schedule extends Controller {
         $this->view->getFirstAndLastStation = $this->model->getFirstAndLastStation($id);
         $stations = $this->model->getStations($id);
         $routes = $this->model->getRoutes($id);
-        // $this->view->reverse = $reverse;
         $output = '';
         $time = 0;
 
