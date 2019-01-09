@@ -14,7 +14,15 @@ class User_Model extends Model
      */
     public function roleData()
     {
-        return $this->db->select('SELECT roleid, role FROM roles ORDER BY roleid DESC');
+        return $this->db->select(
+            'SELECT
+                roleid,
+                `role`
+            FROM
+                roles
+            ORDER BY
+                roleid DESC'
+        );
     }
     
     /**
@@ -24,7 +32,13 @@ class User_Model extends Model
      */
     public function categoryData()
     {
-        return $this->db->select('SELECT categoryid, category FROM categories');
+        return $this->db->select(
+            'SELECT
+                categoryid,
+                category
+            FROM
+                categories'
+        );
     }
     
     /**
@@ -34,7 +48,13 @@ class User_Model extends Model
      */
     public function absenceData()
     {
-        return $this->db->select('SELECT absenceid, absence FROM absences');
+        return $this->db->select(
+            'SELECT
+                absenceid,
+                absence
+            FROM
+                absences'
+        );
     }
     
     /**
@@ -44,7 +64,13 @@ class User_Model extends Model
      */
     public function lineData()
     {
-        return $this->db->select('SELECT lineid, `line` FROM `lines`');
+        return $this->db->select(
+            'SELECT
+                lineid,
+                `line`
+            FROM
+                `lines`'
+        );
     }
 
     /**
@@ -54,7 +80,20 @@ class User_Model extends Model
      */
     public function userList()
     {
-        return $this->db->select('SELECT employeeid, personalnumber, name, surname, absences.absence AS absence, login, roles.role FROM employees LEFT JOIN absences ON fk_absence = absenceid LEFT JOIN roles ON roles.roleid = employees.fk_role');
+        return $this->db->select(
+            'SELECT
+                employeeid,
+                personalnumber,
+                `name`,
+                surname,
+                absences.absence AS absence,
+                `login`,
+                roles.role
+            FROM
+                employees
+                LEFT JOIN absences ON fk_absence = absenceid
+                LEFT JOIN roles ON roles.roleid = employees.fk_role'
+        );
     }
     
     /**
@@ -86,7 +125,24 @@ class User_Model extends Model
      */
     public function userEdit($id)
     {
-        return $this->db->select('SELECT employeeid, personalnumber, name, surname, fk_category, fk_absence, fk_line, login, fk_role, roles.role FROM employees LEFT JOIN roles ON (fk_role = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
+        return $this->db->select(
+            'SELECT
+                employeeid,
+                personalnumber,
+                `name`,
+                surname,
+                fk_category,
+                fk_absence,
+                fk_line,
+                `login`,
+                fk_role,
+                roles.role
+            FROM
+                employees
+                LEFT JOIN roles ON (fk_role = roles.roleid)
+            WHERE
+                employeeid = :id', array(':id' => $id)
+        );
     }
 
     /**
@@ -118,10 +174,23 @@ class User_Model extends Model
      */
     public function delete($id)
     {
-        $result = $this->db->select('SELECT employees.fk_role, roles.role FROM employees LEFT JOIN roles ON (employees.fk_role = roles.roleid) WHERE employeeid = :id', array(':id' => $id));
+        $result = $this->db->select(
+            'SELECT
+                employees.fk_role,
+                roles.role
+            FROM
+                employees
+                LEFT JOIN roles ON (employees.fk_role = roles.roleid)
+            WHERE
+                employeeid = :id', array(':id' => $id)
+        );
 
         // dont delete the admin or when you ar the disponent your selfe
-        if (isset($result[0]) && $result[0]['role'] == 'admin' || (isset($result[0]) && $result[0]['role'] == 'disponent' && Session::get('usergroup') == 2))
+        if (
+            isset($result[0]) && $result[0]['role'] == 'admin' ||
+            (isset($result[0]) && $result[0]['role'] == 'disponent' &&
+            Session::get('usergroup') == 2)
+        )
         return false;
 
         $this->db->delete('employees', "employeeid = '$id'");

@@ -17,14 +17,14 @@ class Login_Model extends Model
         $stmt = $this->db->prepare(
             'SELECT
                 employeeid,
-                login,
+                `login`,
                 roles.role
             FROM
                 employees
                 LEFT JOIN roles ON employees.fk_role = roles.roleid 
             WHERE
-                login = :login AND
-                password = :password');
+                `login` = :login AND
+                `password` = :password');
 
         $stmt->execute(array(
             'login' => $_POST['login'],
@@ -63,7 +63,8 @@ class Login_Model extends Model
     public function logout()
     {
         Session::init();
-        Session::destroy();
+        $destroyArray = ['usergroup', 'login', 'loggedin'];
+        Session::destroy($destroyArray);
         header('location: ' . URL . 'login');
         exit;
     }

@@ -39,9 +39,12 @@ class Session
     /**
      * The session destroy function
      */
-    public static function destroy()
+    public static function destroy($destroyArray)
     {
-        unset($_SESSION['loggedIn']);
+        // foreach loop to destroy all setted sessions
+        foreach ($destroyArray as $sessname) {
+            unset($_SESSION[$sessname]);
+        }
         session_destroy();
     }
 }
