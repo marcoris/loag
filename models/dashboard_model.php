@@ -26,7 +26,14 @@ class Dashboard_Model extends Model
 
     public function xhrGetListings()
     {
-        echo json_encode($this->db->select('SELECT * FROM data ORDER BY id'));
+        echo json_encode($this->db->select(
+            'SELECT
+                *
+            FROM
+                `data`
+            ORDER BY
+                id')
+        );
     }
 
     public function xhrDeleteListing()

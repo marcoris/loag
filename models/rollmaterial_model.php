@@ -14,7 +14,13 @@ class Rollmaterial_Model extends Model
      */
     public function typeData()
     {
-        return $this->db->select('SELECT typeid, type FROM types');
+        return $this->db->select(
+            'SELECT
+                typeid,
+                `type`
+            FROM
+                types'
+        );
     }
     
     /**
@@ -24,7 +30,13 @@ class Rollmaterial_Model extends Model
      */
     public function classData()
     {
-        return $this->db->select('SELECT classid, class FROM classes');
+        return $this->db->select(
+            'SELECT
+                classid,
+                class
+            FROM
+                classes'
+        );
     }
     
     /**
@@ -34,7 +46,22 @@ class Rollmaterial_Model extends Model
      */
     public function rollmaterialList()
     {
-        return $this->db->select('SELECT rollmaterialid, number, types.type AS type, date_of_commissioning, date_of_last_revision, date_of_next_revision, classes.class AS class, seating, availability FROM loag.rollmaterials LEFT JOIN loag.types ON types.typeid = rollmaterials.type LEFT JOIN loag.classes ON classes.classid = rollmaterials.class');
+        return $this->db->select(
+            'SELECT
+                rollmaterialid,
+                `number`,
+                types.type AS `type`,
+                date_of_commissioning,
+                date_of_last_revision,
+                date_of_next_revision,
+                classes.class AS class,
+                seating,
+                `availability`
+            FROM
+                loag.rollmaterials
+                LEFT JOIN loag.types ON types.typeid = rollmaterials.type
+                LEFT JOIN loag.classes ON classes.classid = rollmaterials.class'
+        );
     }
 
     /**
@@ -65,7 +92,22 @@ class Rollmaterial_Model extends Model
      */
     public function rollmaterialEdit($id)
     {
-        return $this->db->select('SELECT rollmaterialid, number, type, date_of_commissioning, date_of_last_revision, date_of_next_revision, class, seating, availability FROM loag.rollmaterials WHERE rollmaterialid = :id', array(':id' => $id));
+        return $this->db->select(
+            'SELECT
+                rollmaterialid,
+                `number`,
+                `type`,
+                date_of_commissioning,
+                date_of_last_revision,
+                date_of_next_revision,
+                class,
+                seating,
+                `availability`
+            FROM
+                loag.rollmaterials
+            WHERE
+                rollmaterialid = :id', array(':id' => $id)
+        );
     }
 
     /**
