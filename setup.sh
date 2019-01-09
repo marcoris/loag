@@ -30,10 +30,6 @@ apt-get install -y php7.2-zip
 # PHP-MYSQL lib
 apt-get install -y php7.2-mysql
 apt-get install -y mysql-server
-apt-get install -y phpmyadmin
-
-# Disable old apache vhosts config and enable the new one
-#a2dissite 000-default.conf
 
 # Restart Apache
 sudo systemctl restart apache2.service
