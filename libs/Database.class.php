@@ -6,7 +6,6 @@ class Database extends PDO
     private $user;
     private $pass;
     private $db;
-    public $mysqli;
 
     public function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
     {
@@ -14,7 +13,7 @@ class Database extends PDO
     }
 
     /**
-     * The PDO INSERT INTO function
+     * The PDO SELECT function
      *
      * @param string $table The affected table
      * @param array $data The data
