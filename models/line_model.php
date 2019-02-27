@@ -17,17 +17,17 @@ class Line_Model extends Model
         if ($id) {
             return $this->db->select(
                 'SELECT
-                    lineid,
+                    line_id,
                     `line`
                 FROM
                     loag.lines
                 WHERE
-                    lineid = :id', array(':id' => $id)
+                    line_id = :id', array(':id' => $id)
             );
         } else {
             return $this->db->select(
                 'SELECT
-                    lineid,
+                    line_id,
                     `line`
                 FROM
                     loag.lines
@@ -45,7 +45,7 @@ class Line_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                stationid,
+                station_id,
                 station,
                 fk_line,
                 mainstation,
@@ -68,7 +68,7 @@ class Line_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                routeid,
+                route_id,
                 `time`,
                 `sequence`
             FROM
@@ -89,7 +89,7 @@ class Line_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                routeid,
+                route_id,
                 `sequence`
             FROM
                 loag.routes
@@ -109,7 +109,7 @@ class Line_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                stationid,
+                station_id,
                 `sequence`
             FROM
                 loag.stations
@@ -127,7 +127,7 @@ class Line_Model extends Model
      */
     public function updateSequenceStation($id, $data)
     {
-        return $this->db->update('stations', $data, "`stationid`={$id}");
+        return $this->db->update('stations', $data, "`station_id`={$id}");
     }
 
     /**
@@ -137,7 +137,7 @@ class Line_Model extends Model
      */
     public function updateSequenceRoute($id, $data)
     {
-        return $this->db->update('routes', $data, "`routeid`={$id}");
+        return $this->db->update('routes', $data, "`route_id`={$id}");
     }
     
     /**

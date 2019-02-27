@@ -5,7 +5,7 @@
         <label for="type">Typ:<span class="required-star">*</span></label>
         <select name="type" id="type">
         <?php foreach($this->typeData as $key => $value) {
-                echo "<option value='{$value['typeid']}'>" . $value['type'] . "</option>";
+                echo "<option value='{$value['type_id']}'>" . $value['type'] . "</option>";
             }
         ?>
         </select><br>
@@ -15,7 +15,7 @@
         <label for="class">Klasse:<span class="required-star">*</span></label>
         <select name="class" id="class">
             <?php foreach($this->classData as $key => $value) {
-                echo "<option value='{$value['classid']}'>" . $value['class'] . "</option>";
+                echo "<option value='{$value['class_id']}'>" . $value['class'] . "</option>";
             }
             ?>
         </select><br>
@@ -56,8 +56,8 @@
                 echo '<td>' . $value['date_of_next_revision'] . '</td>';
                 echo '<td>' . $value['class'] . '</td>';
                 echo '<td>' . ($value['availability'] ? 'Ja' : 'Nein') . '</td>';
-                echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterialid'] . '"><i class="fas fa-pen"></i></a>';
-                echo '<a class="btn btn-danger delete" href="' . URL . 'rollmaterial/delete/' . $value['rollmaterialid'] . '"><i class="fas fa-trash"></i></a>';
+                echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterial_id'] . '"><i class="fas fa-pen"></i></a>';
+                echo '<a class="btn btn-danger delete" href="' . URL . 'rollmaterial/delete/' . $value['rollmaterial_id'] . '"><i class="fas fa-trash"></i></a>';
                 echo '</td>';
                 echo '</tr>';
                 $i++;

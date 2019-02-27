@@ -11,7 +11,7 @@ class Schedule extends Controller {
         $lines = $this->model->getLineId();
         $firstAndLast = array();
         foreach ($lines as $lineids => $line) {
-            $firstAndLast[] = $this->model->getFirstAndLastStation($line['lineid']);
+            $firstAndLast[] = $this->model->getFirstAndLastStation($line['line_id']);
         }
         
         $this->view->getLine = $this->model->getLine();

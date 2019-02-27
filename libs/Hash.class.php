@@ -2,6 +2,13 @@
 
 class Hash
 {
+    /**
+     * This function creates a hash
+     * 
+     * @param string $data - The string to hash
+     * 
+     * @return hashstring
+     */
     public static function create($data)
     {
         $context = hash_init(HASH_MODE, HASH_HMAC, HASH_KEY);

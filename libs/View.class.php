@@ -2,6 +2,12 @@
 
 class View
 {
+    /**
+     * The render function
+     * 
+     * @param string $name - The filename
+     * @param boolean $noInclude - If the view is with header and footer or not
+     */
     public function render($name, $noIncludes = false)
     {
         if ($noIncludes == true) {

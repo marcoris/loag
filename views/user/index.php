@@ -8,7 +8,7 @@
         <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
         <?php foreach($this->categoryData as $key => $value) {
-                echo "<option value='{$value['categoryid']}'>" . $value['category'] . "</option>";
+                echo "<option value='{$value['category_id']}'>" . $value['category'] . "</option>";
             }
         ?>
         </select><br>
@@ -16,14 +16,14 @@
         <select name="absence" id="absence">
             <?php
             foreach($this->absenceData as $key => $value) {
-                echo "<option value='{$value['absenceid']}'>" . $value['absence'] . "</option>";
+                echo "<option value='{$value['absence_id']}'>" . $value['absence'] . "</option>";
             }
             ?>
         </select><br>
         <label for="line">Linie:<span class="required-star">*</span></label>
         <select name="line" id="line">
         <?php foreach($this->lineData as $key => $value) {
-                echo "<option value='{$value['lineid']}'>" . $value['line'] . "</option>";
+                echo "<option value='{$value['line_id']}'>" . $value['line'] . "</option>";
             }
         ?>
         </select><br>
@@ -71,9 +71,9 @@
                 echo '<td>' . $value['login'] . '</td>';
                 echo '<td>' . $value['role'] . '</td>';
                 echo '<td>
-                    <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employeeid'] . '"><i class="fas fa-pen"></i></a>';
+                    <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employee_id'] . '"><i class="fas fa-pen"></i></a>';
                 if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 1))
-                echo '<a class="btn btn-danger delete" href="' . URL . 'user/delete/' . $value['employeeid'] . '"><i class="fas fa-trash"></i></a>';
+                echo '<a class="btn btn-danger delete" href="' . URL . 'user/delete/' . $value['employee_id'] . '"><i class="fas fa-trash"></i></a>';
                 echo '</td>';
                 echo '</tr>';
                 $i++;

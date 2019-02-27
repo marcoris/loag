@@ -16,7 +16,7 @@ class Rollmaterial_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                typeid,
+                type_id,
                 `type`
             FROM
                 types'
@@ -32,7 +32,7 @@ class Rollmaterial_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                classid,
+                class_id,
                 class
             FROM
                 classes'
@@ -48,7 +48,7 @@ class Rollmaterial_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                rollmaterialid,
+                rollmaterial_id,
                 `number`,
                 types.type AS `type`,
                 date_of_commissioning,
@@ -59,8 +59,8 @@ class Rollmaterial_Model extends Model
                 `availability`
             FROM
                 loag.rollmaterials
-                LEFT JOIN loag.types ON types.typeid = rollmaterials.type
-                LEFT JOIN loag.classes ON classes.classid = rollmaterials.class'
+                LEFT JOIN loag.types ON types.type_id = rollmaterials.fk_type
+                LEFT JOIN loag.classes ON classes.class_id = rollmaterials.fk_class'
         );
     }
 
@@ -94,19 +94,19 @@ class Rollmaterial_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                rollmaterialid,
+                rollmaterial_id,
                 `number`,
-                `type`,
+                fk_type,
                 date_of_commissioning,
                 date_of_last_revision,
                 date_of_next_revision,
-                class,
+                fk_class,
                 seating,
                 `availability`
             FROM
                 loag.rollmaterials
             WHERE
-                rollmaterialid = :id', array(':id' => $id)
+                rollmaterial_id = :id', array(':id' => $id)
         );
     }
 
@@ -128,7 +128,7 @@ class Rollmaterial_Model extends Model
             'availability' => $data['availability']
         );
 
-        $this->db->update('rollmaterials', $updateArray, "`rollmaterialid`={$data['rollmaterialid']}");
+        $this->db->update('rollmaterials', $updateArray, "`rollmaterial_id`={$data['rollmaterial_id']}");
     }
 
     /**
@@ -138,6 +138,6 @@ class Rollmaterial_Model extends Model
      */
     public function delete($id)
     {
-        $this->db->delete('rollmaterials', "rollmaterialid = '$id'");
+        $this->db->delete('rollmaterials', "rollmaterial_id = '$id'");
     }
 }

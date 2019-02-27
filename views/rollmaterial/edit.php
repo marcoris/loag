@@ -6,8 +6,8 @@
         <select name="type" id="type">
         <?php
         foreach($this->typeData as $key => $value) {
-            echo "<option value='{$value['typeid']}'";
-            if ($this->rollmaterial[0]['type'] == $value['typeid']) {
+            echo "<option value='{$value['type_id']}'";
+            if ($this->rollmaterial[0]['fk_type'] == $value['type_id']) {
                 echo 'selected';
             }
             echo ">" . $value['type'] . "</option>";
@@ -21,8 +21,8 @@
         <select name="class" id="class">
             <?php
             foreach($this->classData as $key => $value) {
-                echo "<option value='{$value['classid']}'";
-                if ($this->rollmaterial[0]['class'] == $value['classid']) {
+                echo "<option value='{$value['class_id']}'";
+                if ($this->rollmaterial[0]['fk_class'] == $value['class_id']) {
                     echo 'selected';
                 }
                 echo ">" . $value['class'] . "</option>";

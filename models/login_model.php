@@ -16,12 +16,12 @@ class Login_Model extends Model
         // $this->db->select();
         $stmt = $this->db->prepare(
             'SELECT
-                employeeid,
+                employee_id,
                 `login`,
                 roles.role
             FROM
                 employees
-                LEFT JOIN roles ON employees.fk_role = roles.roleid 
+                LEFT JOIN roles ON employees.fk_role = roles.role_id 
             WHERE
                 `login` = :login AND
                 `password` = :password');

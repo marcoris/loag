@@ -8,7 +8,7 @@ class App
     /**
      * Construct the App
      * 
-     * @return boolean|string
+     * @return boolean
      */
     public function __construct()
     {
@@ -40,7 +40,7 @@ class App
     }
 
     /**
-     * THis loads if there is no GET parameter passed
+     * This loads if there is no GET parameter passed
      */
     private function loadDefaultController()
     {
@@ -71,7 +71,7 @@ class App
      */
     private function callControllerMethod()
     {
-        // calling methods
+        // calling methods output error or load index page
             if (isset($this->url[3])) {
                 if (method_exists($this->controller, $this->url[1])) {
                     $this->controller->{$this->url[1]}($this->url[2], $this->url[3]);
@@ -98,7 +98,7 @@ class App
     }
 
     /**
-     * This handles the errors
+     * This handles the error message
      */
     public function error($msg = '') {
         require 'controllers/error.php';

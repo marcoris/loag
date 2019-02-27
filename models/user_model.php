@@ -16,12 +16,12 @@ class User_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                roleid,
+                role_id,
                 `role`
             FROM
                 roles
             ORDER BY
-                roleid DESC'
+                role_id DESC'
         );
     }
     
@@ -34,7 +34,7 @@ class User_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                categoryid,
+                category_id,
                 category
             FROM
                 categories'
@@ -50,7 +50,7 @@ class User_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                absenceid,
+                absence_id,
                 absence
             FROM
                 absences'
@@ -66,7 +66,7 @@ class User_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                lineid,
+                line_id,
                 `line`
             FROM
                 `lines`'
@@ -82,7 +82,7 @@ class User_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                employeeid,
+                employee_id,
                 personalnumber,
                 `name`,
                 surname,
@@ -91,8 +91,8 @@ class User_Model extends Model
                 roles.role
             FROM
                 employees
-                LEFT JOIN absences ON fk_absence = absenceid
-                LEFT JOIN roles ON roles.roleid = employees.fk_role'
+                LEFT JOIN absences ON fk_absence = absence_id
+                LEFT JOIN roles ON roles.role_id = employees.fk_role'
         );
     }
     
@@ -121,13 +121,13 @@ class User_Model extends Model
     /**
      * Shows the affected user to edit
      *
-     * @param int $id The id of the affected user
+     * @param int $id The _id of the affected user
      */
     public function userEdit($id)
     {
         return $this->db->select(
             'SELECT
-                employeeid,
+                employee_id,
                 personalnumber,
                 `name`,
                 surname,
@@ -139,9 +139,9 @@ class User_Model extends Model
                 roles.role
             FROM
                 employees
-                LEFT JOIN roles ON (fk_role = roles.roleid)
+                LEFT JOIN roles ON (fk_role = roles.role_id)
             WHERE
-                employeeid = :id', array(':id' => $id)
+                employee_id = :_id', array(':_id' => $id)
         );
     }
 
@@ -164,13 +164,13 @@ class User_Model extends Model
             'fk_role' => $data['fk_role']
         );
 
-        $this->db->update('employees', $updateArray, "`employeeid`={$data['employeeid']}");
+        $this->db->update('employees', $updateArray, "`employee_id`={$data['employee_id']}");
     }
 
     /**
      * Deletes the affected user
      *
-     * @param int $id The affected user id
+     * @param int $id The affected user _id
      */
     public function delete($id)
     {
@@ -180,9 +180,9 @@ class User_Model extends Model
                 roles.role
             FROM
                 employees
-                LEFT JOIN roles ON (employees.fk_role = roles.roleid)
+                LEFT JOIN roles ON (employees.fk_role = roles.role_id)
             WHERE
-                employeeid = :id', array(':id' => $id)
+                employee_id = :_id', array(':_id' => $id)
         );
 
         // dont delete the admin or when you ar the disponent your selfe
@@ -193,6 +193,6 @@ class User_Model extends Model
         )
         return false;
 
-        $this->db->delete('employees', "employeeid = '$id'");
+        $this->db->delete('employees', "employee_id = '$id'");
     }
 }

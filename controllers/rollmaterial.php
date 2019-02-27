@@ -71,7 +71,7 @@ class Rollmaterial extends Controller
     public function editSave($id)
     {
         $data = array();
-        $data['rollmaterialid'] = $id;
+        $data['rollmaterial_id'] = $id;
         $data['number'] = $_POST['number'];
         $data['type'] = $_POST['type'];
         $data['date_of_commissioning'] = $_POST['date_of_commissioning'];

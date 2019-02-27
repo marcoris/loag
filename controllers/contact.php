@@ -6,6 +6,9 @@ class Contact extends Controller {
         parent::__construct();
     }
 
+    /**
+     * Call the render function for the contact page
+     */
     public function index()
     {
         $this->view->render('contact/index');

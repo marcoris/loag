@@ -36,15 +36,15 @@ class Line extends Controller
         // output the values in table rows
         for ($i=0; $i < count($stations); $i++) {
             $this->output .= "<tr>";
-            $this->output .= "<td><input type='text' name='station_". $stations[$i]['stationid'] ."' id='station_". $stations[$i]['stationid'] ."' value='" . $stations[$i]['station'] . "'></td>";
+            $this->output .= "<td><input type='text' name='station_". $stations[$i]['station_id'] ."' id='station_". $stations[$i]['station_id'] ."' value='" . $stations[$i]['station'] . "'></td>";
             
             // check if its not the first station time
             if (isset($routes[$i-1]['time'])) {
-                $this->output .= "<td><input type='text' name='time_". $routes[$i-1]['routeid'] ."' id='time_". $routes[$i-1]['routeid'] ."' value='" . $routes[$i-1]['time'] . "'> min.</td>";
-                $this->output .= "<td><input type='number' min='1' name='sequence_". $stations[$i]['stationid'] ."' id='sequence_". $stations[$i]['stationid'] ."' value='" . $stations[$i]['sequence'] . "'></td>";
+                $this->output .= "<td><input type='text' name='time_". $routes[$i-1]['route_id'] ."' id='time_". $routes[$i-1]['route_id'] ."' value='" . $routes[$i-1]['time'] . "'> min.</td>";
+                $this->output .= "<td><input type='number' min='1' name='sequence_". $stations[$i]['station_id'] ."' id='sequence_". $stations[$i]['station_id'] ."' value='" . $stations[$i]['sequence'] . "'></td>";
                 $this->output .= '<td>';
             if ($i+1 != count($stations)) {
-                $this->output .= '<a class="btn btn-danger delete" id="delete_' . $stations[$i]['stationid'] . '" href="#"><i class="fas fa-trash"></i></a>';
+                $this->output .= '<a class="btn btn-danger delete" id="delete_' . $stations[$i]['station_id'] . '" href="#"><i class="fas fa-trash"></i></a>';
             } else {
                 $this->output .= '</td>';
             }
@@ -78,10 +78,10 @@ class Line extends Controller
 
 
             // update sequence from existing station
-            $this->model->updateSequenceStation($data['station_sequence_id']['stationid'], $stationArray);
+            $this->model->updateSequenceStation($data['station_sequence_id']['station_id'], $stationArray);
             
             // update sequence from existing route
-            $this->model->updateSequenceRoute($data['route_sequence_id']['routeid'], $routeArray);
+            $this->model->updateSequenceRoute($data['route_sequence_id']['route_id'], $routeArray);
     
             // call create function
             $this->model->create($data);

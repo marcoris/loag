@@ -9,10 +9,10 @@
  */
 function pvd($array)
 {
-    $data = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT,1);
+    $data = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
     
-    print "pvd::".$data[0]["file"]."->".$data[0]["line"]."<br>";
-    print "<pre title='".$data[0]["file"]."->".$data[0]["line"]."'>";
+    echo $data[0]["function"] . "::".$data[0]["file"]."->".$data[0]["line"]."<br>";
+    echo "<pre title='".$data[0]["file"]."->".$data[0]["line"]."'>";
     var_dump($array);
-    print "</pre>";
+    echo "</pre>";
 }

@@ -38,6 +38,8 @@ class Session
 
     /**
      * The session destroy function
+     * 
+     * @param array $destroyArray - The array with session values
      */
     public static function destroy($destroyArray)
     {

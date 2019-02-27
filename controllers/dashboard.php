@@ -7,17 +7,24 @@ class Dashboard extends Controller
     public function __construct()
     {
         parent::__construct();
-        // Session::init();
         Auth::check();
 
         $this->view->js = array('dashboard/js/default.js');
     }
 
+    /**
+     * Call the render function for the dashboard
+     */
     public function index()
     {
         $this->view->render('dashboard/index');
     }
 
+    /**
+     * Call the function to show the use plan
+     */
+
+    
     public function editSave($id)
     {
         $data = array();

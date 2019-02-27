@@ -6,6 +6,9 @@ class About extends Controller {
         parent::__construct();
     }
 
+    /**
+     * Call the render function for the about page
+     */
     public function index()
     {
         $this->view->render('about/index');
