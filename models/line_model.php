@@ -145,6 +145,20 @@ class Line_Model extends Model
      *
      * @param array $data The data
      */
+    public function createLine($data)
+    {
+        $insertLine = array(
+            'line' => $data
+        );
+       
+        $this->db->insert('lines', $insertLine);
+    }
+    
+    /**
+     * Creates a user
+     *
+     * @param array $data The data
+     */
     public function create($data)
     {
         $insertStation = array(

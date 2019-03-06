@@ -9,7 +9,7 @@ class Line extends Controller
     {
         parent::__construct();
         Auth::check();
-        $this->view->js = array('line/js/checkValidation.js');
+        $this->view->js = array($this->path . 'js/checkValidation.js');
     }
 
     /**
@@ -21,12 +21,32 @@ class Line extends Controller
         $this->view->render($this->path . 'index');
     }
 
+    public function createLine($value)
+    {
+        // create line
+        // if there is an empty field dont call the create function in the model
+        if (empty($_POST['line'])) {
+            header('location: ' . URL . 'index/error');
+        } else {
+            $this->model->createLine($_POST['line']);
+
+            // send the user to the page
+            header('location: ' . URL . $this->path);
+        }
+    }
+
+    public function saveLine()
+    {
+        // save line
+        echo "toll";
+    }
+
     /**
      * get Line, Stations and Routes to show them in a table on the show page
      * 
      * @param integer $id The affected line to get data and show
      */
-    public function show($id)
+    public function station($id)
     {
         // get line, routes and stations
         $this->view->getLine = $this->model->getLine($id);
@@ -55,10 +75,10 @@ class Line extends Controller
         }
 
         $this->view->output = $this->output;
-        $this->view->render($this->path . 'show');
+        $this->view->render($this->path . 'station');
     }
 
-    public function create()
+    public function createStation()
     {
         // if there is an empty field dont call the create function in the model
         if (empty($_POST['station']) || empty($_POST['time'] || empty($_POST['fk_line']))) {
@@ -87,7 +107,7 @@ class Line extends Controller
             $this->model->create($data);
 
             // send the user to the page
-            header('location: ' . URL . $this->path . 'show/' . $data['fk_line']);
+            header('location: ' . URL . $this->path . 'station/' . $data['fk_line']);
         }
     }
 
@@ -122,12 +142,12 @@ class Line extends Controller
         // die;
 
         // $this->model->editSave($stationArray, $timeArray, $mainStation, $id);
-        header('location: ' . URL . $this->path . 'show/' . $id);
+        header('location: ' . URL . $this->path . 'station/' . $id);
     }
 
     public function saveMainstation()
     {
         $this->model->saveMainstation();
-        $this->view->render($this->path . 'show');
+        $this->view->render($this->path . 'station');
     }
 }
