@@ -28,6 +28,6 @@ class Login extends Controller
      */
     public function logout()
     {
-       $this->model->logout();
+        $this->model->logout();
     }
 }
