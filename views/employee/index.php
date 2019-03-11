@@ -1,41 +1,31 @@
 <div class="jumbotron jumbotron-fluid">
     <h1>Neuer Mitarbeiter erfassen</h1>
 
-    <form action="<?php echo URL; ?>user/create" method="post">
+    <form action="<?php echo URL; ?>employee/create" method="post">
         <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber"><br>
-        <label for="name">Vorname:<span class="required-star">*</span></label><input type="text" id="name" name="name"><br>
-        <label for="surname">Name:<span class="required-star">*</span></label><input type="text" id="surname" name="surname"><br>
+        <label for="firstname">Vorname:<span class="required-star">*</span></label><input type="text" id="firstname" name="firstname"><br>
+        <label for="lastname">Name:<span class="required-star">*</span></label><input type="text" id="lastname" name="lastname"><br>
         <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
             <option value="">-</option>
             <option value="1">Lokführer</option>
             <option value="2">Kontrolleur</option>
+            <option value="3">Büro</option>
         </select><br>
         <label for="absence">Absenz:<span class="required-star">*</span></label>
         <select name="absence" id="absence">
-            <?php
-            foreach ($this->absenceData as $key => $value) {
-                echo "<option value='{$value['absence_id']}'>" . $value['absence'] . "</option>";
-            }
-            ?>
-        </select><br>
-        <label for="line">Linie:<span class="required-star">*</span></label>
-        <select name="line" id="line">
-        <?php
-        foreach ($this->lineData as $key => $value) {
-            echo "<option value='{$value['line_id']}'>" . $value['line'] . "</option>";
-        }
-        ?>
+            <option value="">-</option>
+            <option value="1">Arbeit</option>
+            <option value="2">Ferien</option>
+            <option value="3">Krank</option>
         </select><br>
         <label for="login">Login:<span class="required-star">*</span></label><input type="text" id="login" name="login"><br>
         <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
         <label for="role">Rolle:<span class="required-star">*</span></label>
         <select name="role" id="role">
-            <?php
-            foreach ($this->roleData as $key => $value) {
-                    echo "<option value='{$value['roleid']}'>" . ucfirst($value['role']) . "</option>";
-            }
-            ?>
+            <option value="">-</option>
+            <option value="1">Disponent</option>
+            <option value="2">Mitarbeiter</option>
         </select><br>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
@@ -56,10 +46,10 @@
         <tbody>
             <?php
             $i = 1;
-            foreach ($this->userList as $key => $value) {
-                if (strtolower($value['absence']) == 'krank') {
+            foreach ($this->employeeList as $key => $value) {
+                if (strtolower($value['absence']) == 3) {
                     echo '<tr class="krank">';
-                } elseif (strtolower($value['absence']) == "ferien") {
+                } elseif (strtolower($value['absence']) == 2) {
                     echo '<tr class="ferien">';
                 } else {
                     echo '<tr>';
@@ -79,9 +69,9 @@
                 }
                 echo '</td>';
                 echo '<td>
-                    <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employee_id'] . '"><i class="fas fa-pen"></i></a>';
-                if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 1))
-                echo '<a class="btn btn-danger delete" href="' . URL . 'user/delete/' . $value['employee_id'] . '"><i class="fas fa-trash"></i></a>';
+                    <a class="btn btn-success" href="' . URL . 'employee/edit/' . $value['employee_id'] . '"><i class="fas fa-pen"></i></a>';
+                if ($value['role'] == 3 || ($value['role'] == 2 && Session::get('usergroup') == 1))
+                echo '<a class="btn btn-danger delete" href="' . URL . 'employee/delete/' . $value['employee_id'] . '"><i class="fas fa-trash"></i></a>';
                 echo '</td>';
                 echo '</tr>';
                 $i++;

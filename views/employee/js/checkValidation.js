@@ -9,23 +9,29 @@ $(function () {
         } else {
             $("#personalnumber").removeClass("required");
         }
-        if ($("#name").val() == '') {
-            $("#name").addClass("required");
+        if ($("#firstname").val() == '') {
+            $("#firstname").addClass("required");
             fail = true;
         } else {
-            $("#name").removeClass("required");
+            $("#firstname").removeClass("required");
         }
-        if ($("#surname").val() == '') {
-            $("#surname").addClass("required");
+        if ($("#lastname").val() == '') {
+            $("#lastname").addClass("required");
             fail = true;
         } else {
-            $("#surname").removeClass("required");
+            $("#lastname").removeClass("required");
         }
         if ($("#category").val() == '') {
             $("#category").addClass("required");
             fail = true;
         } else {
             $("#category").removeClass("required");
+        }
+        if ($("#absence").val() == '') {
+            $("#absence").addClass("required");
+            fail = true;
+        } else {
+            $("#absence").removeClass("required");
         }
         if ($("#login").val() == '') {
             $("#login").addClass("required");
@@ -39,6 +45,12 @@ $(function () {
         } else {
             $("#password").removeClass("required");
         }
+        if ($("#role").val() == '') {
+            $("#role").addClass("required");
+            fail = true;
+        } else {
+            $("#role").removeClass("required");
+        }
 
         if (fail) {
             e.preventDefault();
@@ -46,7 +58,7 @@ $(function () {
     });
 
     $(".delete").on('click', function(e){
-        if (!confirm('Wirklich löschen?')) {
+        if (!confirm('Mitarbeiter wirklich löschen?')) {
             e.preventDefault();
         }
     });

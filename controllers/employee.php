@@ -1,16 +1,14 @@
 <?php
 
-class User extends Controller
+class Employee extends Controller
 {
-    private $path = 'user';
+    private $path = 'employee';
 
     public function __construct()
     {
         parent::__construct();
         Auth::check();
-        $usergroup = Session::get('usergroup');
-
-        if ($usergroup > 2) {
+        if (Session::get('usergroup') > 1) {
             header('location: ' . URL . 'login');
         }
 
@@ -18,12 +16,12 @@ class User extends Controller
     }
 
     /**
-     * Shows the user index page and lists the user and sets the role in the select box
+     * Shows the employee index page and lists the employee and sets the role in the select box
      *
      */
     public function index()
     {
-        $this->view->userList = $this->model->userList();
+        $this->view->employeeList = $this->model->employeeList();
         // $this->view->roleData = $this->model->roleData();
         // $this->view->categoryData = $this->model->categoryData();
         // $this->view->absenceData = $this->model->absenceData();
@@ -32,7 +30,7 @@ class User extends Controller
     }
 
     /**
-     * Shows the create user page
+     * Shows the create employee page
      *
      */
     public function create()
@@ -53,13 +51,13 @@ class User extends Controller
     }
 
     /**
-     * Shows the edit user page
+     * Shows the edit employee page
      *
-     * @param int $id The affected user id
+     * @param int $id The affected employee id
      */
     public function edit($id)
     {
-        $this->view->user = $this->model->userEdit($id);
+        $this->view->employee = $this->model->employeeEdit($id);
         // $this->view->categoryData = $this->model->categoryData();
         // $this->view->absenceData = $this->model->absenceData();
         // $this->view->lineData = $this->model->lineData();
@@ -71,7 +69,7 @@ class User extends Controller
     /**
      * The edit save function
      *
-     * @param int $id The affected user id
+     * @param int $id The affected employee id
      */
     public function editSave($id)
     {
@@ -93,9 +91,9 @@ class User extends Controller
     }
 
     /**
-     * The user delete call
+     * The employee delete call
      *
-     * @param int $id The affected user id
+     * @param int $id The affected employee id
      */
     public function delete($id)
     {

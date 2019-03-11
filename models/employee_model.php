@@ -1,6 +1,6 @@
 <?php
 
-class User_Model extends Model
+class Employee_Model extends Model
 {
     public function __construct()
     {
@@ -78,7 +78,7 @@ class User_Model extends Model
      *
      * @return data The users list
      */
-    public function userList()
+    public function employeeList()
     {
         return $this->db->select(
             'SELECT
@@ -121,7 +121,7 @@ class User_Model extends Model
      *
      * @param int $id The _id of the affected user
      */
-    public function userEdit($id)
+    public function employeeEdit($id)
     {
         return $this->db->select(
             'SELECT
