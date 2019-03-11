@@ -21,6 +21,12 @@ $(function () {
         } else {
             $("#surname").removeClass("required");
         }
+        if ($("#category").val() == '') {
+            $("#category").addClass("required");
+            fail = true;
+        } else {
+            $("#category").removeClass("required");
+        }
         if ($("#login").val() == '') {
             $("#login").addClass("required");
             fail = true;

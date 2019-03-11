@@ -17,14 +17,13 @@ class Login_Model extends Model
         $stmt = $this->db->prepare(
             'SELECT
                 employee_id,
-                `login`,
-                roles.role
+                login,
+                role
             FROM
-                employees
-                LEFT JOIN roles ON employees.fk_role = roles.role_id 
+                employee
             WHERE
-                `login` = :login AND
-                `password` = :password');
+                login = :login AND
+                password = :password');
 
         $stmt->execute(array(
             'login' => $_POST['login'],
@@ -35,20 +34,8 @@ class Login_Model extends Model
         $count = $stmt->rowCount();
 
         if ($count > 0) {
-            // set usergroup
-            switch ($data['role']) {
-                case 'admin':
-                    $usergroup = 1;
-                    break;
-                case 'disponent':
-                    $usergroup = 2;
-                    break;
-                default:
-                    $usergroup = 3;
-                    break;
-            }
             Session::init();
-            Session::set('usergroup', $usergroup);
+            Session::set('usergroup', $data['role']);
             Session::set('login', $data['login']);
             Session::set('loggedIn', true);
             header('location: ../dashboard');
@@ -63,7 +50,7 @@ class Login_Model extends Model
     public function logout()
     {
         Session::init();
-        $destroyArray = ['usergroup', 'login', 'loggedin'];
+        $destroyArray = ['usergroup', 'login', 'loggedIn'];
         Session::destroy($destroyArray);
         header('location: ' . URL . 'login');
         exit;

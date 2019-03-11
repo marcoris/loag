@@ -7,24 +7,24 @@
         <label for="surname">Name:<span class="required-star">*</span></label><input type="text" id="surname" name="surname"><br>
         <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
-        <?php foreach($this->categoryData as $key => $value) {
-                echo "<option value='{$value['category_id']}'>" . $value['category'] . "</option>";
-            }
-        ?>
+            <option value="">-</option>
+            <option value="1">Lokführer</option>
+            <option value="2">Kontrolleur</option>
         </select><br>
         <label for="absence">Absenz:<span class="required-star">*</span></label>
         <select name="absence" id="absence">
             <?php
-            foreach($this->absenceData as $key => $value) {
+            foreach ($this->absenceData as $key => $value) {
                 echo "<option value='{$value['absence_id']}'>" . $value['absence'] . "</option>";
             }
             ?>
         </select><br>
         <label for="line">Linie:<span class="required-star">*</span></label>
         <select name="line" id="line">
-        <?php foreach($this->lineData as $key => $value) {
-                echo "<option value='{$value['line_id']}'>" . $value['line'] . "</option>";
-            }
+        <?php
+        foreach ($this->lineData as $key => $value) {
+            echo "<option value='{$value['line_id']}'>" . $value['line'] . "</option>";
+        }
         ?>
         </select><br>
         <label for="login">Login:<span class="required-star">*</span></label><input type="text" id="login" name="login"><br>
@@ -32,7 +32,7 @@
         <label for="role">Rolle:<span class="required-star">*</span></label>
         <select name="role" id="role">
             <?php
-            foreach($this->roleData as $key => $value) {
+            foreach ($this->roleData as $key => $value) {
                     echo "<option value='{$value['roleid']}'>" . ucfirst($value['role']) . "</option>";
             }
             ?>
@@ -56,7 +56,7 @@
         <tbody>
             <?php
             $i = 1;
-            foreach($this->userList as $key => $value) {
+            foreach ($this->userList as $key => $value) {
                 if (strtolower($value['absence']) == 'krank') {
                     echo '<tr class="krank">';
                 } elseif (strtolower($value['absence']) == "ferien") {
@@ -66,10 +66,18 @@
                 }
                 echo '<td>' . $i . '.</td>';
                 echo '<td>' . $value['personalnumber'] . '</td>';
-                echo '<td>' . $value['name'] . '</td>';
-                echo '<td>' . $value['surname'] . '</td>';
+                echo '<td>' . $value['firstname'] . '</td>';
+                echo '<td>' . $value['lastname'] . '</td>';
                 echo '<td>' . $value['login'] . '</td>';
-                echo '<td>' . $value['role'] . '</td>';
+                echo '<td>';
+                if ($value['role'] == 1) {
+                    echo 'Admin';
+                } else if ($value['role'] == 2) {
+                    echo 'Disponent';
+                } else {
+                    echo 'Mitarbeiter';
+                }
+                echo '</td>';
                 echo '<td>
                     <a class="btn btn-success" href="' . URL . 'user/edit/' . $value['employee_id'] . '"><i class="fas fa-pen"></i></a>';
                 if ($value['role'] == 'mitarbeiter' || ($value['role'] == 'disponent' && Session::get('usergroup') == 1))

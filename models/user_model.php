@@ -84,15 +84,13 @@ class User_Model extends Model
             'SELECT
                 employee_id,
                 personalnumber,
-                `name`,
-                surname,
-                absences.absence AS absence,
-                `login`,
-                roles.role
+                firstname,
+                lastname,
+                absence,
+                role,
+                login
             FROM
-                employees
-                LEFT JOIN absences ON fk_absence = absence_id
-                LEFT JOIN roles ON roles.role_id = employees.fk_role'
+                employee'
         );
     }
     
@@ -129,17 +127,14 @@ class User_Model extends Model
             'SELECT
                 employee_id,
                 personalnumber,
-                `name`,
-                surname,
-                fk_category,
-                fk_absence,
-                fk_line,
-                `login`,
-                fk_role,
-                roles.role
+                firstname,
+                lastname,
+                category,
+                absence,
+                login,
+                role
             FROM
-                employees
-                LEFT JOIN roles ON (fk_role = roles.role_id)
+                employee
             WHERE
                 employee_id = :_id', array(':_id' => $id)
         );

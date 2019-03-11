@@ -15,9 +15,9 @@ class Schedule_Model extends Model
     public function getLine($id = null)
     {
         if ($id) {
-            return $this->db->select('SELECT line_id, line FROM loag.lines WHERE line_id = :id', array(':id' => $id));
+            return $this->db->select('SELECT line_id, line FROM loag.line WHERE line_id = :id', array(':id' => $id));
         } else {
-            return $this->db->select('SELECT line_id, line FROM loag.lines WHERE line != "-"');
+            return $this->db->select('SELECT line_id, line FROM loag.line WHERE line_name != "-"');
         }
     }
    
@@ -28,7 +28,7 @@ class Schedule_Model extends Model
      */
     public function getLineId()
     {
-        return $this->db->select('SELECT line_id FROM loag.lines WHERE line != "-"');
+        return $this->db->select('SELECT line_id FROM loag.line WHERE line_name != "-"');
     }
 
     /**

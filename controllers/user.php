@@ -24,10 +24,10 @@ class User extends Controller
     public function index()
     {
         $this->view->userList = $this->model->userList();
-        $this->view->roleData = $this->model->roleData();
-        $this->view->categoryData = $this->model->categoryData();
-        $this->view->absenceData = $this->model->absenceData();
-        $this->view->lineData = $this->model->lineData();
+        // $this->view->roleData = $this->model->roleData();
+        // $this->view->categoryData = $this->model->categoryData();
+        // $this->view->absenceData = $this->model->absenceData();
+        // $this->view->lineData = $this->model->lineData();
         $this->view->render($this->path . '/index');
     }
 
@@ -60,10 +60,10 @@ class User extends Controller
     public function edit($id)
     {
         $this->view->user = $this->model->userEdit($id);
-        $this->view->categoryData = $this->model->categoryData();
-        $this->view->absenceData = $this->model->absenceData();
-        $this->view->lineData = $this->model->lineData();
-        $this->view->roleData = $this->model->roleData();
+        // $this->view->categoryData = $this->model->categoryData();
+        // $this->view->absenceData = $this->model->absenceData();
+        // $this->view->lineData = $this->model->lineData();
+        // $this->view->roleData = $this->model->roleData();
         $this->view->render($this->path . '/edit');
         
     }

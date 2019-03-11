@@ -9,7 +9,7 @@ class Dashboard extends Controller
         parent::__construct();
         Auth::check();
 
-        $this->view->js = array('dashboard/js/default.js');
+        // $this->view->js = array('dashboard/js/default.js');
     }
 
     /**
