@@ -12,6 +12,7 @@ apt-get install -y apache2
 
 # Enable Apache Mods
 a2enmod rewrite
+sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
 # Install PHP
 apt-get install -y php7.2
@@ -22,14 +23,26 @@ apt-get install -y libapache2-mod-php7.2
 # Restart Apache
 service apache2 restart
 
-# PHP Mods
-apt-get install -y php7.2-xml
-apt-get install -y php7.2-common
-apt-get install -y php7.2-zip
-
 # PHP-MYSQL lib
-apt-get install -y php7.2-mysql
 apt-get install -y mysql-server
+apt-get install -y php7.2-mysql
+
+# Setup database
+sudo mysql -e "CREATE USER IF NOT EXISTS 'loag'@'localhost';"
+sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'loag'@'localhost' WITH GRANT OPTION;"
+sudo mysql -e "CREATE DATABASE IF NOT EXISTS loag;"
+sudo service mysql restart
+
+# Import bootstrap SQL
+sudo mysql loag < /var/www/html/employee.sql
+sudo mysql loag < /var/www/html/line_to_useplan.sql
+sudo mysql loag < /var/www/html/line.sql
+sudo mysql loag < /var/www/html/rollmaterial.sql
+sudo mysql loag < /var/www/html/station_to_line.sql
+sudo mysql loag < /var/www/html/station.sql
+sudo mysql loag < /var/www/html/useplan_to_employee.sql
+sudo mysql loag < /var/www/html/useplan_to_rollmaterial.sql
+sudo mysql loag < /var/www/html/useplan.sql
 
 # Restart Apache
 sudo systemctl restart apache2.service
