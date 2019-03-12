@@ -103,17 +103,16 @@ class Employee_Model extends Model
     {
         $insertArray = array(
             'personalnumber' => $data['personalnumber'],
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'fk_category' => $data['category'],
-            'fk_absence' => $data['absence'],
-            'fk_line' => $data['line'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'category' => $data['category'],
+            'absence' => $data['absence'],
             'login' => $data['login'],
             'password' => Hash::create($data['password']),
-            'fk_role' => $data['role']
+            'role' => $data['role']
         );
 
-        $this->db->insert('employees', $insertArray);
+        $this->db->insert('employee', $insertArray);
     }
 
     /**
@@ -171,23 +170,21 @@ class Employee_Model extends Model
     {
         $result = $this->db->select(
             'SELECT
-                employees.fk_role,
-                roles.role
+                role
             FROM
-                employees
-                LEFT JOIN roles ON (employees.fk_role = roles.role_id)
+                employee
             WHERE
                 employee_id = :_id', array(':_id' => $id)
         );
 
         // dont delete the admin or when you ar the disponent your selfe
         if (
-            isset($result[0]) && $result[0]['role'] == 'admin' ||
-            (isset($result[0]) && $result[0]['role'] == 'disponent' &&
+            isset($result[0]) && $result[0]['role'] == 1 ||
+            (isset($result[0]) && $result[0]['role'] == 2 &&
             Session::get('usergroup') == 2)
         )
         return false;
 
-        $this->db->delete('employees', "employee_id = '$id'");
+        $this->db->delete('employee', "employee_id = '$id'");
     }
 }

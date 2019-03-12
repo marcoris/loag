@@ -7,14 +7,12 @@
         <label for="lastname">Name:<span class="required-star">*</span></label><input type="text" id="lastname" name="lastname"><br>
         <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
-            <option value="">-</option>
             <option value="1">Lokführer</option>
             <option value="2">Kontrolleur</option>
             <option value="3">Büro</option>
         </select><br>
         <label for="absence">Absenz:<span class="required-star">*</span></label>
         <select name="absence" id="absence">
-            <option value="">-</option>
             <option value="1">Arbeit</option>
             <option value="2">Ferien</option>
             <option value="3">Krank</option>
@@ -23,9 +21,8 @@
         <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
         <label for="role">Rolle:<span class="required-star">*</span></label>
         <select name="role" id="role">
-            <option value="">-</option>
-            <option value="1">Disponent</option>
-            <option value="2">Mitarbeiter</option>
+            <option value="3">Mitarbeiter</option>
+            <option value="2">Disponent</option>
         </select><br>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
@@ -68,8 +65,9 @@
                     echo 'Mitarbeiter';
                 }
                 echo '</td>';
-                echo '<td>
-                    <a class="btn btn-success" href="' . URL . 'employee/edit/' . $value['employee_id'] . '"><i class="fas fa-pen"></i></a>';
+                echo '<td>';
+                if ((Session::get('usergroup') == 1) || ($value['role'] >= 2 && Session::get('usergroup') >= 2))
+                echo '<a class="btn btn-success" href="' . URL . 'employee/edit/' . $value['employee_id'] . '"><i class="fas fa-pen"></i></a>';
                 if ($value['role'] == 3 || ($value['role'] == 2 && Session::get('usergroup') == 1))
                 echo '<a class="btn btn-danger delete" href="' . URL . 'employee/delete/' . $value['employee_id'] . '"><i class="fas fa-trash"></i></a>';
                 echo '</td>';

@@ -8,7 +8,7 @@ class Employee extends Controller
     {
         parent::__construct();
         Auth::check();
-        if (Session::get('usergroup') > 1) {
+        if (Session::get('usergroup') > 2) {
             header('location: ' . URL . 'login');
         }
 
@@ -22,10 +22,6 @@ class Employee extends Controller
     public function index()
     {
         $this->view->employeeList = $this->model->employeeList();
-        // $this->view->roleData = $this->model->roleData();
-        // $this->view->categoryData = $this->model->categoryData();
-        // $this->view->absenceData = $this->model->absenceData();
-        // $this->view->lineData = $this->model->lineData();
         $this->view->render($this->path . '/index');
     }
 
@@ -37,11 +33,10 @@ class Employee extends Controller
     {
         $data = array();
         $data['personalnumber'] = $_POST['personalnumber'];
-        $data['name'] = $_POST['name'];
-        $data['surname'] = $_POST['surname'];
+        $data['firstname'] = $_POST['firstname'];
+        $data['lastname'] = $_POST['lastname'];
         $data['category'] = $_POST['category'];
         $data['absence'] = $_POST['absence'];
-        $data['line'] = $_POST['line'];
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
         $data['role'] = $_POST['role'];
@@ -58,10 +53,6 @@ class Employee extends Controller
     public function edit($id)
     {
         $this->view->employee = $this->model->employeeEdit($id);
-        // $this->view->categoryData = $this->model->categoryData();
-        // $this->view->absenceData = $this->model->absenceData();
-        // $this->view->lineData = $this->model->lineData();
-        // $this->view->roleData = $this->model->roleData();
         $this->view->render($this->path . '/edit');
         
     }

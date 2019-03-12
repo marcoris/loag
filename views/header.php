@@ -22,7 +22,7 @@
                     <?php if (Session::get('loggedIn')) : ?>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>dashboard">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>useplan">Einsatzplan</a></li>
-                        <?php if (Session::get('usergroup') < 2) : ?>
+                        <?php if (Session::get('usergroup') < 3) : ?>
                             <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>line">Linien</a></li>
                             <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>rollmaterial">Rollmaterial</a></li>
                             <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>employee">Mitarbeiter</a></li>

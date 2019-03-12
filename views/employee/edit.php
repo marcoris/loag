@@ -7,24 +7,40 @@
         <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
         <?php
-        foreach($this->categoryData as $key => $value) {
-            echo "<option value='{$value['category_id']}'";
-            if($this->employee[0]['category'] == $value['category_id']) {
+        for ($i=1; $i <= 3; $i++) {
+            echo "<option value='$i'";
+            if ($this->employee[0]['category'] == $i) {
                 echo 'selected';
             }
-            echo '>' . $value['category'] . "</option>";
+            echo '>';
+            if ($i == 1) {
+                echo 'Lokführer';
+            } else if ($i == 2) {
+                echo 'Kontrolleur';
+            } else {
+                echo 'Büro';
+            }
+            echo "</option>";
         }
         ?>
         </select><br>
         <label for="absence">Absenz:<span class="required-star">*</span></label>
         <select name="absence" id="absence">
         <?php
-        foreach($this->absenceData as $key => $value) {
-            echo "<option value='{$value['absence_id']}'";
-            if($this->employee[0]['absence'] == $value['absence_id']) {
+        for ($i=1; $i <= 3; $i++) {
+            echo "<option value='$i'";
+            if ($this->employee[0]['absence'] == $i) {
                 echo 'selected';
             }
-            echo '>' . ucfirst($value['absence']) . "</option>";
+            echo '>';
+            if ($i == 1) {
+                echo 'Arbeit';
+            } else if ($i == 2) {
+                echo 'Ferien';
+            } else {
+                echo 'Krank';
+            }
+            echo "</option>";
         }
         ?>
         </select><br>
@@ -33,15 +49,22 @@
         <label for="role">Rolle:<span class="required-star">*</span></label>
         <select name="role" id="role">
         <?php
-        foreach($this->roleData as $key => $value) {
-            echo "<option value='{$value['role_id']}'";
-            if($this->employee[0]['role'] == $value['role_id']) {
+        for ($i=3; $i > 1; $i--) {
+            echo "<option value='$i'";
+            if ($this->employee[0]['role'] == $i) {
                 echo 'selected';
             }
-            echo '>' . ucfirst($value['role']) . "</option>";
+            echo '>';
+            if ($i == 3) {
+                echo 'Mitarbeiter';
+            } else {
+                echo 'Disponent';
+            }
+            echo "</option>";
         }
         ?>
         </select><br>
+        <button class="btn btn-primary" onClick="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</button>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
 </div>
