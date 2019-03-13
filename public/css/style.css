@@ -105,12 +105,16 @@ input[type='password'] {
     margin: 0 5px;
 }
 
+.lok {
+    background-color: #94ffffaa !important;
+}
+
 .krank {
     background-color: #ffced6 !important;
 }
 
 .ferien {
-    background-color: #94ffffaa !important;
+    background-color: #94ff9daa !important;
 }
 
 .bold {

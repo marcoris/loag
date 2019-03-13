@@ -23,8 +23,6 @@ class Rollmaterial extends Controller
      */
     public function index()
     {
-        $this->view->typeData = $this->model->typeData();
-        $this->view->classData = $this->model->classData();
         $this->view->rollmaterialList = $this->model->rollmaterialList();
         $this->view->render($this->path . '/index');
     }
@@ -56,8 +54,6 @@ class Rollmaterial extends Controller
      */
     public function edit($id)
     {
-        $this->view->typeData = $this->model->typeData();
-        $this->view->classData = $this->model->classData();
         $this->view->rollmaterial = $this->model->rollmaterialEdit($id);
         $this->view->render($this->path . '/edit');
         

@@ -1,9 +1,9 @@
 <div class="jumbotron jumbotron-fluid">
     <h1>Mitarbeiter <strong><?php echo $this->employee[0]['login']; ?></strong> bearbeiten</h1>
-    <form action="<?php echo URL; ?>employee/editSave/<?php echo $this->employee[0]['employeeid']; ?>" method="post">
+    <form action="<?php echo URL; ?>employee/editSave/<?php echo $this->employee[0]['employee_id']; ?>" method="post">
         <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber" value="<?php echo $this->employee[0]['personalnumber']; ?>"><br>
-        <label for="name">Vorname:<span class="required-star">*</span></label><input type="text" id="name" name="name" value="<?php echo $this->employee[0]['firstname']; ?>"><br>
-        <label for="surname">Name:<span class="required-star">*</span></label><input type="text" id="surname" name="surname" value="<?php echo $this->employee[0]['lastname']; ?>"><br>
+        <label for="firstname">Vorname:<span class="required-star">*</span></label><input type="text" id="firstname" name="firstname" value="<?php echo $this->employee[0]['firstname']; ?>"><br>
+        <label for="lastname">Name:<span class="required-star">*</span></label><input type="text" id="lastname" name="lastname" value="<?php echo $this->employee[0]['lastname']; ?>"><br>
         <label for="category">Kategorie:<span class="required-star">*</span></label>
         <select name="category" id="category">
         <?php

@@ -74,6 +74,7 @@ class Employee extends Controller
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
         $data['role'] = $_POST['role'];
+        $data['employee_id'] = $id;
 
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);

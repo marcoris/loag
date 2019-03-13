@@ -77,7 +77,7 @@
             ?>
         </tbody>
     </table>
-    <label>Legende</label><br>
+    <label><strong>Legende</strong></label><br>
     <label class="ferien">Ferien</label>
     <label class="krank">Krank</label>
 </div>

@@ -4,22 +4,19 @@
         <label for="number">Nummer:<span class="required-star">*</span></label><input type="text" id="number" name="number"><br>
         <label for="type">Typ:<span class="required-star">*</span></label>
         <select name="type" id="type">
-        <?php foreach($this->typeData as $key => $value) {
-                echo "<option value='{$value['type_id']}'>" . $value['type'] . "</option>";
-            }
-        ?>
+            <option value="2">Waggon</option>
+            <option value="1">Lokomotive</option>
         </select><br>
         <label for="date_of_commissioning">Erste Inbetriebnahme:<span class="required-star">*</span></label><input type="text" id="date_of_commissioning" name="date_of_commissioning"><br>
         <label for="date_of_last_revision">Letzte Revision:<span class="required-star">*</span></label><input type="text" id="date_of_last_revision" name="date_of_last_revision"><br>
         <label for="date_of_next_revision">Nächste Revision:<span class="required-star">*</span></label><input type="text" id="date_of_next_revision" name="date_of_next_revision"><br>
         <label for="class">Klasse:<span class="required-star">*</span></label>
         <select name="class" id="class">
-            <?php foreach($this->classData as $key => $value) {
-                echo "<option value='{$value['class_id']}'>" . $value['class'] . "</option>";
-            }
-            ?>
+            <option value="0">Keine</option>
+            <option value="1">1. Klasse</option>
+            <option value="2">2. Klasse</option>
         </select><br>
-        <label for="seating">Sitzplätze:<span class="required-star">*</span></label><input type="number" id="seating" name="seating" value="0"><br>
+        <label for="seating">Sitzplätze:<span class="required-star">*</span></label><input type="number" id="seating" name="seating" value="0" min="0"><br>
         <label for="availability">Verfügbar:<span class="required-star">*</span></label>
         <select name="availability" id="availability">
             <option value="1">Ja</option>
@@ -47,10 +44,10 @@
             <?php
             $i = 1;
             foreach($this->rollmaterialList as $key => $value) {
-                echo '<tr>';
+                echo '<tr class="'.($value['type'] == 1 ? 'lok ' : '').(!$value['availability'] ? 'krank' : '').'">';
                 echo '<td>' . $i . '.</td>';
                 echo '<td>' . $value['number'] . '</td>';
-                echo '<td>' . $value['type'] . '</td>';
+                echo '<td>' . ($value['type'] == 1 ? 'Lokomotive' : 'Waggon') . '</td>';
                 echo '<td>' . $value['date_of_commissioning'] . '</td>';
                 echo '<td>' . $value['date_of_last_revision'] . '</td>';
                 echo '<td>' . $value['date_of_next_revision'] . '</td>';
@@ -65,4 +62,7 @@
             ?>
         </tbody>
     </table>
+    <label><strong>Legende</strong></label><br>
+    <label class="lok">Lokomotive</label>
+    <label class="krank">Nicht verfügbar</label>
 </div>

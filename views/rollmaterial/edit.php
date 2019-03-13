@@ -1,16 +1,22 @@
 <div class="jumbotron jumbotron-fluid">
     <h1>Rollmaterial <strong><?php echo $this->rollmaterial[0]['number']; ?></strong> bearbeiten</h1>
-    <form action="<?php echo URL; ?>rollmaterial/editSave/<?php echo $this->rollmaterial[0]['rollmaterialid']; ?>" method="post">
+    <form action="<?php echo URL; ?>rollmaterial/editSave/<?php echo $this->rollmaterial[0]['rollmaterial_id']; ?>" method="post">
     <label for="number">Nummer:<span class="required-star">*</span></label><input type="text" id="number" name="number" value="<?php echo $this->rollmaterial[0]['number']; ?>"><br>
         <label for="type">Typ:<span class="required-star">*</span></label>
         <select name="type" id="type">
         <?php
-        foreach($this->typeData as $key => $value) {
-            echo "<option value='{$value['type_id']}'";
-            if ($this->rollmaterial[0]['fk_type'] == $value['type_id']) {
+        for ($i=1; $i < 3; $i++) {
+            echo "<option value='$i'";
+            if ($this->rollmaterial[0]['type'] == $i) {
                 echo 'selected';
             }
-            echo ">" . $value['type'] . "</option>";
+            echo '>';
+            if ($i == 1) {
+                echo 'Lokomotive';
+            } else {
+                echo 'Waggon';
+            }
+            echo "</option>";
         }
         ?>
         </select><br>
@@ -20,12 +26,20 @@
         <label for="class">Klasse:<span class="required-star">*</span></label>
         <select name="class" id="class">
             <?php
-            foreach($this->classData as $key => $value) {
-                echo "<option value='{$value['class_id']}'";
-                if ($this->rollmaterial[0]['fk_class'] == $value['class_id']) {
+            for ($i=0; $i < 3; $i++) {
+                echo "<option value='$i'";
+                if ($this->rollmaterial[0]['class'] == $i) {
                     echo 'selected';
                 }
-                echo ">" . $value['class'] . "</option>";
+                echo '>';
+                if ($i == 0) {
+                    echo '-';
+                } else if ($i == 1) {
+                    echo '1. Klasse';
+                } else {
+                    echo '2. Klasse';
+                }
+                echo "</option>";
             }
             ?>
         </select><br>
@@ -35,6 +49,7 @@
             <option value="1" <?php echo ($this->rollmaterial[0]['availability'] == 1) ? 'selected' : '' ?>>Ja</option>
             <option value="0" <?php echo ($this->rollmaterial[0]['availability'] == 0) ? 'selected' : '' ?>>Nein</option>
         </select><br>
+        <button class="btn btn-primary" onClick="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</button>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
 </div>

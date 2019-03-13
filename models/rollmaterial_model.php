@@ -12,55 +12,21 @@ class Rollmaterial_Model extends Model
      *
      * @return data The users list
      */
-    public function typeData()
-    {
-        return $this->db->select(
-            'SELECT
-                type_id,
-                `type`
-            FROM
-                types'
-        );
-    }
-    
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function classData()
-    {
-        return $this->db->select(
-            'SELECT
-                class_id,
-                class
-            FROM
-                classes'
-        );
-    }
-    
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
     public function rollmaterialList()
     {
         return $this->db->select(
             'SELECT
                 rollmaterial_id,
-                `number`,
-                types.type AS `type`,
+                number,
+                type,
                 date_of_commissioning,
                 date_of_last_revision,
                 date_of_next_revision,
-                classes.class AS class,
+                class,
                 seating,
-                `availability`
+                availability
             FROM
-                loag.rollmaterials
-                LEFT JOIN loag.types ON types.type_id = rollmaterials.fk_type
-                LEFT JOIN loag.classes ON classes.class_id = rollmaterials.fk_class'
+                rollmaterial'
         );
     }
 
@@ -82,7 +48,7 @@ class Rollmaterial_Model extends Model
             'availability' => $data['availability']
         );
 
-        $this->db->insert('rollmaterials', $insertArray);
+        $this->db->insert('rollmaterial', $insertArray);
     }
 
     /**
@@ -95,16 +61,16 @@ class Rollmaterial_Model extends Model
         return $this->db->select(
             'SELECT
                 rollmaterial_id,
-                `number`,
-                fk_type,
+                number,
+                type,
                 date_of_commissioning,
                 date_of_last_revision,
                 date_of_next_revision,
-                fk_class,
+                class,
                 seating,
-                `availability`
+                availability
             FROM
-                loag.rollmaterials
+                rollmaterial
             WHERE
                 rollmaterial_id = :id', array(':id' => $id)
         );
@@ -128,7 +94,7 @@ class Rollmaterial_Model extends Model
             'availability' => $data['availability']
         );
 
-        $this->db->update('rollmaterials', $updateArray, "`rollmaterial_id`={$data['rollmaterial_id']}");
+        $this->db->update('rollmaterial', $updateArray, "`rollmaterial_id`={$data['rollmaterial_id']}");
     }
 
     /**
@@ -138,6 +104,6 @@ class Rollmaterial_Model extends Model
      */
     public function delete($id)
     {
-        $this->db->delete('rollmaterials', "rollmaterial_id = '$id'");
+        $this->db->delete('rollmaterial', "rollmaterial_id = '$id'");
     }
 }
