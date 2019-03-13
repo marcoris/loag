@@ -1,90 +1,69 @@
 // here we check the input fields
-$(function() {
-    // form create line
-    $("#createLine").on('click', function(e) {
-        let fail = false;
-        let inputs = $('#line');
+$(function () {
+    $(':submit').on('click', function(e) {
+        var fail = false;
 
-        if (inputs.val() == '' || inputs.val() <= 0) {
-            $(inputs).addClass('required');
+        if ($("#personalnumber").val() == '') {
+            $("#personalnumber").addClass("required");
             fail = true;
         } else {
-            $(inputs).removeClass('required');
-            fail = false;
+            $("#personalnumber").removeClass("required");
         }
-
-        // if there is a fail prevent from sending the page
-        if (fail) {
-            e.preventDefault();
-            console.log(inputs);
+        if ($("#firstname").val() == '') {
+            $("#firstname").addClass("required");
+            fail = true;
         } else {
-            console.log(inputs);
+            $("#firstname").removeClass("required");
         }
-    });
-    
-    // form create station
-    $("#submitStation").on('click', function(e) {
-        let fail = false;
-        let inputs = $('#station :input[type="text"], #station :input[type="number"]');
-
-        let values = {};
-        inputs.each(function() {
-            if ($(this).val() == '' || $(this).val() <= 0) {
-                $(this).addClass('required');
+        if ($("#lastname").val() == '') {
+            $("#lastname").addClass("required");
+            fail = true;
+        } else {
+            $("#lastname").removeClass("required");
+        }
+        if ($("#category").val() == '') {
+            $("#category").addClass("required");
+            fail = true;
+        } else {
+            $("#category").removeClass("required");
+        }
+        if ($("#absence").val() == '') {
+            $("#absence").addClass("required");
+            fail = true;
+        } else {
+            $("#absence").removeClass("required");
+        }
+        if ($("#login").val() == '') {
+            $("#login").addClass("required");
+            fail = true;
+        } else {
+            $("#login").removeClass("required");
+        }
+        if (!$(this).hasClass('edit') ||
+            ($(this).hasClass('edit') && $('#password').val() != ''))
+        {
+            if ($("#password").val() == '') {
+                $("#password").addClass("required");
                 fail = true;
             } else {
-                $(this).removeClass('required');
-                fail = false;
-                values[this.id] = $(this).val();
+                $("#password").removeClass("required");
             }
-        });
+        }
+        if ($("#role").val() == '') {
+            $("#role").addClass("required");
+            fail = true;
+        } else {
+            $("#role").removeClass("required");
+        }
 
-        // if there is a fail prevent from sending the page
         if (fail) {
             e.preventDefault();
-        } else {
-            console.log(values);
         }
     });
 
-    // form save stations
-    $("#submitLine").on('click', function(e) {
-        e.preventDefault();
-        let fail = false;
-    //     $.each($('#line').serializeArray(), function(i, field) {
-    //         values[field.name] += field.value;
-    //     });
-        let inputs = $('#line :input:not(:disabled)');
-        let $mainstation = $("input[name='mainstation']:checked").val();
-
-        // not sure if you wanted this, but I thought I'd add it.
-        // get an associative array of just the values.
-        let values = {};
-        inputs.each(function() {
-            if ($(this).val() == '') {
-                $(this).addClass('required');
-                fail = true;
-            } else {
-                $(this).removeClass('required');
-                fail = false;
-                values[this.id] = $(this).val();
-            }
-        });
-        if (fail) {
-            console.log(fail);
-        } else {
-            console.log(values);
-            console.log($mainstation);
-        }
-    })
-
-    // delete function
     $(".delete").on('click', function(e){
-        if (!confirm('Wirklich löschen?')) {
+        if (!confirm('Mitarbeiter wirklich löschen?')) {
             e.preventDefault();
-        } else {
-            e.preventDefault();
-            console.log($(this).attr('id'));
         }
     });
 });
