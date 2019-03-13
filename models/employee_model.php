@@ -6,72 +6,6 @@ class Employee_Model extends Model
     {
         parent::__construct();
     }
-    
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function roleData()
-    {
-        return $this->db->select(
-            'SELECT
-                role_id,
-                `role`
-            FROM
-                roles
-            ORDER BY
-                role_id DESC'
-        );
-    }
-    
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function categoryData()
-    {
-        return $this->db->select(
-            'SELECT
-                category_id,
-                category
-            FROM
-                categories'
-        );
-    }
-    
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function absenceData()
-    {
-        return $this->db->select(
-            'SELECT
-                absence_id,
-                absence
-            FROM
-                absences'
-        );
-    }
-    
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function lineData()
-    {
-        return $this->db->select(
-            'SELECT
-                line_id,
-                `line`
-            FROM
-                `lines`'
-        );
-    }
 
     /**
      * Shows the list of users
@@ -146,19 +80,30 @@ class Employee_Model extends Model
      */
     public function editSave($data)
     {
-        $updateArray = array(
-            'personalnumber' => $data['personalnumber'],
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'fk_category' => $data['fk_category'],
-            'fk_absence' => $data['fk_absence'],
-            'fk_line' => $data['fk_line'],
-            'login' => $data['login'],
-            'password' => Hash::create($data['password']),
-            'fk_role' => $data['fk_role']
-        );
-
-        $this->db->update('employees', $updateArray, "`employee_id`={$data['employee_id']}");
+        // update employee with password if there is a new set
+        if ($data['password']) {
+            $updateArray = array(
+                'personalnumber' => $data['personalnumber'],
+                'firstname' => $data['firstname'],
+                'lastname' => $data['lastname'],
+                'category' => $data['category'],
+                'absence' => $data['absence'],
+                'login' => $data['login'],
+                'password' => Hash::create($data['password']),
+                'role' => $data['role']
+            );
+        } else {
+            $updateArray = array(
+                'personalnumber' => $data['personalnumber'],
+                'firstname' => $data['firstname'],
+                'lastname' => $data['lastname'],
+                'category' => $data['category'],
+                'absence' => $data['absence'],
+                'login' => $data['login'],
+                'role' => $data['role']
+            );
+        }
+        $this->db->update('employee', $updateArray, "`employee_id`={$data['employee_id']}");
     }
 
     /**

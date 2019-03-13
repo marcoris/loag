@@ -39,11 +39,15 @@ $(function () {
         } else {
             $("#login").removeClass("required");
         }
-        if ($("#password").val() == '') {
-            $("#password").addClass("required");
-            fail = true;
-        } else {
-            $("#password").removeClass("required");
+        if (!$(this).hasClass('edit') ||
+            ($(this).hasClass('edit') && $('#password').val() != ''))
+        {
+            if ($("#password").val() == '') {
+                $("#password").addClass("required");
+                fail = true;
+            } else {
+                $("#password").removeClass("required");
+            }
         }
         if ($("#role").val() == '') {
             $("#role").addClass("required");

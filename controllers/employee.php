@@ -67,16 +67,14 @@ class Employee extends Controller
         $data = array();
         $data['employeeid'] = $id;
         $data['personalnumber'] = $_POST['personalnumber'];
-        $data['name'] = $_POST['name'];
-        $data['surname'] = $_POST['surname'];
-        $data['fk_category'] = $_POST['category'];
-        $data['fk_absence'] = $_POST['absence'];
-        $data['fk_line'] = $_POST['line'];
+        $data['firstname'] = $_POST['firstname'];
+        $data['lastname'] = $_POST['lastname'];
+        $data['category'] = $_POST['category'];
+        $data['absence'] = $_POST['absence'];
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
-        $data['fk_role'] = $_POST['role'];
+        $data['role'] = $_POST['role'];
 
-        // @TODO: put your error checking!
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);
     }
