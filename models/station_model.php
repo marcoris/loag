@@ -1,6 +1,6 @@
 <?php
 
-class Employee_Model extends Model
+class Station_Model extends Model
 {
     public function __construct()
     {
@@ -12,22 +12,41 @@ class Employee_Model extends Model
      *
      * @return data The users list
      */
-    public function employeeList()
+    public function stationList()
     {
         return $this->db->select(
             'SELECT
-                employee_id,
-                personalnumber,
-                firstname,
-                lastname,
-                absence,
-                role,
-                login
+                st.station_id,
+                st.station_name,
+                st.station_time,
+                st.sequence AS station_sequence,
+                st.station_status,
+                l.line_name AS line_name
             FROM
-                employee'
+                station AS st
+                LEFT JOIN station_to_line AS stl ON (st.station_id = stl.station_id)
+                LEFT JOIN line AS l ON (l.line_id = stl.line_id)'
         );
     }
     
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function getLines()
+    {
+        return $this->db->select(
+            'SELECT
+                line_id,
+                line_name
+            FROM
+                line
+            WHERE
+                line_id != 1'
+        );
+    }
+
     /**
      * Creates a user
      *
@@ -35,18 +54,34 @@ class Employee_Model extends Model
      */
     public function create($data)
     {
-        $insertArray = array(
-            'personalnumber' => $data['personalnumber'],
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'category' => $data['category'],
-            'absence' => $data['absence'],
-            'login' => $data['login'],
-            'password' => Hash::create($data['password']),
-            'role' => $data['role']
+        $insertStation = array(
+            'station_name' => $data['station_name'],
+            'station_time' => $data['station_time'],
+            'sequence' => $data['station_sequence'],
+            'station_status' => $data['station_status']
+        );
+        
+        // insert station
+        $this->db->insert('station', $insertStation);
+
+        // get last inserted station id
+        $getLastID = $this->db->select(
+            'SELECT
+                station_id
+            FROM
+                station
+            ORDER BY
+                station_id DESC
+            LIMIT 1'
         );
 
-        $this->db->insert('employee', $insertArray);
+        $insertStationToLine = array(
+            'station_id' => $getLastID[0]['station_id'],
+            'line_id' => $data['station_to_line']
+        );
+        
+        // insert relation
+        $this->db->insert('station_to_line', $insertStationToLine);
     }
 
     /**
@@ -54,11 +89,11 @@ class Employee_Model extends Model
      *
      * @param int $id The _id of the affected user
      */
-    public function employeeEdit($id)
+    public function edit($id)
     {
         return $this->db->select(
             'SELECT
-                employee_id,
+                station_id,
                 personalnumber,
                 firstname,
                 lastname,
@@ -67,9 +102,9 @@ class Employee_Model extends Model
                 login,
                 role
             FROM
-                employee
+                station
             WHERE
-                employee_id = :_id', array(':_id' => $id)
+                station_id = :_id', array(':_id' => $id)
         );
     }
 
@@ -80,7 +115,7 @@ class Employee_Model extends Model
      */
     public function editSave($data)
     {
-        // update employee with password if there is a new set
+        // update station with password if there is a new set
         if ($data['password']) {
             $updateArray = array(
                 'personalnumber' => $data['personalnumber'],
@@ -103,7 +138,7 @@ class Employee_Model extends Model
                 'role' => $data['role']
             );
         }
-        $this->db->update('employee', $updateArray, "`employee_id`={$data['employee_id']}");
+        $this->db->update('station', $updateArray, "`station_id`={$data['station_id']}");
     }
 
     /**
@@ -113,23 +148,10 @@ class Employee_Model extends Model
      */
     public function delete($id)
     {
-        $result = $this->db->select(
-            'SELECT
-                role
-            FROM
-                employee
-            WHERE
-                employee_id = :_id', array(':_id' => $id)
-        );
+        // delete station
+        $this->db->delete('station', "station_id = '$id'");
 
-        // dont delete the admin or when you ar the disponent your selfe
-        if (
-            isset($result[0]) && $result[0]['role'] == 1 ||
-            (isset($result[0]) && $result[0]['role'] == 2 &&
-            Session::get('usergroup') == 2)
-        )
-        return false;
-
-        $this->db->delete('employee', "employee_id = '$id'");
+        // delete relation
+        $this->db->delete('station_to_line', "station_id = '$id'");
     }
 }

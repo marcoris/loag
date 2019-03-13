@@ -62,7 +62,7 @@ $(function () {
     });
 
     $(".delete").on('click', function(e){
-        if (!confirm('Mitarbeiter wirklich löschen?')) {
+        if (!confirm('Wirklich löschen?')) {
             e.preventDefault();
         }
     });

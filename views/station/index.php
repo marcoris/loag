@@ -1,75 +1,60 @@
 <div class="jumbotron jumbotron-fluid">
-    <h1>Neuer Mitarbeiter erfassen</h1>
-
-    <form action="<?php echo URL; ?>employee/create" method="post">
-        <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber"><br>
-        <label for="firstname">Vorname:<span class="required-star">*</span></label><input type="text" id="firstname" name="firstname"><br>
-        <label for="lastname">Name:<span class="required-star">*</span></label><input type="text" id="lastname" name="lastname"><br>
-        <label for="category">Kategorie:<span class="required-star">*</span></label>
-        <select name="category" id="category">
-            <option value="1">Lokführer</option>
-            <option value="2">Kontrolleur</option>
-            <option value="3">Büro</option>
+    <h1>Neue Station erfassen</h1>
+    <form action="<?php echo URL; ?>station/create" method="post">
+        <label for="station_name">Name:<span class="required-star">*</span></label><input type="text" id="station_name" name="station_name"><br>
+        <label for="station_time">Zeit:<span class="required-star">*</span></label><input type="text" id="station_time" name="station_time"><br>
+        <label for="station_sequence">Reihenfolge:<span class="required-star">*</span></label><input type="text" id="station_sequence" name="station_sequence"><br>
+        <label for="station_to_line">Linie:<span class="required-star">*</span></label>
+        <select name="station_to_line" id="station_to_line">
+        <?php
+            foreach($this->getLines as $key => $value) {
+                echo '<option value="' . $value['line_id'] . '">' . $value['line_name'] . '</option>';
+            }
+            ?>
         </select><br>
-        <label for="absence">Absenz:<span class="required-star">*</span></label>
-        <select name="absence" id="absence">
-            <option value="1">Arbeit</option>
-            <option value="2">Ferien</option>
-            <option value="3">Krank</option>
-        </select><br>
-        <label for="login">Login:<span class="required-star">*</span></label><input type="text" id="login" name="login"><br>
-        <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
-        <label for="role">Rolle:<span class="required-star">*</span></label>
-        <select name="role" id="role">
-            <option value="3">Mitarbeiter</option>
-            <option value="2">Disponent</option>
+        <label for="station_status">Status:<span class="required-star">*</span></label>
+        <select name="station_status" id="station_status">
+            <option value="0">Station</option>
+            <option value="1">Endstation</option>
+            <option value="2">Hauptbahnhof</option>
         </select><br>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
     <hr>
-    <h2>Mitarbeiterliste</h2>
+    <h2>Stations-Liste</h2>
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
                 <th>Nr.</td>
-                <th>Personalnummer</td>
-                <th>Vorname</td>
                 <th>Name</td>
-                <th>Login</td>
-                <th>Rolle</td>
+                <th>Zeit</td>
+                <th>Reihenfolge</td>
+                <th>Status</td>
+                <th>Linie</td>
                 <th>Bearbeiten</td>
             </tr>
         </thead>
         <tbody>
             <?php
             $i = 1;
-            foreach ($this->employeeList as $key => $value) {
-                if (strtolower($value['absence']) == 3) {
-                    echo '<tr class="krank">';
-                } elseif (strtolower($value['absence']) == 2) {
-                    echo '<tr class="ferien">';
-                } else {
-                    echo '<tr>';
-                }
+            foreach($this->stationList as $key => $value) {
+                echo '<tr class="'.($value['station_status'] == 2 ? 'ferien ' : '').($value['station_status'] == 1 ? 'lok' : '').'">';
                 echo '<td>' . $i . '.</td>';
-                echo '<td>' . $value['personalnumber'] . '</td>';
-                echo '<td>' . $value['firstname'] . '</td>';
-                echo '<td>' . $value['lastname'] . '</td>';
-                echo '<td>' . $value['login'] . '</td>';
+                echo '<td>' . $value['station_name'] . '</td>';
+                echo '<td>' . $value['station_time'] . '</td>';
+                echo '<td>' . $value['station_sequence'] . '</td>';
                 echo '<td>';
-                if ($value['role'] == 1) {
-                    echo 'Admin';
-                } else if ($value['role'] == 2) {
-                    echo 'Disponent';
+                if ($value['station_status'] == 2) {
+                    echo '<strong>Hauptbahnhof</strong>';
+                } else if ($value['station_status'] == 1) {
+                    echo '<strong>Endstation</strong>';
                 } else {
-                    echo 'Mitarbeiter';
+                    echo 'Station';
                 }
                 echo '</td>';
-                echo '<td>';
-                if ((Session::get('usergroup') == 1) || ($value['role'] >= 2 && Session::get('usergroup') >= 2))
-                echo '<a class="btn btn-success" href="' . URL . 'employee/edit/' . $value['employee_id'] . '"><i class="fas fa-pen"></i></a>';
-                if ($value['role'] == 3 || ($value['role'] == 2 && Session::get('usergroup') == 1))
-                echo '<a class="btn btn-danger delete" href="' . URL . 'employee/delete/' . $value['employee_id'] . '"><i class="fas fa-trash"></i></a>';
+                echo '<td>' . $value['line_name'] . '</td>';
+                echo '<td><a class="btn btn-success" href="' . URL . 'station/edit/' . $value['station_id'] . '"><i class="fas fa-pen"></i></a>';
+                echo '<a class="btn btn-danger delete" href="' . URL . 'station/delete/' . $value['station_id'] . '"><i class="fas fa-trash"></i></a>';
                 echo '</td>';
                 echo '</tr>';
                 $i++;
@@ -78,6 +63,6 @@
         </tbody>
     </table>
     <label><strong>Legende</strong></label><br>
-    <label class="ferien">Ferien</label>
-    <label class="krank">Krank</label>
+    <label class="ferien">Hauptbahnhof</label>
+    <label class="lok">Endstation</label>
 </div>

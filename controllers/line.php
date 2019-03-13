@@ -45,7 +45,7 @@ class Line extends Controller
      */
     public function edit($id)
     {
-        $this->view->line = $this->model->lineEdit($id);
+        $this->view->line = $this->model->edit($id);
         $this->view->render($this->path . '/edit');
         
     }

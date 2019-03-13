@@ -56,7 +56,7 @@ class Rollmaterial_Model extends Model
      *
      * @param int $id The id of the affected user
      */
-    public function rollmaterialEdit($id)
+    public function edit($id)
     {
         return $this->db->select(
             'SELECT

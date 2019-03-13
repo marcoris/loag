@@ -54,7 +54,7 @@ class Rollmaterial extends Controller
      */
     public function edit($id)
     {
-        $this->view->rollmaterial = $this->model->rollmaterialEdit($id);
+        $this->view->rollmaterial = $this->model->edit($id);
         $this->view->render($this->path . '/edit');
         
     }

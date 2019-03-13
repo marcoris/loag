@@ -64,7 +64,7 @@
         }
         ?>
         </select><br>
-        <button class="btn btn-primary" onClick="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</button>
+        <a class="btn btn-primary" href="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</a>
         <button class="btn btn-primary edit" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
 </div>

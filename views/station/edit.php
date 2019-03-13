@@ -1,70 +1,55 @@
 <div class="jumbotron jumbotron-fluid">
-    <h1>Mitarbeiter <strong><?php echo $this->employee[0]['login']; ?></strong> bearbeiten</h1>
-    <form action="<?php echo URL; ?>employee/editSave/<?php echo $this->employee[0]['employee_id']; ?>" method="post">
-        <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber" value="<?php echo $this->employee[0]['personalnumber']; ?>"><br>
-        <label for="firstname">Vorname:<span class="required-star">*</span></label><input type="text" id="firstname" name="firstname" value="<?php echo $this->employee[0]['firstname']; ?>"><br>
-        <label for="lastname">Name:<span class="required-star">*</span></label><input type="text" id="lastname" name="lastname" value="<?php echo $this->employee[0]['lastname']; ?>"><br>
-        <label for="category">Kategorie:<span class="required-star">*</span></label>
-        <select name="category" id="category">
+    <h1>Rollmaterial <strong><?php echo $this->rollmaterial[0]['number']; ?></strong> bearbeiten</h1>
+    <form action="<?php echo URL; ?>rollmaterial/editSave/<?php echo $this->rollmaterial[0]['rollmaterial_id']; ?>" method="post">
+    <label for="number">Nummer:<span class="required-star">*</span></label><input type="text" id="number" name="number" value="<?php echo $this->rollmaterial[0]['number']; ?>"><br>
+        <label for="type">Typ:<span class="required-star">*</span></label>
+        <select name="type" id="type">
         <?php
-        for ($i=1; $i <= 3; $i++) {
+        for ($i=1; $i < 3; $i++) {
             echo "<option value='$i'";
-            if ($this->employee[0]['category'] == $i) {
+            if ($this->rollmaterial[0]['type'] == $i) {
                 echo 'selected';
             }
             echo '>';
             if ($i == 1) {
-                echo 'Lokführer';
-            } else if ($i == 2) {
-                echo 'Kontrolleur';
+                echo 'Lokomotive';
             } else {
-                echo 'Büro';
+                echo 'Waggon';
             }
             echo "</option>";
         }
         ?>
         </select><br>
-        <label for="absence">Absenz:<span class="required-star">*</span></label>
-        <select name="absence" id="absence">
-        <?php
-        for ($i=1; $i <= 3; $i++) {
-            echo "<option value='$i'";
-            if ($this->employee[0]['absence'] == $i) {
-                echo 'selected';
+        <label for="date_of_commissioning">Erste Inbetriebnahme:<span class="required-star">*</span></label><input type="text" id="date_of_commissioning" name="date_of_commissioning" value="<?php echo $this->rollmaterial[0]['date_of_commissioning']; ?>"><br>
+        <label for="date_of_last_revision">Letzte Revision:<span class="required-star">*</span></label><input type="text" id="date_of_last_revision" name="date_of_last_revision" value="<?php echo $this->rollmaterial[0]['date_of_last_revision']; ?>"><br>
+        <label for="date_of_next_revision">Nächste Revision:<span class="required-star">*</span></label><input type="text" id="date_of_next_revision" name="date_of_next_revision" value="<?php echo $this->rollmaterial[0]['date_of_next_revision']; ?>"><br>
+        <label for="class">Klasse:<span class="required-star">*</span></label>
+        <select name="class" id="class">
+            <?php
+            for ($i=0; $i < 3; $i++) {
+                echo "<option value='$i'";
+                if ($this->rollmaterial[0]['class'] == $i) {
+                    echo 'selected';
+                }
+                echo '>';
+                if ($i == 0) {
+                    echo '-';
+                } else if ($i == 1) {
+                    echo '1. Klasse';
+                } else {
+                    echo '2. Klasse';
+                }
+                echo "</option>";
             }
-            echo '>';
-            if ($i == 1) {
-                echo 'Arbeit';
-            } else if ($i == 2) {
-                echo 'Ferien';
-            } else {
-                echo 'Krank';
-            }
-            echo "</option>";
-        }
-        ?>
+            ?>
         </select><br>
-        <label for="login">Login:<span class="required-star">*</span></label><input type="text" id="login" name="login" value="<?php echo $this->employee[0]['login']; ?>"><br>
-        <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
-        <label for="role">Rolle:<span class="required-star">*</span></label>
-        <select name="role" id="role">
-        <?php
-        for ($i=3; $i > 1; $i--) {
-            echo "<option value='$i'";
-            if ($this->employee[0]['role'] == $i) {
-                echo 'selected';
-            }
-            echo '>';
-            if ($i == 3) {
-                echo 'Mitarbeiter';
-            } else {
-                echo 'Disponent';
-            }
-            echo "</option>";
-        }
-        ?>
+        <label for="seating">Sitzplätze:<span class="required-star">*</span></label><input type="number" id="seating" name="seating" value="<?php echo $this->rollmaterial[0]['seating']; ?>"><br>
+        <label for="availability">Verfügbar:<span class="required-star">*</span></label>
+        <select name="availability" id="availability">
+            <option value="1" <?php echo ($this->rollmaterial[0]['availability'] == 1) ? 'selected' : '' ?>>Ja</option>
+            <option value="0" <?php echo ($this->rollmaterial[0]['availability'] == 0) ? 'selected' : '' ?>>Nein</option>
         </select><br>
-        <button class="btn btn-primary" onClick="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</button>
-        <button class="btn btn-primary edit" type="submit"><i class="fas fa-save"></i> Speichern</button>
+        <a class="btn btn-primary" href="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</a>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
 </div>

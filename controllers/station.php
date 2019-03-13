@@ -1,8 +1,8 @@
 <?php
 
-class Employee extends Controller
+class Station extends Controller
 {
-    private $path = 'employee';
+    private $path = 'station';
 
     public function __construct()
     {
@@ -16,43 +16,42 @@ class Employee extends Controller
     }
 
     /**
-     * Shows the employee index page and lists the employee and sets the role in the select box
+     * Shows the station index page and lists the station and sets the role in the select box
      *
      */
     public function index()
     {
-        $this->view->employeeList = $this->model->employeeList();
+        $this->view->stationList = $this->model->stationList();
+        $this->view->getLines = $this->model->getLines();
         $this->view->render($this->path . '/index');
     }
 
     /**
-     * Shows the create employee page
+     * Shows the create station page
      *
      */
     public function create()
     {
         $data = array();
-        $data['personalnumber'] = $_POST['personalnumber'];
-        $data['firstname'] = $_POST['firstname'];
-        $data['lastname'] = $_POST['lastname'];
-        $data['category'] = $_POST['category'];
-        $data['absence'] = $_POST['absence'];
-        $data['login'] = $_POST['login'];
-        $data['password'] = $_POST['password'];
-        $data['role'] = $_POST['role'];
+        $data['station_name'] = $_POST['station_name'];
+        $data['station_time'] = $_POST['station_time'];
+        $data['station_sequence'] = $_POST['station_sequence'];
+        $data['station_to_line'] = $_POST['station_to_line'];
+        $data['station_status'] = $_POST['station_status'];
 
         $this->model->create($data);
         header('location: ' . URL . $this->path);
     }
 
     /**
-     * Shows the edit employee page
+     * Shows the edit station page
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected station id
      */
     public function edit($id)
     {
-        $this->view->employee = $this->model->employeeEdit($id);
+        $this->view->station = $this->model->edit($id);
+        $this->view->getLines = $this->model->getLines();
         $this->view->render($this->path . '/edit');
         
     }
@@ -60,12 +59,12 @@ class Employee extends Controller
     /**
      * The edit save function
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected station id
      */
     public function editSave($id)
     {
         $data = array();
-        $data['employeeid'] = $id;
+        $data['station_id'] = $id;
         $data['personalnumber'] = $_POST['personalnumber'];
         $data['firstname'] = $_POST['firstname'];
         $data['lastname'] = $_POST['lastname'];
@@ -74,16 +73,15 @@ class Employee extends Controller
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
         $data['role'] = $_POST['role'];
-        $data['employee_id'] = $id;
 
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);
     }
 
     /**
-     * The employee delete call
+     * The station delete call
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected station id
      */
     public function delete($id)
     {

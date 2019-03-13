@@ -52,7 +52,7 @@ class Employee extends Controller
      */
     public function edit($id)
     {
-        $this->view->employee = $this->model->employeeEdit($id);
+        $this->view->employee = $this->model->edit($id);
         $this->view->render($this->path . '/edit');
         
     }

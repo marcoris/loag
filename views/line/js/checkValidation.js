@@ -16,7 +16,7 @@ $(function () {
     });
 
     $(".delete").on('click', function(e){
-        if (!confirm('Linie wirklich löschen?')) {
+        if (!confirm('Wirklich löschen?')) {
             e.preventDefault();
         }
     });

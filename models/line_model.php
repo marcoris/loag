@@ -42,7 +42,7 @@ class Line_Model extends Model
      *
      * @param int $id The _id of the affected user
      */
-    public function lineEdit($id)
+    public function edit($id)
     {
         return $this->db->select(
             'SELECT

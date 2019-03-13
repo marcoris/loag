@@ -54,7 +54,7 @@ class Employee_Model extends Model
      *
      * @param int $id The _id of the affected user
      */
-    public function employeeEdit($id)
+    public function edit($id)
     {
         return $this->db->select(
             'SELECT
