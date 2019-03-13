@@ -52,6 +52,7 @@ class Station extends Controller
     {
         $this->view->station = $this->model->edit($id);
         $this->view->getLines = $this->model->getLines();
+        $this->view->getLineToStation = $this->model->getLineToStation($id);
         $this->view->render($this->path . '/edit');
         
     }
@@ -65,14 +66,11 @@ class Station extends Controller
     {
         $data = array();
         $data['station_id'] = $id;
-        $data['personalnumber'] = $_POST['personalnumber'];
-        $data['firstname'] = $_POST['firstname'];
-        $data['lastname'] = $_POST['lastname'];
-        $data['category'] = $_POST['category'];
-        $data['absence'] = $_POST['absence'];
-        $data['login'] = $_POST['login'];
-        $data['password'] = $_POST['password'];
-        $data['role'] = $_POST['role'];
+        $data['station_name'] = $_POST['station_name'];
+        $data['station_time'] = $_POST['station_time'];
+        $data['station_sequence'] = $_POST['station_sequence'];
+        $data['station_to_line'] = $_POST['station_to_line'];
+        $data['station_status'] = $_POST['station_status'];
 
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);

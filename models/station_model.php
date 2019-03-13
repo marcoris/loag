@@ -46,6 +46,24 @@ class Station_Model extends Model
                 line_id != 1'
         );
     }
+    
+    /**
+     * Shows the list of users
+     *
+     * @return data The users list
+     */
+    public function getLineToStation($id)
+    {
+        return $this->db->select(
+            'SELECT
+                line_id
+            FROM
+                station_to_line
+            WHERE
+                station_id = :station_id',
+            array(':station_id' => $id)
+        );
+    }
 
     /**
      * Creates a user
@@ -94,13 +112,10 @@ class Station_Model extends Model
         return $this->db->select(
             'SELECT
                 station_id,
-                personalnumber,
-                firstname,
-                lastname,
-                category,
-                absence,
-                login,
-                role
+                station_name,
+                station_time,
+                sequence,
+                station_status
             FROM
                 station
             WHERE
@@ -116,29 +131,18 @@ class Station_Model extends Model
     public function editSave($data)
     {
         // update station with password if there is a new set
-        if ($data['password']) {
-            $updateArray = array(
-                'personalnumber' => $data['personalnumber'],
-                'firstname' => $data['firstname'],
-                'lastname' => $data['lastname'],
-                'category' => $data['category'],
-                'absence' => $data['absence'],
-                'login' => $data['login'],
-                'password' => Hash::create($data['password']),
-                'role' => $data['role']
-            );
-        } else {
-            $updateArray = array(
-                'personalnumber' => $data['personalnumber'],
-                'firstname' => $data['firstname'],
-                'lastname' => $data['lastname'],
-                'category' => $data['category'],
-                'absence' => $data['absence'],
-                'login' => $data['login'],
-                'role' => $data['role']
-            );
-        }
+        $updateArray = array(
+            'station_name' => $data['station_name'],
+            'station_time' => $data['station_time'],
+            'sequence' => $data['station_sequence'],
+            'station_status' => $data['station_status']
+        );
         $this->db->update('station', $updateArray, "`station_id`={$data['station_id']}");
+
+        $updateStationToLine = array(
+            'line_id' => $data['station_to_line']
+        );
+        $this->db->update('station_to_line', $updateStationToLine, "`station_id`={$data['station_id']}");
     }
 
     /**
