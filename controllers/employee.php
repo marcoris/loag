@@ -65,7 +65,7 @@ class Employee extends Controller
     public function editSave($id)
     {
         $data = array();
-        $data['employeeid'] = $id;
+        $data['employee_id'] = $id;
         $data['personalnumber'] = $_POST['personalnumber'];
         $data['firstname'] = $_POST['firstname'];
         $data['lastname'] = $_POST['lastname'];
@@ -74,7 +74,6 @@ class Employee extends Controller
         $data['login'] = $_POST['login'];
         $data['password'] = $_POST['password'];
         $data['role'] = $_POST['role'];
-        $data['employee_id'] = $id;
 
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);

@@ -1,8 +1,8 @@
 <?php
 
-class Employee extends Controller
+class Line extends Controller
 {
-    private $path = 'employee';
+    private $path = 'line';
 
     public function __construct()
     {
@@ -16,43 +16,36 @@ class Employee extends Controller
     }
 
     /**
-     * Shows the employee index page and lists the employee and sets the role in the select box
+     * Shows the line index page and lists the line and sets the role in the select box
      *
      */
     public function index()
     {
-        $this->view->employeeList = $this->model->employeeList();
+        $this->view->lineList = $this->model->lineList();
         $this->view->render($this->path . '/index');
     }
 
     /**
-     * Shows the create employee page
+     * Shows the create line page
      *
      */
     public function create()
     {
         $data = array();
-        $data['personalnumber'] = $_POST['personalnumber'];
-        $data['firstname'] = $_POST['firstname'];
-        $data['lastname'] = $_POST['lastname'];
-        $data['category'] = $_POST['category'];
-        $data['absence'] = $_POST['absence'];
-        $data['login'] = $_POST['login'];
-        $data['password'] = $_POST['password'];
-        $data['role'] = $_POST['role'];
+        $data['line_name'] = $_POST['line_name'];
 
         $this->model->create($data);
         header('location: ' . URL . $this->path);
     }
 
     /**
-     * Shows the edit employee page
+     * Shows the edit line page
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected line id
      */
     public function edit($id)
     {
-        $this->view->employee = $this->model->employeeEdit($id);
+        $this->view->line = $this->model->lineEdit($id);
         $this->view->render($this->path . '/edit');
         
     }
@@ -60,30 +53,22 @@ class Employee extends Controller
     /**
      * The edit save function
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected line id
      */
     public function editSave($id)
     {
         $data = array();
-        $data['employeeid'] = $id;
-        $data['personalnumber'] = $_POST['personalnumber'];
-        $data['firstname'] = $_POST['firstname'];
-        $data['lastname'] = $_POST['lastname'];
-        $data['category'] = $_POST['category'];
-        $data['absence'] = $_POST['absence'];
-        $data['login'] = $_POST['login'];
-        $data['password'] = $_POST['password'];
-        $data['role'] = $_POST['role'];
-        $data['employee_id'] = $id;
+        $data['line_id'] = $id;
+        $data['line_name'] = $_POST['line_name'];
 
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);
     }
 
     /**
-     * The employee delete call
+     * The line delete call
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected line id
      */
     public function delete($id)
     {

@@ -1,6 +1,6 @@
 <?php
 
-class Employee_Model extends Model
+class Line_Model extends Model
 {
     public function __construct()
     {
@@ -12,19 +12,14 @@ class Employee_Model extends Model
      *
      * @return data The users list
      */
-    public function employeeList()
+    public function lineList()
     {
         return $this->db->select(
             'SELECT
-                employee_id,
-                personalnumber,
-                firstname,
-                lastname,
-                absence,
-                role,
-                login
+                line_id,
+                line_name
             FROM
-                employee'
+                line'
         );
     }
     
@@ -36,17 +31,10 @@ class Employee_Model extends Model
     public function create($data)
     {
         $insertArray = array(
-            'personalnumber' => $data['personalnumber'],
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'category' => $data['category'],
-            'absence' => $data['absence'],
-            'login' => $data['login'],
-            'password' => Hash::create($data['password']),
-            'role' => $data['role']
+            'line_name' => $data['line_name']
         );
 
-        $this->db->insert('employee', $insertArray);
+        $this->db->insert('line', $insertArray);
     }
 
     /**
@@ -54,22 +42,16 @@ class Employee_Model extends Model
      *
      * @param int $id The _id of the affected user
      */
-    public function employeeEdit($id)
+    public function lineEdit($id)
     {
         return $this->db->select(
             'SELECT
-                employee_id,
-                personalnumber,
-                firstname,
-                lastname,
-                category,
-                absence,
-                login,
-                role
+                line_id,
+                line_name
             FROM
-                employee
+                line
             WHERE
-                employee_id = :_id', array(':_id' => $id)
+                line_id = :_id', array(':_id' => $id)
         );
     }
 
@@ -80,30 +62,11 @@ class Employee_Model extends Model
      */
     public function editSave($data)
     {
-        // update employee with password if there is a new set
-        if ($data['password']) {
-            $updateArray = array(
-                'personalnumber' => $data['personalnumber'],
-                'firstname' => $data['firstname'],
-                'lastname' => $data['lastname'],
-                'category' => $data['category'],
-                'absence' => $data['absence'],
-                'login' => $data['login'],
-                'password' => Hash::create($data['password']),
-                'role' => $data['role']
-            );
-        } else {
-            $updateArray = array(
-                'personalnumber' => $data['personalnumber'],
-                'firstname' => $data['firstname'],
-                'lastname' => $data['lastname'],
-                'category' => $data['category'],
-                'absence' => $data['absence'],
-                'login' => $data['login'],
-                'role' => $data['role']
-            );
-        }
-        $this->db->update('employee', $updateArray, "`employee_id`={$data['employee_id']}");
+        // update line with password if there is a new set
+        $updateArray = array(
+            'line_name' => $data['line_name']
+        );
+        $this->db->update('line', $updateArray, "`line_id`={$data['line_id']}");
     }
 
     /**
@@ -113,23 +76,8 @@ class Employee_Model extends Model
      */
     public function delete($id)
     {
-        $result = $this->db->select(
-            'SELECT
-                role
-            FROM
-                employee
-            WHERE
-                employee_id = :_id', array(':_id' => $id)
-        );
-
-        // dont delete the admin or when you ar the disponent your selfe
-        if (
-            isset($result[0]) && $result[0]['role'] == 1 ||
-            (isset($result[0]) && $result[0]['role'] == 2 &&
-            Session::get('usergroup') == 2)
-        )
-        return false;
-
-        $this->db->delete('employee', "employee_id = '$id'");
+        // just to prevent the lines 1 - 4 to delete
+        if ($id > 5)
+        $this->db->delete('line', "line_id = '$id'");
     }
 }
