@@ -13,7 +13,6 @@ class Login_Model extends Model
      */
     public function login()
     {
-        // $this->db->select();
         $stmt = $this->db->prepare(
             'SELECT
                 employee_id,
@@ -37,6 +36,7 @@ class Login_Model extends Model
             Session::init();
             Session::set('usergroup', $data['role']);
             Session::set('login', $data['login']);
+            Session::set('employee_id', $data['employee_id']);
             Session::set('loggedIn', true);
             header('location: ../dashboard');
         } else {

@@ -28,7 +28,7 @@
                             <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>rollmaterial">Rollmaterial</a></li>
                             <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>employee">Mitarbeiter</a></li>
                         <?php endif; ?>
-                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>login/logout">Logout (<?php echo Session::get('login'); ?>)</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>login/logout">Logout (<?php echo $_SESSION['login']; ?>)</a></li>
                     <?php else : ?>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>schedule">Fahrplan</a></li>
                         <li class="nav-item"><a class="nav-link" href="<?php echo URL; ?>about">Über uns</a></li>

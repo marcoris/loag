@@ -1,6 +1,6 @@
 <div class="jumbotron jumbotron-fluid loggedin">
     <h1>Dashboard</h1>
-    <p>Willkommen <?php echo Session::get('login'); ?></p>
+    <p>Willkommen <?php echo $_SESSION['login']; ?></p>
     <hr>
     <h2 style="text-align: center; margin-bottom: 20px;">Einsatzplan</h2>
     <div class="useplan">
@@ -21,7 +21,7 @@
         );
         for ($i = 0; $i < 12; $i++) {
             if ($i+1 >= intval(date("m"))) {
-                echo '<div><a href="">' . $months[$i] . '</a></div>';
+                echo '<div><a href="' . URL . 'dashboard/useplan/' . $_SESSION['employee_id'] . '/' . ($i+1) . '">' . $months[$i] . '</a></div>';
             } else {
                 echo '<div>' . $months[$i] . '</div>';
             }
