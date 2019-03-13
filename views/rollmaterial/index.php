@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid loggedin">
     <h1>Neues Rollmaterial erfassen</h1>
     <form action="<?php echo URL; ?>rollmaterial/create" method="post">
         <label for="number">Nummer:<span class="required-star">*</span></label><input type="text" id="number" name="number"><br>
@@ -36,6 +36,7 @@
                 <th>Letzte Revision</td>
                 <th>Nächste Revision</td>
                 <th>Klasse</td>
+                <th>Sitzplätze</td>
                 <th>Verfügbar</td>
                 <th>Bearbeiten</td>
             </tr>
@@ -52,6 +53,7 @@
                 echo '<td>' . $value['date_of_last_revision'] . '</td>';
                 echo '<td>' . $value['date_of_next_revision'] . '</td>';
                 echo '<td>' . $value['class'] . '</td>';
+                echo '<td>' . $value['seating'] . '</td>';
                 echo '<td>' . ($value['availability'] ? 'Ja' : 'Nein') . '</td>';
                 echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterial_id'] . '"><i class="fas fa-pen"></i></a>';
                 echo '<a class="btn btn-danger delete" href="' . URL . 'rollmaterial/delete/' . $value['rollmaterial_id'] . '"><i class="fas fa-trash"></i></a>';

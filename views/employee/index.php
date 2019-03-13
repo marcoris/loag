@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid loggedin">
     <h1>Neuer Mitarbeiter erfassen</h1>
 
     <form action="<?php echo URL; ?>employee/create" method="post">
@@ -37,6 +37,7 @@
                 <th>Name</td>
                 <th>Login</td>
                 <th>Rolle</td>
+                <th>Kategorie</td>
                 <th>Bearbeiten</td>
             </tr>
         </thead>
@@ -63,6 +64,15 @@
                     echo 'Disponent';
                 } else {
                     echo 'Mitarbeiter';
+                }
+                echo '</td>';
+                echo '<td>';
+                if ($value['category'] == 1) {
+                    echo 'Lokführer';
+                } else if ($value['category'] == 2) {
+                    echo 'Kontrolleur';
+                } else {
+                    echo 'Büro';
                 }
                 echo '</td>';
                 echo '<td>';

@@ -12,8 +12,18 @@ html, body {
 }
 
 h1 {
+    margin-top: 20px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
+}
+
+.loggedin h1,
+.loggedin h2,
+.loggedin p,
+.loggedin button,
+.loggedin a,
+.loggedin label {
+    margin-left: 20px;
 }
 
 body {
@@ -31,6 +41,10 @@ body {
     overflow: auto;
     margin-bottom: 0;
     padding: 15px 0;
+}
+
+.padding {
+    /* padding: 20px 20px 0; */
 }
 
 .bg {
@@ -118,6 +132,48 @@ input[type='password'] {
 }
 
 .bold {
+    font-weight: bold;
+}
+
+.useplan {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 450px;
+    height: 350px;
+    margin: 0 auto;
+}
+
+.useplan div {
+    color: rgb(180, 180, 180);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(230, 230, 230);
+    width: 100px;
+    height: 100px;
+}
+
+.useplan div a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border: 2px solid gray;
+    background-color: silver;
+    margin-left: 0;
+}
+
+.useplan div a,
+.useplan div a:link,
+.useplan div a:active,
+.useplan div a:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.useplan div a:hover {
     font-weight: bold;
 }
 

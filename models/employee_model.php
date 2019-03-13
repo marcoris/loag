@@ -22,6 +22,7 @@ class Employee_Model extends Model
                 lastname,
                 absence,
                 role,
+                category,
                 login
             FROM
                 employee'

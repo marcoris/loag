@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid loggedin">
     <h1>Neue Linie erfassen</h1>
 
     <form action="<?php echo URL; ?>line/create" method="post">

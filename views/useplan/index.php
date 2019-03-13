@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid loggedin">
     <h1>Einsatzplan</h1>
     <p>Für den Monat x</p>
     <form action="<?php echo URL ?>saveUseplan" method="post">

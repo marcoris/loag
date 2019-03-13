@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid loggedin">
     <h1>Mitarbeiter <strong><?php echo $this->employee[0]['login']; ?></strong> bearbeiten</h1>
     <form action="<?php echo URL; ?>employee/editSave/<?php echo $this->employee[0]['employee_id']; ?>" method="post">
         <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber" value="<?php echo $this->employee[0]['personalnumber']; ?>"><br>

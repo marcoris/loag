@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid loggedin">
     <h1>Station <strong><?php echo $this->station[0]['station_name']; ?></strong> bearbeiten</h1>
     <form action="<?php echo URL; ?>station/editSave/<?php echo $this->station[0]['station_id']; ?>" method="post">
     <label for="station_name">Name:<span class="required-star">*</span></label><input type="text" id="station_name" name="station_name" value="<?php echo $this->station[0]['station_name']; ?>"><br>
