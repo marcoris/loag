@@ -33,6 +33,9 @@ sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'loag'@'localhost' WITH GRANT OPTI
 sudo mysql -e "CREATE DATABASE IF NOT EXISTS loag;"
 sudo service mysql restart
 
+# Restart Apache
+sudo systemctl restart apache2.service
+
 # Import bootstrap SQL
 sudo mysql loag < /var/www/html/sql/employee.sql
 sudo mysql loag < /var/www/html/sql/line_to_useplan.sql
@@ -43,6 +46,3 @@ sudo mysql loag < /var/www/html/sql/station.sql
 sudo mysql loag < /var/www/html/sql/useplan_to_employee.sql
 sudo mysql loag < /var/www/html/sql/useplan_to_rollmaterial.sql
 sudo mysql loag < /var/www/html/sql/useplan.sql
-
-# Restart Apache
-sudo systemctl restart apache2.service
