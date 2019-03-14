@@ -1,7 +1,10 @@
 <div class="jumbotron jumbotron-fluid loggedin">
     <h1>Dashboard</h1>
-    <p>Willkommen <?php echo $_SESSION['login']; ?></p>
+    <h2>Willkommen <?php echo Session::get('firstname') . ' ' . Session::get('lastname'); ?></h2>
+    <p>Im Dashboard kannst du deine Einsatzpläne anschauen und ausdrucken.<br>Monate in der Vergangenheit können nicht angeschaut werden!</p>
     <hr>
+    <?php
+    if (Session::get('usergroup') > 2) : ?>
     <h2 style="text-align: center; margin-bottom: 20px;">Einsatzplan</h2>
     <div class="useplan">
         <?php
@@ -28,4 +31,11 @@
         }
         ?>
     </div>
+    <?php
+    else : ?>
+    <h2>Einsatzplan</h2>
+    <p>Den Einsatzplan können nur die Mitarbeiter mit der Rolle <strong>Mitarbeiter</strong> anschauen!</p>
+    <?php
+    endif;
+    ?>
 </div>
