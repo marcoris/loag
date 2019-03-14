@@ -16,6 +16,7 @@ class Login_Model extends Model
         $stmt = $this->db->prepare(
             'SELECT
                 employee_id,
+                category,
                 login,
                 role
             FROM
@@ -37,6 +38,7 @@ class Login_Model extends Model
             Session::set('usergroup', $data['role']);
             Session::set('login', $data['login']);
             Session::set('employee_id', $data['employee_id']);
+            Session::set('category', $data['category']);
             Session::set('loggedIn', true);
             header('location: ../dashboard');
         } else {

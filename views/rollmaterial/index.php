@@ -45,14 +45,22 @@
             <?php
             $i = 1;
             foreach($this->rollmaterialList as $key => $value) {
-                echo '<tr class="'.($value['type'] == 1 ? 'lok ' : '').(!$value['availability'] ? 'krank' : '').'">';
+                echo '<tr class="'.($value['type'] == 1 ? 'lok ' : '').(!$value['availability'] ? 'krank' : '').(($value['class'] == 1) ? 'ferien' : '').'">';
                 echo '<td>' . $i . '.</td>';
                 echo '<td>' . $value['number'] . '</td>';
                 echo '<td>' . ($value['type'] == 1 ? 'Lokomotive' : 'Waggon') . '</td>';
                 echo '<td>' . $value['date_of_commissioning'] . '</td>';
                 echo '<td>' . $value['date_of_last_revision'] . '</td>';
                 echo '<td>' . $value['date_of_next_revision'] . '</td>';
-                echo '<td>' . $value['class'] . '</td>';
+                echo '<td>';
+                if ($value['class'] == 0) {
+                    echo '-';
+                } else if ($value['class'] == 1) {
+                    echo '1. Klasse';
+                } else {
+                    echo '2. Klasse';
+                }
+                echo '</td>';
                 echo '<td>' . $value['seating'] . '</td>';
                 echo '<td>' . ($value['availability'] ? 'Ja' : 'Nein') . '</td>';
                 echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterial_id'] . '"><i class="fas fa-pen"></i></a>';
