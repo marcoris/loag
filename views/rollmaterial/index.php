@@ -44,7 +44,7 @@
         <tbody>
             <?php
             $i = 1;
-            foreach($this->rollmaterialList as $key => $value) {
+            foreach ($this->rollmaterialList as $key => $value) {
                 echo '<tr class="'.($value['type'] == 1 ? 'lok ' : '').(!$value['availability'] ? 'krank' : '').(($value['class'] == 1) ? 'ferien' : '').'">';
                 echo '<td>' . $i . '.</td>';
                 echo '<td>' . $value['number'] . '</td>';
@@ -74,5 +74,6 @@
     </table>
     <label><strong>Legende</strong></label><br>
     <label class="lok">Lokomotive</label>
+    <label class="ferien">1. Klasse Waggon</label>
     <label class="krank">Nicht verfügbar</label>
 </div>

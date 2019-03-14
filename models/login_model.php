@@ -17,6 +17,8 @@ class Login_Model extends Model
             'SELECT
                 employee_id,
                 category,
+                firstname,
+                lastname,
                 login,
                 role
             FROM
@@ -37,6 +39,8 @@ class Login_Model extends Model
             Session::init();
             Session::set('usergroup', $data['role']);
             Session::set('login', $data['login']);
+            Session::set('firstname', $data['firstname']);
+            Session::set('lastname', $data['lastname']);
             Session::set('employee_id', $data['employee_id']);
             Session::set('category', $data['category']);
             Session::set('loggedIn', true);
