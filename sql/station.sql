@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `station` (
 
 LOCK TABLES `station` WRITE;
 
-INSERT IGNORE INTO `station` (`station_id`, `station_name`, `station_time`, `sequence`, `station_status`)
+INSERT INTO `station` (`station_id`, `station_name`, `station_time`, `sequence`, `station_status`)
 VALUES
 	(1,'Station1.1',1,1,1),
 	(2,'Station1.2',2,2,0),

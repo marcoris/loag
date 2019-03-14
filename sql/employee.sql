@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `employee` (
 
 LOCK TABLES `employee` WRITE;
 
-INSERT IGNORE INTO `employee` (`employee_id`, `category`, `absence`, `role`, `personalnumber`, `firstname`, `lastname`, `login`, `password`)
+INSERT INTO `employee` (`employee_id`, `category`, `absence`, `role`, `personalnumber`, `firstname`, `lastname`, `login`, `password`)
 VALUES
 	(1,3,1,1,'123','Marco','Ris','Marco','599fc64fff9cddeab77e2678f22b8e2199c41f2dff6f7ae5d33fb3f6be5a8ad9'),
 	(2,3,1,2,'456','Dispo','Nent','Disponent','29845a36cf4c90f57523bc67c6a3ce188fa33afa018e4f4da1db4b131615683c'),

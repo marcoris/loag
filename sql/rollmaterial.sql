@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `rollmaterial` (
 
 LOCK TABLES `rollmaterial` WRITE;
 
-INSERT IGNORE INTO `rollmaterial` (`rollmaterial_id`, `type`, `class`, `number`, `date_of_commissioning`, `date_of_last_revision`, `date_of_next_revision`, `availability`, `seating`)
+INSERT INTO `rollmaterial` (`rollmaterial_id`, `type`, `class`, `number`, `date_of_commissioning`, `date_of_last_revision`, `date_of_next_revision`, `availability`, `seating`)
 VALUES
 	(1,1,0,'L001','01.01.2019','01.01.2019','01.01.2020',1,0),
 	(2,2,1,'W001C1','01.01.2019','01.01.2019','01.01.2020',1,80),

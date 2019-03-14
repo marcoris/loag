@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `line` (
 
 LOCK TABLES `line` WRITE;
 
-INSERT IGNORE INTO `line` (`line_id`, `line_name`)
+INSERT INTO `line` (`line_id`, `line_name`)
 VALUES
 	(1,'-'),
 	(2,'Linie 1'),
