@@ -1,7 +1,14 @@
 <?php
-
+/**
+ * The Schedule model class
+ *
+ */
 class Schedule_Model extends Model
 {
+    /**
+     * Class constructor
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -12,35 +19,19 @@ class Schedule_Model extends Model
      *
      * @return data The users list
      */
-    public function getLine($id = null)
-    {
-        if ($id) {
-            return $this->db->select('SELECT line_id, line FROM loag.line WHERE line_id = :id', array(':id' => $id));
-        } else {
-            return $this->db->select('SELECT line_id, line FROM loag.line WHERE line_name != "-"');
-        }
-    }
-   
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function getLineId()
-    {
-        return $this->db->select('SELECT line_id FROM loag.line WHERE line_name != "-"');
-    }
-
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function getFirstAndLastStation($id)
+    public function getLine($start)
     {
         return $this->db->select(
-            'SELECT * FROM loag.stations WHERE sequence = 1 AND fk_line = :id OR
-            sequence = (SELECT COUNT(sequence) FROM loag.stations WHERE fk_line = :id) AND fk_line = :id', array(':id' => $id));
+            'SELECT
+            l.line_name
+        FROM
+            station AS s
+            LEFT JOIN station_to_line AS stl ON (stl.station_id = s.station_id)
+            LEFT JOIN line AS l ON (l.line_id = stl.line_id)
+        WHERE
+            s.station_name = :start',
+            array(':start' => $start)
+        );
     }
     
     /**
@@ -48,18 +39,18 @@ class Schedule_Model extends Model
      *
      * @return data The users list
      */
-    public function getStations($id)
+    public function getStationTimes($start, $end)
     {
-        return $this->db->select('SELECT station_id, station, mainstation, fk_line, sequence FROM loag.stations WHERE fk_line = :id ORDER BY sequence ASC', array(':id' => $id));
-    }
-    
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function getRoutes($id)
-    {
-        return $this->db->select('SELECT route_id, time, sequence FROM loag.routes WHERE fk_line = :id ORDER BY sequence ASC', array(':id' => $id));
+        return $this->db->select(
+            'SELECT
+            l.line_name
+        FROM
+            station AS s
+            LEFT JOIN station_to_line AS stl ON (stl.station_id = s.station_id)
+            LEFT JOIN line AS l ON (l.line_id = stl.line_id)
+        WHERE
+            s.station_name = :start',
+            array(':start' => $start)
+        );
     }
 }

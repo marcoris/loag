@@ -65,10 +65,6 @@ body {
     background-color: rgba(255,255,255,.65);
 }
 
-.col-5 {
-    margin: 0 auto;
-}
-
 .bg-lok .row h1,
 .bg-lok .row h4,
 .bg-lok .row form,
@@ -76,6 +72,19 @@ body {
 .bg-lok .row p {
     padding: 10px;
     margin: 0 auto;
+}
+
+.bg-lok .row h1 {
+    text-align: center;
+}
+
+.whitebg {
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 20px;
+}
+
+.col-md-10 {
+    padding-right: 0;
 }
 
 label,
@@ -181,7 +190,7 @@ input[type='password'] {
 }
 
 .title-box {
-    margin: -70px 85px 0;
+    margin: -90px 100px 0;
 }
 
 .title-box p {
@@ -189,10 +198,10 @@ input[type='password'] {
 }
 
 .line-box {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     text-align: center;
-    line-height: 70px;
+    line-height: 90px;
     font-size: 60px;
     font-weight: bold;
     color: white;

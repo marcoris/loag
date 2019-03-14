@@ -1,22 +1,51 @@
 <?php
+/**
+ * The schedule controller class
+ *
+ */
+class Schedule extends Controller
+{
+    private $path = 'schedule';
 
-class Schedule extends Controller {
+    /**
+     * Class constructor
+     *
+     */
     public function __construct()
     {
         parent::__construct();
+
+        $this->view->js = array($this->path . '/js/checkValidation.js');
     }
 
+    /**
+     * Index
+     *
+     */
     public function index()
     {
-        $lines = $this->model->getLineId();
-        $firstAndLast = array();
-        foreach ($lines as $lineids => $line) {
-            $firstAndLast[] = $this->model->getFirstAndLastStation($line['line_id']);
-        }
-        
-        $this->view->getLine = $this->model->getLine();
-        $this->view->getFirstAndLastStation = $firstAndLast;
-        $this->view->render('schedule/index');
+        $this->view->render($this->path . '/index');
+    }
+
+    public function showschedule()
+    {
+        // get line
+        $this->view->line = $this->model->getLine($_POST['start_station']);
+
+        $this->view->from = $_POST['start_station'];
+        $this->view->to = $_POST['end_station'];
+
+        $stationTimes = $this->model->getStationTimes($_POST['start_station'], $_POST['end_station']);
+
+        // set output with data
+        $this->view->output = '<tr>
+        <td class="bold text-center">05</td>
+        <td><span>30</span><span>45</span></td>
+        <td class="bold text-center">05</td>
+        <td><span>30</span></td>
+    </tr>';
+
+        $this->view->render($this->path . '/timeboard');
     }
     
     public function show($id, $reverse = null)
@@ -109,6 +138,6 @@ class Schedule extends Controller {
         $this->view->reverse = $reverse;
         $this->view->fromto = $fromto;
         $this->view->output = $output;
-        $this->view->render('schedule/timeboard');
+        $this->view->render($this->path . '/timeboard');
     }
 }

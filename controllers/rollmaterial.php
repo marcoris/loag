@@ -1,9 +1,16 @@
 <?php
-
+/**
+ * The Rollmaterial controller class
+ *
+ */
 class Rollmaterial extends Controller
 {
     private $path = 'rollmaterial';
 
+    /**
+     * Class constructor
+     *
+     */
     public function __construct()
     {
         parent::__construct();
