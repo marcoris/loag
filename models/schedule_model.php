@@ -19,38 +19,66 @@ class Schedule_Model extends Model
      *
      * @return data The users list
      */
-    public function getLine($start)
+    public function getStations($start)
     {
-        return $this->db->select(
+        $station_id = $this->db->select(
             'SELECT
-            l.line_name
-        FROM
-            station AS s
-            LEFT JOIN station_to_line AS stl ON (stl.station_id = s.station_id)
-            LEFT JOIN line AS l ON (l.line_id = stl.line_id)
-        WHERE
-            s.station_name = :start',
-            array(':start' => $start)
+                station_id
+            FROM
+                station
+            WHERE
+                station_name = :stationName',
+                array(
+                    ':stationName' => $start
+                )
         );
-    }
+
+        if (isset($station_id[0])) {
+            $line_id = $this->db->select(
+                'SELECT
+                    line_id
+                FROM
+                    station_to_line
+                WHERE
+                    station_id = :stationID',
+                    array(
+                        ':stationID' => $station_id[0]['station_id']
+                    )
+            );
     
-    /**
-     * Shows the list of users
-     *
-     * @return data The users list
-     */
-    public function getStationTimes($start, $end)
-    {
-        return $this->db->select(
-            'SELECT
-            l.line_name
-        FROM
-            station AS s
-            LEFT JOIN station_to_line AS stl ON (stl.station_id = s.station_id)
-            LEFT JOIN line AS l ON (l.line_id = stl.line_id)
-        WHERE
-            s.station_name = :start',
-            array(':start' => $start)
-        );
+            $getStationIDs = $this->db->select(
+                'SELECT
+                    station_id
+                FROM
+                    station_to_line
+                WHERE
+                    line_id = :lineID',
+                    array(
+                        ':lineID' => $line_id[0]['line_id']
+                    )
+            );
+            $stationIDs = '';
+            for ($i=0; $i<count($getStationIDs); $i++)
+            {
+                $stationIDs .= "station_id = {$getStationIDs[$i]['station_id']} OR ";
+            }
+    
+            $where = substr($stationIDs, 0, -4);
+    
+            return $this->db->select(
+                "SELECT
+                    station_id,
+                    station_name,
+                    station_time,
+                    `sequence`,
+                    station_status
+                FROM
+                    station
+                WHERE
+                    $where"
+            );
+        } else {
+            return false;
+        }
     }
 }
