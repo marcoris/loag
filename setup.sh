@@ -38,11 +38,11 @@ sudo systemctl restart apache2.service
 
 # Import bootstrap SQL
 sudo mysql loag < /var/www/html/sql/employee.sql
-sudo mysql loag < /var/www/html/sql/line_to_useplan.sql
 sudo mysql loag < /var/www/html/sql/line.sql
 sudo mysql loag < /var/www/html/sql/rollmaterial.sql
 sudo mysql loag < /var/www/html/sql/station_to_line.sql
 sudo mysql loag < /var/www/html/sql/station.sql
 sudo mysql loag < /var/www/html/sql/useplan_to_employee.sql
+sudo mysql loag < /var/www/html/sql/useplan_to_line.sql
 sudo mysql loag < /var/www/html/sql/useplan_to_rollmaterial.sql
 sudo mysql loag < /var/www/html/sql/useplan.sql
