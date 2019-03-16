@@ -131,4 +131,23 @@ class Schedule_Model extends Model
             return false;
         }
     }
+
+    /**
+     * Shows the list of users
+     *
+     * @param string $start The start station
+     * 
+     * @return data The users list
+     */
+    public function getSequence($start)
+    {
+        return $this->db->select(
+            "SELECT
+                `sequence`
+            FROM
+                station
+            WHERE
+                station_name = '$start'"
+        );
+    }
 }
