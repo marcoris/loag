@@ -3,6 +3,11 @@
 
     <form action="<?php echo URL; ?>employee/create" method="post">
         <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber"><br>
+        <label for="salutation">Anrede:<span class="required-star">*</span></label>
+        <select name="salutation" id="salutation">
+            <option value="1">Herr</option>
+            <option value="0">Frau</option>
+        </select><br>
         <label for="firstname">Vorname:<span class="required-star">*</span></label><input type="text" id="firstname" name="firstname"><br>
         <label for="lastname">Name:<span class="required-star">*</span></label><input type="text" id="lastname" name="lastname"><br>
         <label for="category">Kategorie:<span class="required-star">*</span></label>
@@ -33,6 +38,7 @@
             <tr>
                 <th>Nr.</td>
                 <th>Personalnummer</td>
+                <th>Anrede</td>
                 <th>Vorname</td>
                 <th>Name</td>
                 <th>Login</td>
@@ -54,6 +60,13 @@
                 }
                 echo '<td>' . $i . '.</td>';
                 echo '<td>' . $value['personalnumber'] . '</td>';
+                echo '<td>';
+                if ($value['salutation'] == 1) {
+                    echo 'Herr';
+                } else {
+                    echo 'Frau';
+                }
+                echo '</td>';
                 echo '<td>' . $value['firstname'] . '</td>';
                 echo '<td>' . $value['lastname'] . '</td>';
                 echo '<td>' . $value['login'] . '</td>';

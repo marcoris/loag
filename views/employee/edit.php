@@ -2,6 +2,24 @@
     <h1>Mitarbeiter <strong><?php echo $this->employee[0]['login']; ?></strong> bearbeiten</h1>
     <form action="<?php echo URL; ?>employee/editSave/<?php echo $this->employee[0]['employee_id']; ?>" method="post">
         <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber" value="<?php echo $this->employee[0]['personalnumber']; ?>"><br>
+        <label for="salutation">Anrede:<span class="required-star">*</span></label>
+        <select name="salutation" id="salutation">
+        <?php
+        for ($i=0; $i < 2; $i++) {
+            echo "<option value='$i'";
+            if ($this->employee[0]['salutation'] == $i) {
+                echo 'selected';
+            }
+            echo '>';
+            if ($i == 1) {
+                echo 'Herr';
+            } else {
+                echo 'Frau';
+            }
+            echo "</option>";
+        }
+        ?>
+        </select><br>
         <label for="firstname">Vorname:<span class="required-star">*</span></label><input type="text" id="firstname" name="firstname" value="<?php echo $this->employee[0]['firstname']; ?>"><br>
         <label for="lastname">Name:<span class="required-star">*</span></label><input type="text" id="lastname" name="lastname" value="<?php echo $this->employee[0]['lastname']; ?>"><br>
         <label for="category">Kategorie:<span class="required-star">*</span></label>

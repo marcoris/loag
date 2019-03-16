@@ -21,9 +21,10 @@ class Employee_Model extends Model
                 firstname,
                 lastname,
                 absence,
-                role,
+                `role`,
                 category,
-                login
+                salutation,
+                `login`
             FROM
                 employee'
         );
@@ -38,6 +39,7 @@ class Employee_Model extends Model
     {
         $insertArray = array(
             'personalnumber' => $data['personalnumber'],
+            'salutation' => $data['salutation'],
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'category' => $data['category'],
@@ -61,6 +63,7 @@ class Employee_Model extends Model
             'SELECT
                 employee_id,
                 personalnumber,
+                salutation,
                 firstname,
                 lastname,
                 category,
@@ -85,6 +88,7 @@ class Employee_Model extends Model
         if ($data['password']) {
             $updateArray = array(
                 'personalnumber' => $data['personalnumber'],
+                'salutation' => $data['salutation'],
                 'firstname' => $data['firstname'],
                 'lastname' => $data['lastname'],
                 'category' => $data['category'],
@@ -96,6 +100,7 @@ class Employee_Model extends Model
         } else {
             $updateArray = array(
                 'personalnumber' => $data['personalnumber'],
+                'salutation' => $data['salutation'],
                 'firstname' => $data['firstname'],
                 'lastname' => $data['lastname'],
                 'category' => $data['category'],

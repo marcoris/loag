@@ -9,6 +9,12 @@ $(function () {
         } else {
             $("#personalnumber").removeClass("required");
         }
+        if ($("#salutation").val() == '') {
+            $("#salutation").addClass("required");
+            fail = true;
+        } else {
+            $("#salutation").removeClass("required");
+        }
         if ($("#firstname").val() == '') {
             $("#firstname").addClass("required");
             fail = true;

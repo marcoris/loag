@@ -33,6 +33,7 @@ class Employee extends Controller
     {
         $data = array();
         $data['personalnumber'] = $_POST['personalnumber'];
+        $data['salutation'] = $_POST['salutation'];
         $data['firstname'] = $_POST['firstname'];
         $data['lastname'] = $_POST['lastname'];
         $data['category'] = $_POST['category'];
@@ -67,6 +68,7 @@ class Employee extends Controller
         $data = array();
         $data['employee_id'] = $id;
         $data['personalnumber'] = $_POST['personalnumber'];
+        $data['salutation'] = $_POST['salutation'];
         $data['firstname'] = $_POST['firstname'];
         $data['lastname'] = $_POST['lastname'];
         $data['category'] = $_POST['category'];
