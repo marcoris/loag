@@ -48,7 +48,7 @@ class Schedule extends Controller
         $stations = $this->model->getStations($_POST['start_station']);
 
         // check if station exists
-        if (isset($stations[0])) {
+        if (isset($stations[0]) && isset($end_sequence[0])) {
             // check if schedule is normal or reverse
             if ($start_sequence[0]['sequence'] < $end_sequence[0]['sequence']) {
                 // normal loop throug all stations for calc end time
@@ -90,7 +90,7 @@ class Schedule extends Controller
                         $end_time += $start_time;
                     }
                 }
-            } else if ($start_sequence[0]['sequence'] > $end_sequence[0]['sequence']) {
+            // } else if ($start_sequence[0]['sequence'] > $end_sequence[0]['sequence']) {
                 // reverse
             } else {
                 $this->view->no_entry = true;
@@ -108,19 +108,20 @@ class Schedule extends Controller
             $betweenStations = $countStaions - 2;
             $output = '';
             $calcTime = 0;
-            for ($i=$start_sequence[0]['sequence']; $i<$end_sequence[0]['sequence']; $i++) {
-                if ($stations[$i]['station_name'] == $_POST['end_station']) {
-                    break;
+            if (isset($start_sequence[0]) && isset($end_sequence[0])) {
+                for ($i=$start_sequence[0]['sequence']; $i<$end_sequence[0]['sequence']; $i++) {
+                    if ($stations[$i]['station_name'] == $_POST['end_station']) {
+                        break;
+                    }
+                    $output .= '<tr>
+                    <td><strong>';
+                    $calcTime += ($i == 2) ? 5 : $stations[$i]['station_time'] + ($stations[$i]['station_status'] == 2 ? 5 : 2);
+                    $output .= date("h:i", strtotime("+ $calcTime minutes", strtotime($startingTime)));
+                    $output .= '</strong> ';
+                    $output .= $stations[$i]['station_name'];
+                    $output .= '</td>
+                    </tr>';
                 }
-                $output .= '<div class="between-station-container">
-                <span class="start-time">';
-                $calcTime += ($i == 2) ? 5 : $stations[$i]['station_time'] + ($stations[$i]['station_status'] == 2 ? 5 : 2);
-                $output .= date("h:i", strtotime("+ $calcTime minutes", strtotime($startingTime)));
-                $output .= '</span>
-                <span class="station-name">';
-                $output .= $stations[$i]['station_name'];
-                $output .= '</span>
-                </div>';
             }
 
             $this->view->output = $output;

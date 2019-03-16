@@ -85,6 +85,35 @@ body {
     padding-bottom: 20px;
 }
 
+.schedule-container {
+    margin: 0 auto;
+    width: 550px;
+}
+
+.start-time-circle {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background: black;
+    border-radius: 50%;
+}
+
+.start-time-line {
+    display: inline-block;
+    height: 1px;
+    width: 30%;
+    vertical-align: middle;
+    background: black;
+}
+
+.total-time {
+    float: right;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
 .col-md-10 {
     padding-right: 0;
 }
