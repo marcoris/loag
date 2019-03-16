@@ -79,16 +79,15 @@ class Schedule extends Controller
                         }
                         $start_time += ($stations[$i]['station_status'] == 2 ? 5 : 2);
                         // add end
-                        for ($k=$i; $k<=$end_sequence[0]['sequence'] - ($start_sequence[0]['sequence']); $k++) {
-                            $end_time += $stations[$k]['station_time'];
-                            $total += $stations[$k]['station_time'];
-                            if (($k + 1) <= $end_sequence[0]['sequence'] - ($start_sequence[0]['sequence'])) {
-                                $end_time += ($stations[$k+1]['station_status'] == 2 ? 5 : 2);
-                                $total += ($stations[$k+1]['station_status'] == 2 ? 5 : 2);
+                        for ($k=$start_sequence[0]['sequence']; $k<=$end_sequence[0]['sequence']; $k++) {
+                            $end_time += isset($stations[$k]['station_time']) ? $stations[$k]['station_time'] : 0;
+                            $total += isset($stations[$k]['station_time']) ? $stations[$k]['station_time'] : 0;
+                            if (($k + 1) < $end_sequence[0]['sequence']) {
+                                $end_time += ($stations[$k]['station_status'] == 2 ? 5 : 2);
+                                $total += ($stations[$k]['station_status'] == 2 ? 5 : 2);
                             }
                         }
                         $end_time += $start_time;
-                        $total += $start_time;
                     }
                 }
             } else if ($start_sequence[0]['sequence'] > $end_sequence[0]['sequence']) {
@@ -108,52 +107,23 @@ class Schedule extends Controller
             $countStaions = count($stations);
             $betweenStations = $countStaions - 2;
             $output = '';
-            for ($i=0; $i<$countStaions; $i++) {
-                if ($stations[0]['station_name'] != $_POST['start_station'] &&
-                $stations[$countStaions-1]['station_name'] != $_POST['end_station']) {
-                // if ($stations[$i]['station_name'] == $_POST['start_station'] &&
-                // $i == 0 &&
-                // $stations[$i+1]['station_name'] != $_POST['end_station']) {
-                    $output .= '<div class="between-station-container">
-                    <span class="start-time">';
-                    $calcTime = $stations[$i]['station_time'] + ($stations[$i+1]['station_status'] == 2 ? 5 : 2);
-                    $output .= date("h:i", strtotime("+ $calcTime minutes", strtotime($startingTime)));
-                    $output .= '</span>
-                    <span class="station-name">';
-                    $output .= $stations[$i]['station_name'];
-                    $output .= '</span>
-                    </div>';
+            $calcTime = 0;
+            for ($i=$start_sequence[0]['sequence']; $i<$end_sequence[0]['sequence']; $i++) {
+                if ($stations[$i]['station_name'] == $_POST['end_station']) {
+                    break;
                 }
-                // if ($stations[$i]['station_name'] == $_POST['start_station'] &&
-                // $i != 0 &&
-                // $stations[$i+1]['station_name'] != $_POST['end_station']) {
-                //     $output .= '<div class="between-station-container">
-                //     <span class="start-time">';
-                //     $calcTime = $stations[$i+1]['station_time'] + ($stations[$i+1]['station_status'] == 2 ? 5 : 2);
-                //     $output .= date("h:i", strtotime("+ $calcTime minutes", strtotime($startingTime)));
-                //     $output .= '</span>
-                //     <span class="station-name">';
-                //     $output .= $stations[$i+1]['station_name'];
-                //     $output .= '</span>
-                //     </div>';
-                // }
-                // if ($stations[$i]['station_name'] == $_POST['start_station'] &&
-                // $i == 0 &&
-                // $stations[$i+1]['station_name'] != $_POST['end_station']) {
-
-                // }
+                $output .= '<div class="between-station-container">
+                <span class="start-time">';
+                $calcTime += ($i == 2) ? 5 : $stations[$i]['station_time'] + ($stations[$i]['station_status'] == 2 ? 5 : 2);
+                $output .= date("h:i", strtotime("+ $calcTime minutes", strtotime($startingTime)));
+                $output .= '</span>
+                <span class="station-name">';
+                $output .= $stations[$i]['station_name'];
+                $output .= '</span>
+                </div>';
             }
 
             $this->view->output = $output;
-            $this->view->stations = $stations;
-
-
-
-
-
-
-
-
         } else {
             $this->view->no_entry = true;
         }

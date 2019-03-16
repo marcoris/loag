@@ -1,7 +1,6 @@
 <div class="jumbotron jumbotron-fluid bg bg-lok">
     <div class="row">
         <div class="col-md-12 whitebg">    
-        <!-- <?php pvd($this->stations); ?> -->
         <?php
         if ($this->no_entry) : ?>
             <h1>Sorry!</h1>
