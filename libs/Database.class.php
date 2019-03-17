@@ -17,6 +17,7 @@ class Database extends PDO
      *
      * @param string $table The affected table
      * @param array $data The data
+     * @param class $fetchMode The mode to fetch the data
      * 
      * @return mixed
      */
@@ -100,6 +101,7 @@ class Database extends PDO
      *
      * @param string $table The affected table
      * @param int $id The affected id to delete
+     * @param int $limit The limit count of deletions
      */
     public function delete($table, $where, $limit = 1)
     {

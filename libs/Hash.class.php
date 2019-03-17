@@ -3,7 +3,7 @@
 class Hash
 {
     /**
-     * This function creates a hash
+     * This function creates a hash for a password
      * 
      * @param string $data - The string to hash
      * 

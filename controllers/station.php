@@ -16,7 +16,7 @@ class Station extends Controller
     }
 
     /**
-     * Shows the station index page and lists the station and sets the role in the select box
+     * Call the render function
      *
      */
     public function index()
@@ -27,7 +27,7 @@ class Station extends Controller
     }
 
     /**
-     * Shows the create station page
+     * Shows the create page
      *
      */
     public function create()
@@ -44,9 +44,9 @@ class Station extends Controller
     }
 
     /**
-     * Shows the edit station page
+     * Shows the edit page
      *
-     * @param int $id The affected station id
+     * @param int $id The affected id
      */
     public function edit($id)
     {
@@ -60,7 +60,7 @@ class Station extends Controller
     /**
      * The edit save function
      *
-     * @param int $id The affected station id
+     * @param int $id The affected id
      */
     public function editSave($id)
     {
@@ -77,9 +77,9 @@ class Station extends Controller
     }
 
     /**
-     * The station delete call
+     * The delete function
      *
-     * @param int $id The affected station id
+     * @param int $id The affected id
      */
     public function delete($id)
     {

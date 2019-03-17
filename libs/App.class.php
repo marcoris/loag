@@ -5,11 +5,6 @@ class App
     private $url = null;
     private $controller = null;
 
-    /**
-     * Construct the App
-     * 
-     * @return boolean
-     */
     public function __construct()
     {
         // Sets the private $url

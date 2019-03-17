@@ -8,7 +8,7 @@ class Dashboard_Model extends Model
     }
 
     /**
-     * Creates a useplan
+     * Creates automatically a useplan
      *
      * @param array $data The data
      */
@@ -72,8 +72,8 @@ class Dashboard_Model extends Model
     /**
      * check if useplan exists
      *
-     * @param int $id The affected employee id
-     * @param int $month The affected month
+     * @param int $employeeID The affected employee id
+     * @param int $date The affected date
      * 
      * @return bool row count
      */
@@ -113,7 +113,7 @@ class Dashboard_Model extends Model
     }
     
     /**
-     * Insert the line ID
+     * Insert data in useplan
      * 
      * @param int $lineID The affected line id
      * @param int $date The affected date
@@ -147,7 +147,7 @@ class Dashboard_Model extends Model
     }
 
     /**
-     * Insert the line ID
+     * Insert data in useplan_to_line
      * 
      * @param int $lineID The affected line id
      * @param int $useplanID The affected useplan id
@@ -163,7 +163,12 @@ class Dashboard_Model extends Model
     }
 
     /**
-     * Get lines
+     * Get employees
+     * 
+     * @param int $employeeID The affected id
+     * @param int $category The affected category
+     * 
+     * @return array of employee data
      */
     public function getEmployees($employeeID = null, $category = null)
     {
@@ -224,7 +229,7 @@ class Dashboard_Model extends Model
      * @param int $type The affected type
      * @param int $class The affected class
      * 
-     * @return rollmaterial_id and number
+     * @return array rollmaterial data
      */
     public function getRollmaterials($type, $class = null)
     {
@@ -266,8 +271,7 @@ class Dashboard_Model extends Model
      * 
      * @param int $type The affected type
      * @param int $class The affected class
-     * 
-     * @return array
+     *
      */
     public function insertUseplanToRollmaterial($useplanID, $waggonID)
     {
@@ -284,7 +288,7 @@ class Dashboard_Model extends Model
      * 
      * @param int $date The affected date
      * 
-     * @return array
+     * @return array train data
      */
     public function getTrainNr($date)
     {
@@ -302,11 +306,11 @@ class Dashboard_Model extends Model
     }
     
     /**
-     * Get useplan details
+     * Get line data
      * 
      * @param int $date The affected date
      * 
-     * @return array
+     * @return array line data
      */
     public function getLine($date)
     {
@@ -326,11 +330,12 @@ class Dashboard_Model extends Model
     }
     
     /**
-     * Get useplan details
+     * Get employees
      * 
      * @param int $date The affected date
+     * @param boolean $loc The category locomotive or waggons
      * 
-     * @return array
+     * @return array employees data
      */
     public function getTheEmployees($date, $loc = false)
     {
@@ -358,11 +363,12 @@ class Dashboard_Model extends Model
     }
     
     /**
-     * Get useplan details
+     * Get train details
      * 
      * @param int $date The affected date
+     * @param int $employeeID The affected id
      * 
-     * @return array
+     * @return array train data
      */
     public function getTrain($date, $employeeID)
     {
@@ -387,8 +393,15 @@ class Dashboard_Model extends Model
         );
     }
 
-    public function getUseplans($arr)
+    /**
+     * Get train details
+     * 
+     * @return array useplan data
+     */
+    public function getUseplans()
     {
+        $arr = array();
+
         $stmt = $this->db->prepare(
             'SELECT
                 u.useplan_id AS useplan_id,
@@ -412,6 +425,8 @@ class Dashboard_Model extends Model
         );
 
         $stmt->execute();
+
+        // set data in array
         while ($row = $stmt->fetch()) {
             $arr[$row['useplan_id']]['useplan_train_nr'] = $row['useplan_train_nr'];
             $arr[$row['useplan_id']]['useplan_date'] = $row['useplan_date'];

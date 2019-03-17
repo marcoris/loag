@@ -8,9 +8,9 @@ class Line_Model extends Model
     }
 
     /**
-     * Shows the list of users
+     * Shows the list of lines
      *
-     * @return data The users list
+     * @return array The lines list
      */
     public function lineList()
     {
@@ -24,7 +24,7 @@ class Line_Model extends Model
     }
     
     /**
-     * Creates a user
+     * Creates a line
      *
      * @param array $data The data
      */
@@ -38,9 +38,11 @@ class Line_Model extends Model
     }
 
     /**
-     * Shows the affected user to edit
+     * Get line to edit
      *
-     * @param int $id The _id of the affected user
+     * @param int $id The affected id
+     * 
+     * @return array line data
      */
     public function edit($id)
     {
@@ -56,7 +58,7 @@ class Line_Model extends Model
     }
 
     /**
-     * Saves the edited user data
+     * Saves the edited data
      *
      * @param array $data The data
      */
@@ -70,13 +72,13 @@ class Line_Model extends Model
     }
 
     /**
-     * Deletes the affected user
+     * Deletes the affected line
      *
-     * @param int $id The affected user _id
+     * @param int $id The affected line id
      */
     public function delete($id)
     {
-        // just to prevent the lines 1 - 4 to delete
+        // just to prevent the lines 1 - 4 of deletion
         if ($id > 5)
         $this->db->delete('line', "line_id = '$id'");
     }

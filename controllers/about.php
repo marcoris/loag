@@ -7,17 +7,10 @@ class About extends Controller {
     }
 
     /**
-     * Call the render function for the about page
+     * Call the render function
      */
     public function index()
     {
         $this->view->render('about/index');
     }
-
-    // public function other($arg = false)
-    // {
-    //     require 'models/about_model.php';
-    //     $model = new Help_Model();
-    //     $this->view->blah = $model->blah();
-    // }
 }

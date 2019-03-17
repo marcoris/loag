@@ -16,7 +16,7 @@ class Employee extends Controller
     }
 
     /**
-     * Shows the employee index page and lists the employee and sets the role in the select box
+     * Call the render function
      *
      */
     public function index()
@@ -26,7 +26,7 @@ class Employee extends Controller
     }
 
     /**
-     * Shows the create employee page
+     * Shows the create page
      *
      */
     public function create()
@@ -47,7 +47,7 @@ class Employee extends Controller
     }
 
     /**
-     * Shows the edit employee page
+     * Shows the edit page
      *
      * @param int $id The affected employee id
      */
@@ -61,7 +61,7 @@ class Employee extends Controller
     /**
      * The edit save function
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected id
      */
     public function editSave($id)
     {
@@ -82,9 +82,9 @@ class Employee extends Controller
     }
 
     /**
-     * The employee delete call
+     * The delete function
      *
-     * @param int $id The affected employee id
+     * @param int $id The affected id
      */
     public function delete($id)
     {

@@ -1,28 +1,22 @@
 <?php
-/**
- * The Schedule model class
- *
- */
+
 class Schedule_Model extends Model
 {
-    /**
-     * Class constructor
-     *
-     */
     public function __construct()
     {
         parent::__construct();
     }
     
     /**
-     * Shows the list of users
+     * Shows the list of stations
      *
      * @param string $start The start station
      * 
-     * @return data The users list
+     * @return array The stations data
      */
     public function getStations($start)
     {
+        // get station id
         $station_id = $this->db->select(
             'SELECT
                 station_id
@@ -36,6 +30,7 @@ class Schedule_Model extends Model
         );
 
         if (isset($station_id[0])) {
+            // get line id
             $line_id = $this->db->select(
                 'SELECT
                     line_id
@@ -48,6 +43,7 @@ class Schedule_Model extends Model
                     )
             );
     
+            // get station id
             $getStationIDs = $this->db->select(
                 'SELECT
                     station_id
@@ -85,11 +81,12 @@ class Schedule_Model extends Model
     }
 
     /**
-     * Shows the list of users
+     * Get train number
      *
-     * @param string $month The useplan date
+     * @param string $month The month
+     * @param string $month The station name
      * 
-     * @return data The users list
+     * @return array train number
      */
     public function getTrainNr($month, $start)
     {
@@ -133,11 +130,11 @@ class Schedule_Model extends Model
     }
 
     /**
-     * Shows the list of users
+     * Get station sequences
      *
      * @param string $start The start station
      * 
-     * @return data The users list
+     * @return array sequence
      */
     public function getSequence($start)
     {

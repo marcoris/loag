@@ -8,8 +8,8 @@ class Login_Model extends Model
     }
 
     /**
-     * Here is the login function to log the user in and sets the usergroup
-     * and forward the user on the dashboard or login page
+     * Here is the login function to log the user in and sets the necessary data
+     * and forward the user on the dashboard page
      */
     public function login()
     {

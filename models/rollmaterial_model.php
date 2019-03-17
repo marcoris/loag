@@ -8,9 +8,9 @@ class Rollmaterial_Model extends Model
     }
     
     /**
-     * Shows the list of users
+     * Shows the list of rollmaterial
      *
-     * @return data The users list
+     * @return array The rollmaterial list
      */
     public function rollmaterialList()
     {
@@ -31,7 +31,7 @@ class Rollmaterial_Model extends Model
     }
 
     /**
-     * Creates a user
+     * Creates a rolmaterial
      *
      * @param array $data The data
      */
@@ -52,9 +52,11 @@ class Rollmaterial_Model extends Model
     }
 
     /**
-     * Shows the affected user to edit
+     * Shows the affected rollmaterial to edit
      *
      * @param int $id The id of the affected user
+     * 
+     * @return array rollmaterial data
      */
     public function edit($id)
     {
@@ -77,7 +79,7 @@ class Rollmaterial_Model extends Model
     }
 
     /**
-     * Saves the edited user data
+     * Saves the edited rollmaterial data
      *
      * @param array $data The data
      */
@@ -98,9 +100,9 @@ class Rollmaterial_Model extends Model
     }
 
     /**
-     * Deletes the affected user
+     * Deletes the affected rollmaterial
      *
-     * @param int $id The affected user id
+     * @param int $id The affected id
      */
     public function delete($id)
     {

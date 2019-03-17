@@ -13,11 +13,10 @@ class Dashboard extends Controller
     }
 
     /**
-     * Call the render function for the dashboard
+     * Call the render function
      */
     public function index()
     {
-        $arr = array();
         // get data to work with (create form)
         $this->view->lines = $this->model->getLines();
         $this->view->locdriver = $this->model->getEmployees('', 1);
@@ -26,13 +25,13 @@ class Dashboard extends Controller
         $this->view->waggons = $this->model->getRollmaterials(2);
 
         // get useplans
-        $this->view->useplans = $this->model->getUseplans($arr);
+        $this->view->useplans = $this->model->getUseplans();
         
         $this->view->render($this->path . '/index');
     }
     
     /**
-     * Shows the create user page
+     * Shows the create page
      *
      */
     public function create()
@@ -53,8 +52,9 @@ class Dashboard extends Controller
     /**
      * Call useplan
      *
-     * @param int $id The affected employee id
+     * @param int $employeeID The affected employee id
      * @param int $month The affected month
+     * @param boolean $created If the useplan was automatically created
      */
     public function useplan($employeeID, $month, $created = false)
     {

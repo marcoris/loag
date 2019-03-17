@@ -1,11 +1,10 @@
 <?php
 
 /**
- * This function returns an array beautyfied
+ * This function returns an array beautyfied and is for debugging purposes
  * 
  * @param array $array the array to display beautyfied
  * 
- * @output print pre array
  */
 function pvd($array)
 {

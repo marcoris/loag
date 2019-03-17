@@ -1,7 +1,7 @@
 <?php
 
 require 'config.php';
-require 'functions.php';
+require 'debugging.php';
 
 spl_autoload_register('classLoader');
 

@@ -1,16 +1,9 @@
 <?php
-/**
- * The Rollmaterial controller class
- *
- */
+
 class Rollmaterial extends Controller
 {
     private $path = 'rollmaterial';
 
-    /**
-     * Class constructor
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -25,7 +18,7 @@ class Rollmaterial extends Controller
     }
 
     /**
-     * Shows the user index page and lists the user and sets the role in the select box
+     * Call the render function
      *
      */
     public function index()
@@ -35,7 +28,7 @@ class Rollmaterial extends Controller
     }
 
     /**
-     * Shows the create user page
+     * Shows the create page
      *
      */
     public function create()
@@ -55,9 +48,9 @@ class Rollmaterial extends Controller
     }
 
     /**
-     * Shows the edit user page
+     * Shows the edit page
      *
-     * @param int $id The affected user id
+     * @param int $id The affected id
      */
     public function edit($id)
     {
@@ -69,7 +62,7 @@ class Rollmaterial extends Controller
     /**
      * The edit save function
      *
-     * @param int $id The affected user id
+     * @param int $id The affected id
      */
     public function editSave($id)
     {
@@ -84,15 +77,14 @@ class Rollmaterial extends Controller
         $data['seating'] = $_POST['seating'];
         $data['availability'] = $_POST['availability'];
 
-        // @TODO: put your error checking!
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);
     }
 
     /**
-     * The user delete call
+     * The delete function
      *
-     * @param int $id The affected user id
+     * @param int $id The affected id
      */
     public function delete($id)
     {

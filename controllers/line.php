@@ -16,7 +16,7 @@ class Line extends Controller
     }
 
     /**
-     * Shows the line index page and lists the line and sets the role in the select box
+     * Call the render function
      *
      */
     public function index()
@@ -26,7 +26,7 @@ class Line extends Controller
     }
 
     /**
-     * Shows the create line page
+     * Shows the create page
      *
      */
     public function create()
@@ -39,9 +39,9 @@ class Line extends Controller
     }
 
     /**
-     * Shows the edit line page
+     * Shows the edit page
      *
-     * @param int $id The affected line id
+     * @param int $id The affected id
      */
     public function edit($id)
     {
@@ -53,7 +53,7 @@ class Line extends Controller
     /**
      * The edit save function
      *
-     * @param int $id The affected line id
+     * @param int $id The affected id
      */
     public function editSave($id)
     {
@@ -66,9 +66,9 @@ class Line extends Controller
     }
 
     /**
-     * The line delete call
+     * The delete function
      *
-     * @param int $id The affected line id
+     * @param int $id The affected id
      */
     public function delete($id)
     {

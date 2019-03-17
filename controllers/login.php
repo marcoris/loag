@@ -8,7 +8,7 @@ class Login extends Controller
     }
 
     /**
-     * Call the render function for the login page
+     * Call the render function
      */
     public function index()
     {
@@ -16,7 +16,7 @@ class Login extends Controller
     }
 
     /**
-     * Call the login model function
+     * Call the login function
      */
     public function login()
     {
@@ -24,7 +24,7 @@ class Login extends Controller
     }
 
     /**
-     * Call the logout model function
+     * Call the logout function
      */
     public function logout()
     {

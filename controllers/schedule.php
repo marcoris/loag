@@ -1,16 +1,9 @@
 <?php
-/**
- * The schedule controller class
- *
- */
+
 class Schedule extends Controller
 {
     private $path = 'schedule';
 
-    /**
-     * Class constructor
-     *
-     */
     public function __construct()
     {
         parent::__construct();
@@ -19,7 +12,7 @@ class Schedule extends Controller
     }
 
     /**
-     * Index
+     * Call the render function
      *
      */
     public function index()
@@ -27,6 +20,10 @@ class Schedule extends Controller
         $this->view->render($this->path . '/index');
     }
 
+    /**
+     * Call the schedule function
+     *
+     */
     public function showschedule()
     {
         // define some variables

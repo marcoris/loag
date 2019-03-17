@@ -1,13 +1,16 @@
 <?php
 
-class ErrorHandler extends Controller {
+class ErrorHandler extends Controller
+{
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
-     * Call the render function to show the error message
+     * Call the render function
+     * 
+     * @param string The message to show
      */
     public function index($msg)
     {

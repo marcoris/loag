@@ -8,7 +8,7 @@ class Index extends Controller
     }
 
     /**
-     * Call render function for index
+     * Call render function
      */
     public function index()
     {
@@ -16,7 +16,7 @@ class Index extends Controller
     }
 
     /**
-     * Call render function for error
+     * Call render function
      */
     public function error()
     {

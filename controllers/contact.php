@@ -7,7 +7,7 @@ class Contact extends Controller {
     }
 
     /**
-     * Call the render function for the contact page
+     * Call the render function
      */
     public function index()
     {

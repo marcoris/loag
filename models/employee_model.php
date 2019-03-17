@@ -10,7 +10,7 @@ class Employee_Model extends Model
     /**
      * Shows the list of users
      *
-     * @return data The users list
+     * @return array The users list
      */
     public function employeeList()
     {
@@ -56,6 +56,8 @@ class Employee_Model extends Model
      * Shows the affected user to edit
      *
      * @param int $id The _id of the affected user
+     * 
+     * @return array employee data
      */
     public function edit($id)
     {
@@ -78,7 +80,7 @@ class Employee_Model extends Model
     }
 
     /**
-     * Saves the edited user data
+     * Saves the edited data
      *
      * @param array $data The data
      */
@@ -115,7 +117,7 @@ class Employee_Model extends Model
     /**
      * Deletes the affected user
      *
-     * @param int $id The affected user _id
+     * @param int $id The affected user id
      */
     public function delete($id)
     {

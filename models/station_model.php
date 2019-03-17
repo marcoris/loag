@@ -8,9 +8,9 @@ class Station_Model extends Model
     }
 
     /**
-     * Shows the list of users
+     * Shows the list of stations
      *
-     * @return data The users list
+     * @return array The stations list
      */
     public function stationList()
     {
@@ -30,9 +30,9 @@ class Station_Model extends Model
     }
     
     /**
-     * Shows the list of users
+     * Get lines
      *
-     * @return data The users list
+     * @return array The lines data
      */
     public function getLines()
     {
@@ -48,9 +48,11 @@ class Station_Model extends Model
     }
     
     /**
-     * Shows the list of users
+     * Get line to station
+     * 
+     * @param integer the affected id
      *
-     * @return data The users list
+     * @return array The line id
      */
     public function getLineToStation($id)
     {
@@ -66,7 +68,7 @@ class Station_Model extends Model
     }
 
     /**
-     * Creates a user
+     * Creates a station
      *
      * @param array $data The data
      */
@@ -103,9 +105,11 @@ class Station_Model extends Model
     }
 
     /**
-     * Shows the affected user to edit
+     * Shows the affected station to edit
      *
-     * @param int $id The _id of the affected user
+     * @param int $id The affected id
+     * 
+     * @return array station data
      */
     public function edit($id)
     {
@@ -124,13 +128,12 @@ class Station_Model extends Model
     }
 
     /**
-     * Saves the edited user data
+     * Saves the edited station data
      *
      * @param array $data The data
      */
     public function editSave($data)
     {
-        // update station with password if there is a new set
         $updateArray = array(
             'station_name' => $data['station_name'],
             'station_time' => $data['station_time'],
@@ -146,9 +149,9 @@ class Station_Model extends Model
     }
 
     /**
-     * Deletes the affected user
+     * Deletes the affected station
      *
-     * @param int $id The affected user _id
+     * @param int $id The affected id
      */
     public function delete($id)
     {
