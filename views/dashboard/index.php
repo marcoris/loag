@@ -1,27 +1,33 @@
 <div class="jumbotron jumbotron-fluid loggedin">
     <h1>Dashboard</h1>
     <h2>Willkommen <?php echo Session::get('firstname') . ' ' . Session::get('lastname'); ?></h2>
+    <?php
+    $months = array(
+        'Januar',
+        'Februar',
+        'März',
+        'April',
+        'Mai',
+        'Juni',
+        'Juli',
+        'August',
+        'September',
+        'Oktober',
+        'November',
+        'Dezember'
+    );
+    // check if the user is an employee or stuff
+    if (Session::get('usergroup') > 2) : ?>
     <p>Im Dashboard kannst du deine Einsatzpläne anschauen und ausdrucken.<br>Monate in der Vergangenheit können nicht angeschaut werden!</p>
+    <?php else : ?>
+    <p>Im Dashboard kannst du die generierten Einsatzpläne bearbeiten, oder neue erstellen.</p>
+    <?php endif; ?>
     <hr>
     <?php
     if (Session::get('usergroup') > 2) : ?>
     <h2 style="text-align: center; margin-bottom: 20px;">Einsatzplan</h2>
     <div class="useplan">
         <?php
-        $months = array(
-            'Januar',
-            'Februar',
-            'März',
-            'April',
-            'Mai',
-            'Juni',
-            'Juli',
-            'August',
-            'September',
-            'Oktober',
-            'November',
-            'Dezember'
-        );
         for ($i = 0; $i < 12; $i++) {
             if ($i+1 >= intval(date("m"))) {
                 echo '<div><a href="' . URL . 'dashboard/useplan/' . $_SESSION['employee_id'] . '/' . ($i+1) . '">' . $months[$i] . '</a></div>';
@@ -33,75 +39,51 @@
     </div>
     <?php
     else : ?>
-    <h1>Neuer Einsatzplan erfassen</h1>
+    <h1>Neuen Einsatzplan erfassen</h1>
     <form action="<?php echo URL; ?>rollmaterial/create" method="post">
-        <label for="number">Nummer:<span class="required-star">*</span></label><input type="text" id="number" name="number"><br>
-        <label for="type">Typ:<span class="required-star">*</span></label>
-        <select name="type" id="type">
-            <option value="2">Waggon</option>
-            <option value="1">Lokomotive</option>
-        </select><br>
-        <label for="date_of_commissioning">Erste Inbetriebnahme:<span class="required-star">*</span></label><input type="text" id="date_of_commissioning" name="date_of_commissioning"><br>
-        <label for="date_of_last_revision">Letzte Revision:<span class="required-star">*</span></label><input type="text" id="date_of_last_revision" name="date_of_last_revision"><br>
-        <label for="date_of_next_revision">Nächste Revision:<span class="required-star">*</span></label><input type="text" id="date_of_next_revision" name="date_of_next_revision"><br>
-        <label for="class">Klasse:<span class="required-star">*</span></label>
-        <select name="class" id="class">
-            <option value="0">Keine</option>
-            <option value="1">1. Klasse</option>
-            <option value="2">2. Klasse</option>
-        </select><br>
-        <label for="seating">Sitzplätze:<span class="required-star">*</span></label><input type="number" id="seating" name="seating" value="0" min="0"><br>
-        <label for="availability">Verfügbar:<span class="required-star">*</span></label>
-        <select name="availability" id="availability">
-            <option value="1">Ja</option>
-            <option value="0">Nein</option>
-        </select><br>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
     <hr>
     <h2>Einsatzpläne</h2>
-    <table class="table table-striped">
+    <!-- <?php pvd($this->useplans); ?> -->
+    <table class="table table-striped useplantable">
         <thead class="thead-dark">
             <tr>
                 <th>Nr.</td>
-                <th>Nummer</td>
-                <th>Typ</td>
-                <th>Erste Inbetriebnahme</td>
-                <th>Letzte Revision</td>
-                <th>Nächste Revision</td>
-                <th>Klasse</td>
-                <th>Sitzplätze</td>
-                <th>Verfügbar</td>
+                <th>Datum</td>
+                <th>Zugnummer</td>
+                <th>Linie</td>
+                <th>LokführerIn</td>
+                <th>KontrolleurIn</td>
+                <th>Loknummer</td>
+                <th>Waggonnummer</td>
                 <th>Bearbeiten</td>
             </tr>
         </thead>
         <tbody>
             <?php
-            $i = 1;
-            foreach ($this->rollmaterialList as $key => $value) {
-                echo '<tr class="'.($value['type'] == 1 ? 'lok ' : '').(!$value['availability'] ? 'krank' : '').(($value['class'] == 1) ? 'ferien' : '').'">';
-                echo '<td>' . $i . '.</td>';
-                echo '<td>' . $value['number'] . '</td>';
-                echo '<td>' . ($value['type'] == 1 ? 'Lokomotive' : 'Waggon') . '</td>';
-                echo '<td>' . $value['date_of_commissioning'] . '</td>';
-                echo '<td>' . $value['date_of_last_revision'] . '</td>';
-                echo '<td>' . $value['date_of_next_revision'] . '</td>';
-                echo '<td>';
-                if ($value['class'] == 0) {
-                    echo '-';
-                } else if ($value['class'] == 1) {
-                    echo '1. Klasse';
-                } else {
-                    echo '2. Klasse';
-                }
-                echo '</td>';
-                echo '<td>' . $value['seating'] . '</td>';
-                echo '<td>' . ($value['availability'] ? 'Ja' : 'Nein') . '</td>';
-                echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterial_id'] . '"><i class="fas fa-pen"></i></a>';
-                echo '<a class="btn btn-danger delete" href="' . URL . 'rollmaterial/delete/' . $value['rollmaterial_id'] . '"><i class="fas fa-trash"></i></a>';
-                echo '</td>';
-                echo '</tr>';
-                $i++;
+            $j = 1;
+            foreach ($this->useplans as $key => $value) {
+                echo "<tr>
+                    <td>$j</td>
+                    <td>{$months[substr($value['useplan_date'], 0, -2)-1]} 20";
+                    echo substr($value['useplan_date'], -2);
+                    echo "</td>
+                    <td>{$value['useplan_train_nr']}</td>
+                    <td>{$value['line_name']}</td>
+                    <td>{$value['lok']['firstname']} {$value['lok']['lastname']}</td>
+                    <td>{$value['kont']['firstname']} {$value['kont']['lastname']}</td>
+                    <td>{$value['lok']['number']}</td><td>";
+                    for ($i=0; $i < count($value['waggons']); $i++) {
+                        echo isset($value['waggons'][$i+1]) ? "<div class='useplandivs'>{$value['waggons'][$i+1]}</div>" : '';
+                    }
+                    echo "</td>
+                    <td>";
+                    echo '<a class="btn btn-success" href="' . URL . 'dashboard/edit/' . $key . '"><i class="fas fa-pen"></i></a>
+                        <a class="btn btn-danger delete" href="' . URL . 'dashboard/delete/' . $key . '"><i class="fas fa-trash"></i></a>
+                    </td>
+                    </tr>';
+                $j++;
             }
             ?>
         </tbody>

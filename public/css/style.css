@@ -224,6 +224,22 @@ input[type='password'] {
     box-shadow: 0 0 15px;
 }
 
+.useplantable th {
+    min-width: 140px;
+}
+
+.useplandivs {
+    display: inline-block;
+}
+
+.useplandivs:after {
+    content: ', ';
+}
+
+.useplandivs:last-of-type:after {
+    content: '';
+}
+
 .title-box {
     margin: -90px 100px 0;
 }

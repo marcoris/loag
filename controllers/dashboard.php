@@ -15,6 +15,15 @@ class Dashboard extends Controller
      */
     public function index()
     {
+        $arr = array();
+        // get data to work with
+        $this->view->employees = $this->model->getEmployees($_SESSION['employee_id'], 3);
+        $this->view->locomotives = $this->model->getRollmaterials(1);
+        $this->view->waggons = $this->model->getRollmaterials(2);
+
+        // get useplans
+        $this->view->useplans = $this->model->getUseplans($arr);
+        
         $this->view->render($this->path . '/index');
     }
 
@@ -93,6 +102,7 @@ class Dashboard extends Controller
                 $waggonID = array_rand($waggons, 2);
                 $theWaggonID1 = $waggons[0]['rollmaterial_id'];
                 $theWaggonID2 = $waggons[1]['rollmaterial_id'];
+
                 // create useplan to rollmaterial relations
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID1);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID2);
@@ -108,6 +118,7 @@ class Dashboard extends Controller
                 $theWaggonID2 = $waggons[1]['rollmaterial_id'];
                 $theWaggonID3 = $waggons[2]['rollmaterial_id'];
                 $theWaggonID4 = $waggons[3]['rollmaterial_id'];
+
                 // create useplan to rollmaterial relations
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID1);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID2);
@@ -125,6 +136,7 @@ class Dashboard extends Controller
                 $waggons = $this->model->getRollmaterials(2, 1);
                 $waggonID = array_rand($waggons);
                 $theWaggonID = $waggons[0]['rollmaterial_id'];
+
                 // create useplan to rollmaterial relation
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID);
 
@@ -136,6 +148,7 @@ class Dashboard extends Controller
                 $waggonID = array_rand($waggons, 2);
                 $theWaggonID1 = $waggons[0]['rollmaterial_id'];
                 $theWaggonID2 = $waggons[1]['rollmaterial_id'];
+
                 // create useplan to rollmaterial relations
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID1);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID2);

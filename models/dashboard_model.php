@@ -106,7 +106,9 @@ class Dashboard_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                employee_id
+                employee_id,
+                firstname,
+                lastname
             FROM
                 employee
             WHERE
@@ -304,5 +306,51 @@ class Dashboard_Model extends Model
                 ':employeeID' => $employeeID
             )
         );
+    }
+
+    public function getUseplans($arr)
+    {
+        $stmt = $this->db->prepare(
+            'SELECT
+                u.useplan_id AS useplan_id,
+                u.useplan_train_nr AS useplan_train_nr,
+                u.useplan_date AS useplan_date,
+                e.firstname AS firstname,
+                e.lastname AS lastname,
+                e.category AS category,
+                r.number AS `number`,
+                l.line_name AS line_name
+            FROM
+                `useplan` AS u
+                LEFT JOIN useplan_to_employee AS ute ON (ute.useplan_id = u.useplan_id)
+                LEFT JOIN employee AS e ON (ute.employee_id = e.employee_id)
+                LEFT JOIN useplan_to_rollmaterial AS utr ON (u.useplan_id = utr.useplan_id)
+                LEFT JOIN rollmaterial AS r ON (r.rollmaterial_id = utr.rollmaterial_id)
+                LEFT JOIN useplan_to_line AS utl ON (utl.useplan_id = u.useplan_id)
+                LEFT JOIN `line` AS l ON (l.line_id = utl.line_id)
+            ORDER BY
+                useplan_date'
+        );
+
+        $stmt->execute();
+        while ($row = $stmt->fetch()) {
+            $arr[$row['useplan_id']]['useplan_train_nr'] = $row['useplan_train_nr'];
+            $arr[$row['useplan_id']]['useplan_date'] = $row['useplan_date'];
+            if ($row['category'] == 1) {
+                $arr[$row['useplan_id']]['lok']['firstname'] = $row['firstname'];
+                $arr[$row['useplan_id']]['lok']['lastname'] = $row['lastname'];
+            } else {
+                $arr[$row['useplan_id']]['kont']['firstname'] = $row['firstname'];
+                $arr[$row['useplan_id']]['kont']['lastname'] = $row['lastname'];
+            }
+            if (substr($row['number'], 0, 1) == 'L') {
+                $arr[$row['useplan_id']]['lok']['number'] = $row['number'];
+            } else {
+                $arr[$row['useplan_id']]['waggons'][] = $row['number'];
+            }
+            $arr[$row['useplan_id']]['line_name'] = $row['line_name'];
+        }
+
+        return $arr;
     }
 } 
