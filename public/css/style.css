@@ -11,7 +11,8 @@ html, body {
     color: black !important;
 }
 
-h1 {
+h1,
+h2 {
     margin-top: 20px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
@@ -70,10 +71,6 @@ body {
     margin: 0 auto;
 }
 
-.bg-lok .row h1 {
-    text-align: center;
-}
-
 .whitebg {
     background-color: rgba(255, 255, 255, 0.5);
     margin-bottom: 20px;
@@ -104,6 +101,10 @@ body {
     width: 30%;
     vertical-align: middle;
     background: black;
+}
+
+.start-end-time-container {
+    margin-bottom: 20px;
 }
 
 .total-time {

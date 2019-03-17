@@ -1,5 +1,5 @@
 <div class="jumbotron jumbotron-fluid loggedin">
-    <h1>Mitarbeiter <strong><?php echo $this->employee[0]['login']; ?></strong> bearbeiten</h1>
+    <h2>Mitarbeiter <strong><?php echo $this->employee[0]['login']; ?></strong> bearbeiten</h2>
     <form action="<?php echo URL; ?>employee/editSave/<?php echo $this->employee[0]['employee_id']; ?>" method="post">
         <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber" value="<?php echo $this->employee[0]['personalnumber']; ?>"><br>
         <label for="salutation">Anrede:<span class="required-star">*</span></label>
@@ -64,6 +64,8 @@
         </select><br>
         <label for="login">Login:<span class="required-star">*</span></label><input type="text" id="login" name="login" value="<?php echo $this->employee[0]['login']; ?>"><br>
         <label for="password">Passwort:<span class="required-star">*</span></label><input type="text" id="password" name="password"><br>
+        <?php
+        if ($this->employee[0]['role'] > 1) : ?>
         <label for="role">Rolle:<span class="required-star">*</span></label>
         <select name="role" id="role">
         <?php
@@ -82,6 +84,7 @@
         }
         ?>
         </select><br>
+        <?php endif; ?>
         <a class="btn btn-primary" href="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</a>
         <button class="btn btn-primary edit" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>

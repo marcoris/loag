@@ -1,5 +1,5 @@
 <div class="jumbotron jumbotron-fluid loggedin">
-    <h1>Neuer Mitarbeiter erfassen</h1>
+    <h2>Neuer Mitarbeiter erfassen</h2>
 
     <form action="<?php echo URL; ?>employee/create" method="post">
         <label for="personalnumber">Personalnummer:<span class="required-star">*</span></label><input type="text" id="personalnumber" name="personalnumber"><br>

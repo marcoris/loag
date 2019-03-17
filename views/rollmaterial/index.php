@@ -1,5 +1,5 @@
 <div class="jumbotron jumbotron-fluid loggedin">
-    <h1>Neues Rollmaterial erfassen</h1>
+    <h2>Neues Rollmaterial erfassen</h2>
     <form action="<?php echo URL; ?>rollmaterial/create" method="post">
         <label for="number">Nummer:<span class="required-star">*</span></label><input type="text" id="number" name="number"><br>
         <label for="type">Typ:<span class="required-star">*</span></label>
@@ -45,7 +45,7 @@
             <?php
             $i = 1;
             foreach ($this->rollmaterialList as $key => $value) {
-                echo '<tr class="'.($value['type'] == 1 ? 'lok ' : '').(!$value['availability'] ? 'krank' : '').(($value['class'] == 1) ? 'ferien' : '').'">';
+                echo '<tr class="'.($value['type'] == 1 && $value['availability'] ? 'lok ' : '').(!$value['availability'] ? 'krank ' : '').(($value['class'] == 1 && $value['type'] != 1) ? 'ferien' : '').'">';
                 echo '<td>' . $i . '.</td>';
                 echo '<td>' . $value['number'] . '</td>';
                 echo '<td>' . ($value['type'] == 1 ? 'Lokomotive' : 'Waggon') . '</td>';
@@ -53,7 +53,7 @@
                 echo '<td>' . $value['date_of_last_revision'] . '</td>';
                 echo '<td>' . $value['date_of_next_revision'] . '</td>';
                 echo '<td>';
-                if ($value['class'] == 0) {
+                if ($value['class'] == 0 || $value['type'] == 1) {
                     echo '-';
                 } else if ($value['class'] == 1) {
                     echo '1. Klasse';
@@ -61,7 +61,7 @@
                     echo '2. Klasse';
                 }
                 echo '</td>';
-                echo '<td>' . $value['seating'] . '</td>';
+                echo '<td>' . ($value['type'] != 1 ? $value['seating'] : '0') . '</td>';
                 echo '<td>' . ($value['availability'] ? 'Ja' : 'Nein') . '</td>';
                 echo '<td><a class="btn btn-success" href="' . URL . 'rollmaterial/edit/' . $value['rollmaterial_id'] . '"><i class="fas fa-pen"></i></a>';
                 echo '<a class="btn btn-danger delete" href="' . URL . 'rollmaterial/delete/' . $value['rollmaterial_id'] . '"><i class="fas fa-trash"></i></a>';

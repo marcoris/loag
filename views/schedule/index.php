@@ -1,7 +1,7 @@
 <div class="jumbotron jumbotron-fluid bg bg-lok">
     <div class="wrap">
         <div class="row">
-            <h1 class="col-6">Fahrplan</h1>
+            <h1 style="text-align: center;" class="col-6">Fahrplan</h1>
         </div>
         <div class="row">
             <form action="<?php echo URL; ?>schedule/showschedule" method="post">

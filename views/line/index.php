@@ -1,5 +1,5 @@
 <div class="jumbotron jumbotron-fluid loggedin">
-    <h1>Neue Linie erfassen</h1>
+    <h2>Neue Linie erfassen</h2>
 
     <form action="<?php echo URL; ?>line/create" method="post">
         <label for="line_name">Linien-Name<span class="required-star">*</span></label><input type="text" id="line_name" name="line_name"><br>

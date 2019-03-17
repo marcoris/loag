@@ -109,7 +109,7 @@ class Employee_Model extends Model
                 'role' => $data['role']
             );
         }
-        $this->db->update('employee', $updateArray, "`employee_id`={$data['employee_id']}");
+        $this->db->update('employee', $updateArray, "`employee_id`={$data['employee_id']} AND role != 1");
     }
 
     /**
