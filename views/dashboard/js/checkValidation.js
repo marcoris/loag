@@ -50,4 +50,10 @@ $(function () {
             e.preventDefault();
         }
     });
+
+    $(".delete").on('click', function(e){
+        if (!confirm('Wirklich löschen?')) {
+            e.preventDefault();
+        }
+    });
 });

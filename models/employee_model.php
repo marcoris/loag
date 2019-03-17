@@ -55,7 +55,7 @@ class Employee_Model extends Model
     /**
      * Shows the affected user to edit
      *
-     * @param int $id The _id of the affected user
+     * @param int $id The id of the affected user
      * 
      * @return array employee data
      */

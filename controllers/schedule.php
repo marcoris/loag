@@ -87,8 +87,9 @@ class Schedule extends Controller
                         $end_time += $start_time;
                     }
                 }
-            // } else if ($start_sequence[0]['sequence'] > $end_sequence[0]['sequence']) {
+            } else if ($start_sequence[0]['sequence'] > $end_sequence[0]['sequence']) {
                 // reverse
+                
             } else {
                 $this->view->no_entry = true;
             }

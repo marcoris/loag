@@ -70,6 +70,18 @@ class Dashboard_Model extends Model
     }
 
     /**
+     * Shows the affected user to edit
+     *
+     * @param int $id The id of the affected user
+     * 
+     * @return array employee data
+     */
+    public function edit($id)
+    {
+        
+    }
+
+    /**
      * check if useplan exists
      *
      * @param int $employeeID The affected employee id

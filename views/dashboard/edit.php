@@ -1,45 +1,5 @@
 <div class="jumbotron jumbotron-fluid loggedin">
-    <h1>Dashboard</h1>
-    <h2>Willkommen <?php echo Session::get('firstname') . ' ' . Session::get('lastname'); ?></h2>
-    <?php
-    $months = array(
-        'Januar',
-        'Februar',
-        'März',
-        'April',
-        'Mai',
-        'Juni',
-        'Juli',
-        'August',
-        'September',
-        'Oktober',
-        'November',
-        'Dezember'
-    );
-    // check if the user is an employee or stuff
-    if (Session::get('usergroup') > 2) : ?>
-    <p>Im Dashboard kannst du deine Einsatzpläne anschauen und ausdrucken.<br>Monate in der Vergangenheit können nicht angeschaut werden!</p>
-    <?php else : ?>
-    <p>Im Dashboard kannst du die generierten Einsatzpläne bearbeiten, oder neue erstellen.</p>
-    <?php endif; ?>
-    <hr>
-    <?php
-    if (Session::get('usergroup') > 2) : ?>
-    <h2 style="text-align: center; margin-bottom: 20px;">Einsatzplan</h2>
-    <div class="useplan">
-        <?php
-        for ($i = 0; $i < 12; $i++) {
-            if ($i+1 >= intval(date("m"))) {
-                echo '<div><a href="' . URL . 'dashboard/useplan/' . $_SESSION['employee_id'] . '/' . ($i+1) . '">' . $months[$i] . '</a></div>';
-            } else {
-                echo '<div>' . $months[$i] . '</div>';
-            }
-        }
-        ?>
-    </div>
-    <?php
-    else : ?>
-    <h2>Neuen Einsatzplan erfassen</h2>
+    <h2>Einsatzplan bearbeiten</h2>
     <form action="<?php echo URL; ?>dashboard/create" method="post">
         <label for="date">Datum:<span class="required-star">*</span></label>
         <select name="date" id="date">
@@ -97,44 +57,7 @@
             }
             ?>
         </select><br>
+        <a class="btn btn-primary" href="javascript:history.back();"><i class="fas fa-chevron-left"></i> Zurück</a>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
-    <hr>
-    <h2>Einsatzpläne</h2>
-    <table class="table table-striped useplantable">
-        <thead class="thead-dark">
-            <tr>
-                <th>Nr.</th>
-                <th>Datum</th>
-                <th>Zugnummer</th>
-                <th>Linie</th>
-                <th>LokführerIn</th>
-                <th>KontrolleurIn</th>
-                <th>Loknummer</th>
-                <th>Waggons</th>
-                <th>Bearbeiten</th>
-            </th></tr>
-        </thead>
-        <tbody>
-            <?php
-
-            ?>
-            <tr>
-            <td>1</td>
-            <td>März 2019</td>
-            <td>319ABC</td>
-            <td>Linie 1</td>
-            <td>Lukas Lokomo</td>
-            <td>Jim Kontrolle</td>
-            <td>L001</td><td><div class="useplandivs">W001C1</div><div class="useplandivs">W002C2</div><div class="useplandivs">W003C2</div></td>
-            <td>
-                <a href="dashboard/edit/2" class="btn btn-success edit"><i class="fas fa-pen"></i></a>
-                <a href="" class="btn btn-danger delete"><i class="fas fa-trash"></i></a>
-            </td>
-            </tr>
-        </tbody>
-    </table>
-    <?php
-    endif;
-    ?>
 </div>
