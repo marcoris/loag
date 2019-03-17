@@ -8,6 +8,68 @@ class Dashboard_Model extends Model
     }
 
     /**
+     * Creates a useplan
+     *
+     * @param array $data The data
+     */
+    public function create($data)
+    {
+        // insert in useplan
+        $insertUseplan = array(
+            'useplan_line_id' => $data['line'],
+            'useplan_train_nr' => $data['train_nr'],
+            'useplan_date' => $data['date']
+        );
+        $this->db->insert('useplan', $insertUseplan);
+
+        $lastInsertedUseplanID = $this->db->select(
+            'SELECT
+                useplan_id
+            FROM
+                `useplan`
+            ORDER BY
+                useplan_id DESC LIMIT 1'
+        );
+
+        // insert in useplan_to_employee
+        $insertLok = array(
+            'useplan_id' => $lastInsertedUseplanID[0]['useplan_id'],
+            'employee_id' => $data['lok']
+        );
+        $this->db->insert('useplan_to_employee', $insertLok);
+        
+        // insert in useplan_to_employee
+        $insertKont = array(
+            'useplan_id' => $lastInsertedUseplanID[0]['useplan_id'],
+            'employee_id' => $data['kont']
+        );
+        $this->db->insert('useplan_to_employee', $insertKont);
+        
+        // insert in useplan_to_line
+        $insertLine = array(
+            'useplan_id' => $lastInsertedUseplanID[0]['useplan_id'],
+            'line_id' => $data['line']
+        );
+        $this->db->insert('useplan_to_line', $insertLine);
+        
+        // insert in useplan_to_rollmaterial
+        $insertLocomotive = array(
+            'useplan_id' => $lastInsertedUseplanID[0]['useplan_id'],
+            'rollmaterial_id' => $data['locomotive']
+        );
+        $this->db->insert('useplan_to_rollmaterial', $insertLocomotive);
+
+        // insert in useplan_to_rollmaterial
+        for ($i = 0; $i < count($data['waggons']); $i++) {
+            $insertRollmaterial = array(
+                'useplan_id' => $lastInsertedUseplanID[0]['useplan_id'],
+                'rollmaterial_id' => $data['waggons'][$i]
+            );
+            $this->db->insert('useplan_to_rollmaterial', $insertRollmaterial);
+        }
+    }
+
+    /**
      * check if useplan exists
      *
      * @param int $id The affected employee id
@@ -41,7 +103,8 @@ class Dashboard_Model extends Model
     {
         return $this->db->select(
             'SELECT
-                line_id
+                line_id,
+                line_name
             FROM
                 line
             WHERE
@@ -102,25 +165,41 @@ class Dashboard_Model extends Model
     /**
      * Get lines
      */
-    public function getEmployees($employeeID, $category)
+    public function getEmployees($employeeID = null, $category = null)
     {
-        return $this->db->select(
-            'SELECT
-                employee_id,
-                firstname,
-                lastname
-            FROM
-                employee
-            WHERE
-                employee_id != :employeeID AND
-                category != 3 AND
-                category != :cat AND
-                absence = 1',
-            array(
-                ':employeeID' => $employeeID,
-                ':cat' => $category
-            )
-        );
+        if ($employeeID) {
+            return $this->db->select(
+                'SELECT
+                    employee_id,
+                    firstname,
+                    lastname
+                FROM
+                    employee
+                WHERE
+                    employee_id != :employeeID AND
+                    category != 3 AND
+                    category != :cat AND
+                    absence = 1',
+                array(
+                    ':employeeID' => $employeeID,
+                    ':cat' => $category
+                )
+            );
+        } else {
+            return $this->db->select(
+                'SELECT
+                    employee_id,
+                    firstname,
+                    lastname
+                FROM
+                    employee
+                WHERE
+                    category = :cat',
+                array(
+                    ':cat' => $category
+                )
+            );
+        }
     }
     
     /**
@@ -153,13 +232,13 @@ class Dashboard_Model extends Model
             return $this->db->select(
                 'SELECT
                     rollmaterial_id,
-                    number
+                    `number`
                 FROM
                     rollmaterial
                 WHERE
-                    type = :type AND
+                    `type` = :type AND
                     class = :class AND
-                    availability = 1',
+                    `availability` = 1',
                 array(
                     ':type' => $type,
                     ':class' => $class
@@ -169,12 +248,12 @@ class Dashboard_Model extends Model
             return $this->db->select(
                 'SELECT
                     rollmaterial_id,
-                    number
+                    `number`
                 FROM
                     rollmaterial
                 WHERE
-                    type = :type AND
-                    availability = 1',
+                    `type` = :type AND
+                    `availability` = 1',
                 array(
                     ':type' => $type
                 )

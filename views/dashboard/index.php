@@ -39,53 +39,96 @@
     </div>
     <?php
     else : ?>
-    <h1>Neuen Einsatzplan erfassen</h1>
-    <form action="<?php echo URL; ?>rollmaterial/create" method="post">
+    <h2>Neuen Einsatzplan erfassen</h2>
+    <form action="<?php echo URL; ?>dashboard/create" method="post">
+        <label for="date">Datum:<span class="required-star">*</span></label>
+        <select name="date" id="date">
+        <option value="119" disabled>Januar</option>
+        <option value="219" disabled>Februar</option>
+        <option value="319" selected>März</option>
+        <option value="419">April</option>
+        <option value="519">Mai</option>
+        <option value="619">Juni</option>
+        <option value="719">Juli</option>
+        <option value="819">August</option>
+        <option value="919">September</option>
+        <option value="1019">Oktober</option>
+        <option value="1119">November</option>
+        <option value="1219">Dezember</option>
+        </select><br>
+        <label for="train_nr">Zugnummer:<span class="required-star">*</span></label><input type="text" id="train_nr" name="train_nr"><br>
+        <label for="line">Linie:<span class="required-star">*</span></label>
+        <select name="line" id="line">
+            <?php
+            foreach ($this->lines as $key => $value) {
+                echo "<option value='{$value['line_id']}'>{$value['line_name']}</option>";
+            }
+            ?>
+        </select><br>
+        <label for="lok">LokführerIn:<span class="required-star">*</span></label>
+        <select name="lok" id="lok">
+            <?php
+            foreach ($this->locdriver as $key => $value) {
+                echo "<option value='{$value['employee_id']}'>{$value['firstname']} {$value['lastname']}</option>";
+            }
+            ?>
+        </select><br>
+        <label for="kont">KontrolleurIn:<span class="required-star">*</span></label>
+        <select name="kont" id="kont">
+            <?php
+            foreach ($this->controller as $key => $value) {
+                echo "<option value='{$value['employee_id']}'>{$value['firstname']} {$value['lastname']}</option>";
+            }
+            ?>
+        </select><br>
+        <label for="locomotive">Loknummer:<span class="required-star">*</span></label>
+        <select name="locomotive" id="locomotive">
+            <?php
+            foreach ($this->locomotives as $key => $value) {
+                echo "<option value='{$value['rollmaterial_id']}'>{$value['number']}</option>";
+            }
+            ?>
+        </select><br>
+        <label for="waggons">Waggons<span class="required-star">*</span></label>
+        <select name="waggons[]" id="waggons" multiple size="10">
+            <?php
+            foreach ($this->waggons as $key => $value) {
+                echo "<option value='{$value['rollmaterial_id']}'>{$value['number']}</option>";
+            }
+            ?>
+        </select><br>
         <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i> Speichern</button>
     </form>
     <hr>
     <h2>Einsatzpläne</h2>
-    <!-- <?php pvd($this->useplans); ?> -->
+    <p style="color: red; font-weight: bold">Ein nächster Schritt könnte eine Auflistung der Einsatzpläne sein</p>
     <table class="table table-striped useplantable">
         <thead class="thead-dark">
             <tr>
-                <th>Nr.</td>
-                <th>Datum</td>
-                <th>Zugnummer</td>
-                <th>Linie</td>
-                <th>LokführerIn</td>
-                <th>KontrolleurIn</td>
-                <th>Loknummer</td>
-                <th>Waggonnummer</td>
-                <th>Bearbeiten</td>
-            </tr>
+                <th>Nr.</th>
+                <th>Datum</th>
+                <th>Zugnummer</th>
+                <th>Linie</th>
+                <th>LokführerIn</th>
+                <th>KontrolleurIn</th>
+                <th>Loknummer</th>
+                <th>Waggons</th>
+                <th>Bearbeiten</th>
+            </th></tr>
         </thead>
         <tbody>
-            <?php
-            $j = 1;
-            foreach ($this->useplans as $key => $value) {
-                echo "<tr>
-                    <td>$j</td>
-                    <td>{$months[substr($value['useplan_date'], 0, -2)-1]} 20";
-                    echo substr($value['useplan_date'], -2);
-                    echo "</td>
-                    <td>{$value['useplan_train_nr']}</td>
-                    <td>{$value['line_name']}</td>
-                    <td>{$value['lok']['firstname']} {$value['lok']['lastname']}</td>
-                    <td>{$value['kont']['firstname']} {$value['kont']['lastname']}</td>
-                    <td>{$value['lok']['number']}</td><td>";
-                    for ($i=0; $i < count($value['waggons']); $i++) {
-                        echo isset($value['waggons'][$i+1]) ? "<div class='useplandivs'>{$value['waggons'][$i+1]}</div>" : '';
-                    }
-                    echo "</td>
-                    <td>";
-                    echo '<a class="btn btn-success" href="' . URL . 'dashboard/edit/' . $key . '"><i class="fas fa-pen"></i></a>
-                        <a class="btn btn-danger delete" href="' . URL . 'dashboard/delete/' . $key . '"><i class="fas fa-trash"></i></a>
-                    </td>
-                    </tr>';
-                $j++;
-            }
-            ?>
+            <tr>
+            <td>1</td>
+            <td>März 2019</td>
+            <td>319ABC</td>
+            <td>Linie 1</td>
+            <td>Lukas Lokomo</td>
+            <td>Jim Kontrolle</td>
+            <td>L001</td><td><div class="useplandivs">W001C1</div><div class="useplandivs">W002C2</div><div class="useplandivs">W003C2</div></td>
+            <td><button class="btn btn-success edit"><i class="fas fa-pen"></i></button>
+                <button class="btn btn-danger delete"><i class="fas fa-trash"></i></button>
+            </td>
+            </tr>
         </tbody>
     </table>
     <?php

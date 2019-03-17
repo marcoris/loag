@@ -3,44 +3,50 @@ $(function () {
     $(':submit').on('click', function(e) {
         var fail = false;
 
-        if ($("#number").val() == '') {
-            $("#number").addClass("required");
+        if ($("#date").val() == '') {
+            $("#date").addClass("required");
             fail = true;
         } else {
-            $("#number").removeClass("required");
+            $("#date").removeClass("required");
         }
-        if ($("#date_of_commissioning").val() == '') {
-            $("#date_of_commissioning").addClass("required");
+        if ($("#train_nr").val() == '') {
+            $("#train_nr").addClass("required");
             fail = true;
         } else {
-            $("#date_of_commissioning").removeClass("required");
+            $("#train_nr").removeClass("required");
         }
-        if ($("#date_of_last_revision").val() == '') {
-            $("#date_of_last_revision").addClass("required");
+        if ($("#line").val() == '') {
+            $("#line").addClass("required");
             fail = true;
         } else {
-            $("#date_of_last_revision").removeClass("required");
+            $("#line").removeClass("required");
         }
-        if ($("#date_of_next_revision").val() == '') {
-            $("#date_of_next_revision").addClass("required");
+        if ($("#lok").val() == '') {
+            $("#lok").addClass("required");
             fail = true;
         } else {
-            $("#date_of_next_revision").removeClass("required");
+            $("#lok").removeClass("required");
         }
-        if ($("#seating").val() == '') {
-            $("#seating").addClass("required");
+        if ($("#kont").val() == '') {
+            $("#kont").addClass("required");
             fail = true;
         } else {
-            $("#seating").removeClass("required");
+            $("#kont").removeClass("required");
+        }
+        if ($("#locomotive").val() == '') {
+            $("#locomotive").addClass("required");
+            fail = true;
+        } else {
+            $("#locomotive").removeClass("required");
+        }
+        if ($("#waggons").val() == '') {
+            $("#waggons").addClass("required");
+            fail = true;
+        } else {
+            $("#waggons").removeClass("required");
         }
 
         if (fail) {
-            e.preventDefault();
-        }
-    });
-
-    $(".delete").on('click', function(e){
-        if (!confirm('Wirklich löschen?')) {
             e.preventDefault();
         }
     });

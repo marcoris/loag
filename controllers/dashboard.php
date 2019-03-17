@@ -8,6 +8,8 @@ class Dashboard extends Controller
     {
         parent::__construct();
         Auth::check();
+
+        $this->view->js = array($this->path . '/js/checkValidation.js');
     }
 
     /**
@@ -16,8 +18,10 @@ class Dashboard extends Controller
     public function index()
     {
         $arr = array();
-        // get data to work with
-        $this->view->employees = $this->model->getEmployees($_SESSION['employee_id'], 3);
+        // get data to work with (create form)
+        $this->view->lines = $this->model->getLines();
+        $this->view->locdriver = $this->model->getEmployees('', 1);
+        $this->view->controller = $this->model->getEmployees('', 2);
         $this->view->locomotives = $this->model->getRollmaterials(1);
         $this->view->waggons = $this->model->getRollmaterials(2);
 
@@ -25,6 +29,25 @@ class Dashboard extends Controller
         $this->view->useplans = $this->model->getUseplans($arr);
         
         $this->view->render($this->path . '/index');
+    }
+    
+    /**
+     * Shows the create user page
+     *
+     */
+    public function create()
+    {
+        $data = array();
+        $data['date'] = $_POST['date'];
+        $data['train_nr'] = $_POST['train_nr'];
+        $data['line'] = $_POST['line'];
+        $data['lok'] = $_POST['lok'];
+        $data['kont'] = $_POST['kont'];
+        $data['locomotive'] = $_POST['locomotive'];
+        $data['waggons'] = $_POST['waggons'];
+
+        $this->model->create($data);
+        header('location: ' . URL . $this->path);
     }
 
     /**
