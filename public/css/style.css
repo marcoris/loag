@@ -87,7 +87,11 @@ body {
 
 .schedule-container {
     margin: 0 auto;
-    width: 550px;
+    width: 600px;
+}
+
+.departure {
+    margin-top: 50px;
 }
 
 .start-time-circle {
@@ -375,5 +379,19 @@ input[type='password'] {
 @media print {
     .no-print {
         display: none;
+    }
+    .wrap {
+        overflow: visible;
+        margin-top: 0px;
+    }
+    .page-break {
+        overflow: visible;
+        display: inline;
+        page-break-before: auto;
+        break-before: auto;
+        page-break-after: auto;
+        break-after: auto;
+        page-break-inside: avoid;
+        break-inside: avoid;
     }
 }

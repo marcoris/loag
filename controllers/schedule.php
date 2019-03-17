@@ -103,6 +103,9 @@ class Schedule extends Controller
             $this->view->end_time = date("h:i", $endTime);
             $this->view->total = $total;
 
+            // add departure times
+            $this->view->departures = $start_time;
+
             // between start and end stations
             $countStaions = count($stations);
             $betweenStations = $countStaions - 2;
