@@ -11,6 +11,7 @@
         </select><br>
         <label for="train_nr">Zugnummer:<span class="required-star">*</span></label><input type="text" id="train_nr" name="train_nr" value="<?= $this->useplanData['useplan_train_nr'] ?>"><br>
         <label for="line">Linie:<span class="required-star">*</span></label>
+        <input type="hidden" name="currentLine" value="<?= $this->useplanData['line_id']?>">
         <select name="line" id="line">
             <?php
             foreach ($this->lines as $key => $value) {
@@ -19,6 +20,7 @@
             ?>
         </select><br>
         <label for="lok">LokführerIn:<span class="required-star">*</span></label>
+        <input type="hidden" name="currentLok" value="<?= $this->useplanData['lok']['employee_id']?>">
         <select name="lok" id="lok">
             <?php
             foreach ($this->locdriver as $key => $value) {
@@ -27,6 +29,7 @@
             ?>
         </select><br>
         <label for="kont">KontrolleurIn:<span class="required-star">*</span></label>
+        <input type="hidden" name="currentKont" value="<?= $this->useplanData['kont']['employee_id']?>">
         <select name="kont" id="kont">
             <?php
             foreach ($this->controller as $key => $value) {
@@ -35,6 +38,7 @@
             ?>
         </select><br>
         <label for="locomotive">Loknummer:<span class="required-star">*</span></label>
+        <input type="hidden" name="currentLocomotive" value="<?= $this->useplanData['lok']['lok_id']?>">
         <select name="locomotive" id="locomotive">
             <?php
             foreach ($this->locomotives as $key => $value) {
@@ -43,6 +47,13 @@
             ?>
         </select><br>
         <label for="waggons">Waggons<span class="required-star">*</span></label>
+        <?php
+        for ($i=0; $i<count($this->useplanData['waggons']['id']); $i++) {
+            if ($i % 2 == 0) {
+                echo '<input type="hidden" name="currentWaggons[]" value="'. $this->useplanData['waggons']['id'][$i]. '">';
+            }
+        }
+        ?>
         <select name="waggons[]" id="waggons" multiple size="10">
             <?php
             foreach ($this->waggons as $key => $value) {

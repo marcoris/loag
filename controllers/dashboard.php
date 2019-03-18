@@ -92,11 +92,16 @@ class Dashboard extends Controller
         $data['useplan_id'] = $id;
         $data['date'] = $_POST['date'];
         $data['train_nr'] = $_POST['train_nr'];
+        $data['currentLine'] = $_POST['currentLine'];
         $data['line'] = $_POST['line'];
         $data['lok'] = $_POST['lok'];
+        $data['currentLok'] = $_POST['currentLok'];
+        $data['currentLocomotive'] = $_POST['currentLocomotive'];
         $data['kont'] = $_POST['kont'];
+        $data['currentKont'] = $_POST['currentKont'];
         $data['locomotive'] = $_POST['locomotive'];
         $data['waggons'] = $_POST['waggons'];
+        $data['currentWaggons'] = $_POST['currentWaggons'];
 
         $this->model->editSave($data);
         header('location: ' . URL . $this->path);

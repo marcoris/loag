@@ -76,38 +76,45 @@ class Dashboard_Model extends Model
             'useplan_train_nr' => $data['train_nr'],
             'useplan_date' => $data['date']
         );
-        $this->db->update('useplan', $updateUseplan, "`useplan_id`={$data['useplan_id']}");
+        $this->db->update('useplan', $updateUseplan, "useplan_id={$data['useplan_id']}");
 
         // update useplan_to_employee
         $updateLok = array(
             'employee_id' => $data['lok']
         );
-        $this->db->update('useplan_to_employee', $updateLok, "`useplan_id`={$data['useplan_id']}");
+        $this->db->update('useplan_to_employee', $updateLok, "useplan_id={$data['useplan_id']} AND employee_id={$data['currentLok']}");
         
         // update useplan_to_employee
         $updateKont = array(
             'employee_id' => $data['kont']
         );
-        $this->db->update('useplan_to_employee', $updateKont, "`useplan_id`={$data['useplan_id']}");
+        $this->db->update('useplan_to_employee', $updateKont, "useplan_id={$data['useplan_id']} AND employee_id={$data['currentKont']}");
         
         // update useplan_to_line
         $updateLine = array(
             'line_id' => $data['line']
         );
-        $this->db->update('useplan_to_line', $updateLine, "`useplan_id`={$data['useplan_id']}");
+        $this->db->update('useplan_to_line', $updateLine, "useplan_id={$data['useplan_id']} AND line_id={$data['currentLine']}");
         
         // update useplan_to_rollmaterial
         $updateLocomotive = array(
             'rollmaterial_id' => $data['locomotive']
         );
-        $this->db->update('useplan_to_rollmaterial', $updateLocomotive, "`useplan_id`={$data['useplan_id']}");
+        $this->db->update('useplan_to_rollmaterial', $updateLocomotive, "useplan_id={$data['useplan_id']} AND rollmaterial_id={$data['currentLocomotive']}");
 
-        // update useplan_to_rollmaterial
+        // delete all relations
+        for ($i=0; $i<count($data['currentWaggons']); $i++) {
+            // delete from useplan_to_rollmaterial
+            $this->db->delete('useplan_to_rollmaterial', "useplan_id={$data['useplan_id']} AND rollmaterial_id={$data['currentWaggons'][$i]}");
+        }
+
+        // insert in useplan_to_rollmaterial
         for ($i = 0; $i < count($data['waggons']); $i++) {
-            $updateRollmaterial = array(
+            $insertRollmaterial = array(
+                'useplan_id' => $data['useplan_id'],
                 'rollmaterial_id' => $data['waggons'][$i]
             );
-            $this->db->update('useplan_to_rollmaterial', $updateRollmaterial, "`useplan_id`={$data['useplan_id']}");
+            $this->db->insert('useplan_to_rollmaterial', $insertRollmaterial);
         }
     }
 
@@ -224,9 +231,8 @@ class Dashboard_Model extends Model
             u.useplan_train_nr AS useplan_train_nr,
             u.useplan_date AS useplan_date,
             e.employee_id AS employee_id,
-            -- e.firstname AS firstname,
-            -- e.lastname AS lastname,
             e.category AS category,
+            r.rollmaterial_id AS rollmaterial_id,
             r.number AS `number`,
             l.line_id AS line_id
             FROM
@@ -250,18 +256,16 @@ class Dashboard_Model extends Model
             $arr['useplan_train_nr'] = $row['useplan_train_nr'];
             $arr['useplan_date'] = $row['useplan_date'];
             if ($row['category'] == 1) {
-                // $arr['lok']['firstname'] = $row['firstname'];
-                // $arr['lok']['lastname'] = $row['lastname'];
                 $arr['lok']['employee_id'] = $row['employee_id'];
             } else {
-                // $arr['kont']['firstname'] = $row['firstname'];
-                // $arr['kont']['lastname'] = $row['lastname'];
                 $arr['kont']['employee_id'] = $row['employee_id'];
             }
             if (substr($row['number'], 0, 1) == 'L') {
                 $arr['lok']['number'] = $row['number'];
+                $arr['lok']['lok_id'] = $row['rollmaterial_id'];
             } else {
                 $arr['waggons'][$row['number']] = $row['number'];
+                $arr['waggons']['id'][] = $row['rollmaterial_id'];
             }
             $arr['line_id'] = $row['line_id'];
         }
