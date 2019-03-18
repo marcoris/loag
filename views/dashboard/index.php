@@ -101,7 +101,6 @@
     </form>
     <hr>
     <h2>Einsatzpläne</h2>
-    <!-- <?php pvd($this->useplans); ?> -->
     <table class="table table-striped useplantable">
         <thead class="thead-dark">
             <tr>

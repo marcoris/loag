@@ -258,10 +258,13 @@ class Dashboard_Model extends Model
      * @param int $date The affected date
      * @param int $trainNr The affected train number
      */
-    public function insertUseplan($lineID, $date, $trainNr)
+    public function insertUseplan($date, $trainNr)
     {
+        // add trailing 0
+        if (strlen($date) < 4) {
+            $date = "0" . $date;
+        }
         $insertArray = array(
-            'useplan_line_id' => $lineID,
             'useplan_date' => $date,
             'useplan_train_nr' => $trainNr
         );
@@ -560,7 +563,7 @@ class Dashboard_Model extends Model
                 LEFT JOIN useplan_to_line AS utl ON (utl.useplan_id = u.useplan_id)
                 LEFT JOIN `line` AS l ON (l.line_id = utl.line_id)
             ORDER BY
-                u.useplan_date'
+                u.useplan_date, `number`'
         );
 
         $stmt->execute();
@@ -576,7 +579,7 @@ class Dashboard_Model extends Model
                 $arr[$row['useplan_id']]['kont']['firstname'] = $row['firstname'];
                 $arr[$row['useplan_id']]['kont']['lastname'] = $row['lastname'];
             }
-            if (substr($row['number'], 0, 1) == 'L') {
+            if (strtoupper(substr($row['number'], 0, 1)) == 'L') {
                 $arr[$row['useplan_id']]['lok']['number'] = $row['number'];
             } else {
                 $arr[$row['useplan_id']]['waggons'][$row['number']] = $row['number'];

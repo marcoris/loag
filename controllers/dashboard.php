@@ -130,6 +130,11 @@ class Dashboard extends Controller
         // define date and train number
         $date = date($month . "y");
 
+        // add trailing 0
+        if (strlen($date) < 4) {
+            $date = "0" . $date;
+        }
+
         // check if the useplan exists
         if ($created ||
             $this->model->checkUseplan($employeeID, $date)) {
@@ -155,7 +160,7 @@ class Dashboard extends Controller
             $trainNr = $date . strtoupper(substr(md5(microtime()), rand(0, 26), 3));
 
             // insert useplan data
-            $this->model->insertUseplan($theLineID, $date, $trainNr);
+            $this->model->insertUseplan($date, $trainNr);
 
             // get last inserted id from useplan
             $lastUseplanID = $this->model->getLastUseplanID();
@@ -177,12 +182,6 @@ class Dashboard extends Controller
             $locomotives = $this->model->getRollmaterials(1);
             $locomotiveID = array_rand($locomotives);
             $theLocomotiveID = $locomotives[$locomotiveID]['rollmaterial_id'];
-            $theLocomotiveNumber = $locomotives[$locomotiveID]['number'];
-
-            // set train
-            $train = array();
-
-            array_push($train, $theLocomotiveNumber);
 
             // create useplan to rollmaterial relation
             $this->model->insertUseplanToRollmaterial($theUseplanID, $theLocomotiveID);
@@ -192,62 +191,44 @@ class Dashboard extends Controller
                 // get 2 x 1. class waggons
                 $waggons = $this->model->getRollmaterials(2, 1);
                 $waggonID = array_rand($waggons, 2);
-                $theWaggonID1 = $waggons[0]['rollmaterial_id'];
-                $theWaggonID2 = $waggons[1]['rollmaterial_id'];
+                $theWaggonID1 = $waggons[$waggonID[0]]['rollmaterial_id'];
+                $theWaggonID2 = $waggons[$waggonID[1]]['rollmaterial_id'];
 
                 // create useplan to rollmaterial relations
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID1);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID2);
 
-                $theWaggonNumber1 = $waggons[0]['number'];
-                $theWaggonNumber2 = $waggons[1]['number'];
-                array_push($train, $theWaggonNumber1, $theWaggonNumber2);
-
                 // get 4 x 2. class waggons
                 $waggons = $this->model->getRollmaterials(2, 2);
                 $waggonID = array_rand($waggons, 4);
-                $theWaggonID1 = $waggons[0]['rollmaterial_id'];
-                $theWaggonID2 = $waggons[1]['rollmaterial_id'];
-                $theWaggonID3 = $waggons[2]['rollmaterial_id'];
-                $theWaggonID4 = $waggons[3]['rollmaterial_id'];
+                $theWaggonID1 = $waggons[$waggonID[0]]['rollmaterial_id'];
+                $theWaggonID2 = $waggons[$waggonID[1]]['rollmaterial_id'];
+                $theWaggonID3 = $waggons[$waggonID[2]]['rollmaterial_id'];
+                $theWaggonID4 = $waggons[$waggonID[3]]['rollmaterial_id'];
 
                 // create useplan to rollmaterial relations
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID1);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID2);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID3);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID4);
-
-                $theWaggonNumber1 = $waggons[0]['number'];
-                $theWaggonNumber2 = $waggons[1]['number'];
-                $theWaggonNumber3 = $waggons[2]['number'];
-                $theWaggonNumber4 = $waggons[3]['number'];
-                array_push($train, $theWaggonNumber1, $theWaggonNumber2, $theWaggonNumber3, $theWaggonNumber4);
-
             } else {
                 // get 1 x 1. class waggon
                 $waggons = $this->model->getRollmaterials(2, 1);
                 $waggonID = array_rand($waggons);
-                $theWaggonID = $waggons[0]['rollmaterial_id'];
+                $theWaggonID = $waggons[$waggonID]['rollmaterial_id'];
 
                 // create useplan to rollmaterial relation
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID);
 
-                $theWaggonNumber = $waggons[0]['number'];
-                array_push($train, $theWaggonNumber);
-
                 // 2 x 2. class waggons
                 $waggons = $this->model->getRollmaterials(2, 2);
                 $waggonID = array_rand($waggons, 2);
-                $theWaggonID1 = $waggons[0]['rollmaterial_id'];
-                $theWaggonID2 = $waggons[1]['rollmaterial_id'];
+                $theWaggonID1 = $waggons[$waggonID[0]]['rollmaterial_id'];
+                $theWaggonID2 = $waggons[$waggonID[1]]['rollmaterial_id'];
 
                 // create useplan to rollmaterial relations
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID1);
                 $this->model->insertUseplanToRollmaterial($theUseplanID, $theWaggonID2);
-
-                $theWaggonNumber1 = $waggons[0]['number'];
-                $theWaggonNumber2 = $waggons[1]['number'];
-                array_push($train, $theWaggonNumber1, $theWaggonNumber2);
             }
             
             // call the newly created useplan
