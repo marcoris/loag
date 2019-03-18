@@ -26,27 +26,27 @@
 DROP TABLE IF EXISTS `useplan_to_line`;
 
 CREATE TABLE `useplan_to_line` (
-  `line_id` int(11) DEFAULT NULL,
-  `useplan_id` int(11) DEFAULT NULL
+  `useplan_id` int(11) DEFAULT NULL,
+  `line_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 LOCK TABLES `useplan_to_line` WRITE;
 /*!40000 ALTER TABLE `useplan_to_line` DISABLE KEYS */;
 
-INSERT INTO `useplan_to_line` (`line_id`, `useplan_id`)
+INSERT INTO `useplan_to_line` (`useplan_id`, `line_id`)
 VALUES
-	(2,1),
-	(5,2),
+	(1,2),
+	(2,5),
 	(3,3),
-	(2,4),
-	(3,5),
-	(4,6),
-	(5,7),
-	(2,8),
-	(5,9),
-	(5,10),
-	(2,11),
-	(3,12);
+	(4,2),
+	(5,3),
+	(6,4),
+	(7,5),
+	(8,2),
+	(9,5),
+	(10,5),
+	(11,2),
+	(12,3);
 
 /*!40000 ALTER TABLE `useplan_to_line` ENABLE KEYS */;
 UNLOCK TABLES;
