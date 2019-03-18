@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.25-0ubuntu0.18.04.2)
 # Datenbank: loag
-# Erstellt am: 2019-03-15 10:37:27 +0000
+# Erstellt am: 2019-03-18 09:55:43 +0000
 # ************************************************************
 
 
@@ -27,7 +27,6 @@ DROP TABLE IF EXISTS `useplan`;
 
 CREATE TABLE `useplan` (
   `useplan_id` int(11) NOT NULL AUTO_INCREMENT,
-  `useplan_line_id` int(11) DEFAULT NULL,
   `useplan_train_nr` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `useplan_date` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`useplan_id`)
@@ -36,20 +35,20 @@ CREATE TABLE `useplan` (
 LOCK TABLES `useplan` WRITE;
 /*!40000 ALTER TABLE `useplan` DISABLE KEYS */;
 
-INSERT INTO `useplan` (`useplan_id`, `useplan_line_id`, `useplan_train_nr`, `useplan_date`)
+INSERT INTO `useplan` (`useplan_id`, `useplan_train_nr`, `useplan_date`)
 VALUES
-	(1,2,X'333139443944',X'333139'),
-	(2,5,X'343139443638',X'343139'),
-	(3,3,X'353139363331',X'353139'),
-	(4,2,X'363139343337',X'363139'),
-	(5,3,X'373139343445',X'373139'),
-	(6,4,X'383139303738',X'383139'),
-	(7,5,X'333139344437',X'333139'),
-	(8,2,X'343139463031',X'343139'),
-	(9,5,X'353139303141',X'353139'),
-	(10,5,X'363139443846',X'363139'),
-	(11,2,X'373139434239',X'373139'),
-	(12,3,X'383139423346',X'383139');
+	(1,X'333139443944',X'333139'),
+	(2,X'343139443638',X'343139'),
+	(3,X'353139363331',X'353139'),
+	(4,X'363139343337',X'363139'),
+	(5,X'373139343445',X'373139'),
+	(6,X'383139303738',X'383139'),
+	(7,X'333139344437',X'333139'),
+	(8,X'343139463031',X'343139'),
+	(9,X'353139303141',X'353139'),
+	(10,X'363139443846',X'363139'),
+	(11,X'373139434239',X'373139'),
+	(12,X'383139423346',X'383139');
 
 /*!40000 ALTER TABLE `useplan` ENABLE KEYS */;
 UNLOCK TABLES;
