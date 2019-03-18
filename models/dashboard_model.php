@@ -129,13 +129,13 @@ class Dashboard_Model extends Model
         $this->db->delete('useplan', "useplan_id = '$id'");
         
         // delete from useplan_to_employee
-        $this->db->delete('useplan_to_employee', "useplan_id = '$id'");
+        $this->db->delete('useplan_to_employee', "useplan_id = '$id'", 1000);
         
         // delete from useplan_to_line
         $this->db->delete('useplan_to_line', "useplan_id = '$id'");
         
         // delete from useplan_to_rollmaterial
-        $this->db->delete('useplan_to_rollmaterial', "useplan_id = '$id'");
+        $this->db->delete('useplan_to_rollmaterial', "useplan_id = '$id'", 1000);
     }
 
     /**
