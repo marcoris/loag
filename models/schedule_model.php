@@ -120,9 +120,12 @@ class Schedule_Model extends Model
                     useplan_train_nr
                 FROM
                     `useplan`
+                    LEFT JOIN useplan_to_line AS utl ON (utl.line_id = :lineID)
                 WHERE
-                    useplan_date = $month AND
-                    useplan_line_id = " . $line_id[0]['line_id']
+                    useplan_date = $month",
+                array(
+                    ':lineID' => $line_id[0]['line_id']
+                )
             );
         } else {
             return false;

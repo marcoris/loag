@@ -69,16 +69,66 @@ class Dashboard_Model extends Model
         }
     }
 
-    /**
-     * Shows the affected user to edit
-     *
-     * @param int $id The id of the affected user
-     * 
-     * @return array employee data
-     */
-    public function edit($id)
+    public function editSave($data)
     {
+        // update useplan
+        $updateUseplan = array(
+            'useplan_train_nr' => $data['train_nr'],
+            'useplan_date' => $data['date']
+        );
+        $this->db->update('useplan', $updateUseplan, "`useplan_id`={$data['useplan_id']}");
+
+        // update useplan_to_employee
+        $updateLok = array(
+            'employee_id' => $data['lok']
+        );
+        $this->db->update('useplan_to_employee', $updateLok, "`useplan_id`={$data['useplan_id']}");
         
+        // update useplan_to_employee
+        $updateKont = array(
+            'employee_id' => $data['kont']
+        );
+        $this->db->update('useplan_to_employee', $updateKont, "`useplan_id`={$data['useplan_id']}");
+        
+        // update useplan_to_line
+        $updateLine = array(
+            'line_id' => $data['line']
+        );
+        $this->db->update('useplan_to_line', $updateLine, "`useplan_id`={$data['useplan_id']}");
+        
+        // update useplan_to_rollmaterial
+        $updateLocomotive = array(
+            'rollmaterial_id' => $data['locomotive']
+        );
+        $this->db->update('useplan_to_rollmaterial', $updateLocomotive, "`useplan_id`={$data['useplan_id']}");
+
+        // update useplan_to_rollmaterial
+        for ($i = 0; $i < count($data['waggons']); $i++) {
+            $updateRollmaterial = array(
+                'rollmaterial_id' => $data['waggons'][$i]
+            );
+            $this->db->update('useplan_to_rollmaterial', $updateRollmaterial, "`useplan_id`={$data['useplan_id']}");
+        }
+    }
+
+    /**
+     * Deletes the affected useplan and its relations
+     *
+     * @param int $id The affected id
+     */
+    public function delete($id)
+    {
+        // delete from useplan
+        $this->db->delete('useplan', "useplan_id = '$id'");
+        
+        // delete from useplan_to_employee
+        $this->db->delete('useplan_to_employee', "useplan_id = '$id'");
+        
+        // delete from useplan_to_line
+        $this->db->delete('useplan_to_line', "useplan_id = '$id'");
+        
+        // delete from useplan_to_rollmaterial
+        $this->db->delete('useplan_to_rollmaterial', "useplan_id = '$id'");
     }
 
     /**
@@ -122,6 +172,101 @@ class Dashboard_Model extends Model
             WHERE
                 line_id > 1'
         );
+    }
+
+    /**
+     * Get affected line
+     */
+    public function getAffectedLine($id)
+    {
+        return $this->db->select(
+            'SELECT
+                line_id
+            FROM
+                useplan_to_line
+            WHERE
+                useplan_id = :useplanID',
+            array(
+                ':useplanID' => $id
+            )
+        );
+    }
+
+    // /**
+    //  * Get affected line
+    //  */
+    // public function getAffectedLine($id)
+    // {
+    //     return $this->db->select(
+    //         'SELECT
+    //             line_id
+    //         FROM
+    //             useplan_to_line
+    //         WHERE
+    //             useplan_id = :useplanID',
+    //         array(
+    //             ':useplanID' => $id
+    //         )
+    //     );
+    // }
+    
+    /**
+     * Get train details
+     * 
+     * @return array useplan data
+     */
+    public function getUseplanData($id)
+    {
+        $arr = array();
+
+        $stmt = $this->db->prepare(
+            'SELECT
+            u.useplan_train_nr AS useplan_train_nr,
+            u.useplan_date AS useplan_date,
+            e.employee_id AS employee_id,
+            -- e.firstname AS firstname,
+            -- e.lastname AS lastname,
+            e.category AS category,
+            r.number AS `number`,
+            l.line_id AS line_id
+            FROM
+                `useplan` AS u
+                LEFT JOIN useplan_to_employee AS ute ON (ute.useplan_id = u.useplan_id)
+                LEFT JOIN employee AS e ON (ute.employee_id = e.employee_id)
+                LEFT JOIN useplan_to_rollmaterial AS utr ON (u.useplan_id = utr.useplan_id)
+                LEFT JOIN rollmaterial AS r ON (r.rollmaterial_id = utr.rollmaterial_id)
+                LEFT JOIN useplan_to_line AS utl ON (utl.useplan_id = u.useplan_id)
+                LEFT JOIN `line` AS l ON (l.line_id = utl.line_id)
+            WHERE
+                u.useplan_id = :useplanID
+            ORDER BY
+                u.useplan_date, u.useplan_id, r.number'
+        );
+
+        $stmt->execute(array('useplanID' => $id));
+
+        // set data in array
+        while ($row = $stmt->fetch()) {
+            $arr['useplan_train_nr'] = $row['useplan_train_nr'];
+            $arr['useplan_date'] = $row['useplan_date'];
+            if ($row['category'] == 1) {
+                // $arr['lok']['firstname'] = $row['firstname'];
+                // $arr['lok']['lastname'] = $row['lastname'];
+                $arr['lok']['employee_id'] = $row['employee_id'];
+            } else {
+                // $arr['kont']['firstname'] = $row['firstname'];
+                // $arr['kont']['lastname'] = $row['lastname'];
+                $arr['kont']['employee_id'] = $row['employee_id'];
+            }
+            if (substr($row['number'], 0, 1) == 'L') {
+                $arr['lok']['number'] = $row['number'];
+            } else {
+                $arr['waggons'][$row['number']] = $row['number'];
+            }
+            $arr['line_id'] = $row['line_id'];
+        }
+
+        return $arr;
     }
     
     /**
@@ -308,7 +453,7 @@ class Dashboard_Model extends Model
             'SELECT
                 useplan_train_nr
             FROM
-                useplan
+                `useplan`
             WHERE
                 useplan_date = :useplanDate',
             array(
@@ -433,7 +578,7 @@ class Dashboard_Model extends Model
                 LEFT JOIN useplan_to_line AS utl ON (utl.useplan_id = u.useplan_id)
                 LEFT JOIN `line` AS l ON (l.line_id = utl.line_id)
             ORDER BY
-                useplan_date'
+                u.useplan_date, u.useplan_id, r.number'
         );
 
         $stmt->execute();
@@ -452,7 +597,7 @@ class Dashboard_Model extends Model
             if (substr($row['number'], 0, 1) == 'L') {
                 $arr[$row['useplan_id']]['lok']['number'] = $row['number'];
             } else {
-                $arr[$row['useplan_id']]['waggons'][] = $row['number'];
+                $arr[$row['useplan_id']]['waggons'][$row['number']] = $row['number'];
             }
             $arr[$row['useplan_id']]['line_name'] = $row['line_name'];
         }

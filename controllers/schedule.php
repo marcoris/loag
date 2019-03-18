@@ -89,7 +89,7 @@ class Schedule extends Controller
                 }
             } else if ($start_sequence[0]['sequence'] > $end_sequence[0]['sequence']) {
                 // reverse
-                
+                $this->view->output = "BLA";
             } else {
                 $this->view->no_entry = true;
             }

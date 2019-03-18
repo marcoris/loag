@@ -101,6 +101,7 @@
     </form>
     <hr>
     <h2>Einsatzpläne</h2>
+    <!-- <?php pvd($this->useplans); ?> -->
     <table class="table table-striped useplantable">
         <thead class="thead-dark">
             <tr>
@@ -117,21 +118,29 @@
         </thead>
         <tbody>
             <?php
-
+            $i = 1;
+            foreach ($this->useplans as $key => $value) {
+                echo "<tr>
+                    <td>$i</td>
+                    <td>{$months[substr($value['useplan_date'], 0, -2) - 1]} 20" . substr($value['useplan_date'], -2) . "</td>
+                    <td>{$value['useplan_train_nr']}</td>
+                    <td>{$value['line_name']}</td>
+                    <td>{$value['lok']['firstname']} {$value['lok']['lastname']}</td>
+                    <td>{$value['kont']['firstname']} {$value['kont']['lastname']}</td>
+                    <td>{$value['lok']['number']}</td>
+                    <td>";
+                foreach ($value['waggons'] as $waggonkey => $waggonvalue) {
+                    echo "<div class='useplandivs'>" . $value['waggons'][$waggonkey] . "</div>";
+                }
+                echo '</td>
+                <td>
+                    <a href="dashboard/edit/' . $key . '" class="btn btn-success edit"><i class="fas fa-pen"></i></a>
+                    <a href="dashboard/delete/' . $key . '" class="btn btn-danger delete"><i class="fas fa-trash"></i></a>
+                </td>
+                </tr>';
+                $i++;
+            }
             ?>
-            <tr>
-            <td>1</td>
-            <td>März 2019</td>
-            <td>319ABC</td>
-            <td>Linie 1</td>
-            <td>Lukas Lokomo</td>
-            <td>Jim Kontrolle</td>
-            <td>L001</td><td><div class="useplandivs">W001C1</div><div class="useplandivs">W002C2</div><div class="useplandivs">W003C2</div></td>
-            <td>
-                <a href="dashboard/edit/2" class="btn btn-success edit"><i class="fas fa-pen"></i></a>
-                <a href="" class="btn btn-danger delete"><i class="fas fa-trash"></i></a>
-            </td>
-            </tr>
         </tbody>
     </table>
     <?php

@@ -49,6 +49,11 @@ class Dashboard extends Controller
         header('location: ' . URL . $this->path);
     }
 
+    /**
+     * Shows the edit page
+     *
+     * @param int $id The affected employee id
+     */
     public function edit($id)
     {
         $months = array(
@@ -66,8 +71,46 @@ class Dashboard extends Controller
             12 => 'Dezember'
         );
         $this->view->months = $months;
-        // $this->view->trainNr = $this->model->getTrainNr($date);
+        $this->view->useplan_id = $id;
+        $this->view->useplanData = $this->model->getUseplanData($id);
+        $this->view->lines = $this->model->getLines();
+        $this->view->locdriver = $this->model->getEmployees('', 1);
+        $this->view->controller = $this->model->getEmployees('', 2);
+        $this->view->locomotives = $this->model->getRollmaterials(1);
+        $this->view->waggons = $this->model->getRollmaterials(2);
         $this->view->render($this->path . '/edit');
+    }
+
+    /**
+     * The edit save function
+     *
+     * @param int $id The affected id
+     */
+    public function editSave($id)
+    {
+        $data = array();
+        $data['useplan_id'] = $id;
+        $data['date'] = $_POST['date'];
+        $data['train_nr'] = $_POST['train_nr'];
+        $data['line'] = $_POST['line'];
+        $data['lok'] = $_POST['lok'];
+        $data['kont'] = $_POST['kont'];
+        $data['locomotive'] = $_POST['locomotive'];
+        $data['waggons'] = $_POST['waggons'];
+
+        $this->model->editSave($data);
+        header('location: ' . URL . $this->path);
+    }
+
+    /**
+     * The delete function
+     *
+     * @param int $id The affected id
+     */
+    public function delete($id)
+    {
+        $this->model->delete($id);
+        header('location: ' . URL . $this->path);
     }
 
     /**
