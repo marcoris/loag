@@ -2,11 +2,6 @@
 
 class Database extends PDO
 {
-    private $host;
-    private $user;
-    private $pass;
-    private $db;
-
     public function __construct($DB_TYPE, $DB_HOST, $DB_NAME, $DB_USER, $DB_PASS)
     {
         parent::__construct($DB_TYPE.':host='.$DB_HOST.';dbname='.$DB_NAME, $DB_USER, $DB_PASS);
@@ -29,7 +24,7 @@ class Database extends PDO
             $stmt->bindValue("$key", $value);
         }
 
-        if(!$stmt->execute()) {
+        if (!$stmt->execute()) {
             echo "SQL Fehler({$stmt->errorInfo()[1]})<br>";
             echo $stmt->errorInfo()[2];
             die;
@@ -57,7 +52,7 @@ class Database extends PDO
             $stmt->bindValue(":$key", $value);
         }
         
-        if(!$stmt->execute()) {
+        if (!$stmt->execute()) {
             echo "SQL Fehler({$stmt->errorInfo()[1]})<br>";
             echo $stmt->errorInfo()[2];
             die;
@@ -89,7 +84,7 @@ class Database extends PDO
             $stmt->bindValue(":$key", $value);
         }
         
-        if(!$stmt->execute()) {
+        if (!$stmt->execute()) {
             echo "SQL Fehler({$stmt->errorInfo()[1]})<br>";
             echo $stmt->errorInfo()[2];
             die;
