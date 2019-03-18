@@ -14,9 +14,13 @@ class Dashboard_Model extends Model
      */
     public function create($data)
     {
+        // add trailing 0
+        if (strlen($data['date']) < 4) {
+            $data['date'] = "0" . $data['date'];
+        }
+
         // insert in useplan
         $insertUseplan = array(
-            'useplan_line_id' => $data['line'],
             'useplan_train_nr' => $data['train_nr'],
             'useplan_date' => $data['date']
         );
@@ -69,8 +73,18 @@ class Dashboard_Model extends Model
         }
     }
 
+    /**
+     * Save edited data
+     *
+     * @param array $data The data
+     */
     public function editSave($data)
     {
+        // add trailing 0
+        if (strlen($data['date']) < 4) {
+            $data['date'] = "0" . $data['date'];
+        }
+
         // update useplan
         $updateUseplan = array(
             'useplan_train_nr' => $data['train_nr'],
@@ -180,45 +194,9 @@ class Dashboard_Model extends Model
                 line_id > 1'
         );
     }
-
-    /**
-     * Get affected line
-     */
-    public function getAffectedLine($id)
-    {
-        return $this->db->select(
-            'SELECT
-                line_id
-            FROM
-                useplan_to_line
-            WHERE
-                useplan_id = :useplanID',
-            array(
-                ':useplanID' => $id
-            )
-        );
-    }
-
-    // /**
-    //  * Get affected line
-    //  */
-    // public function getAffectedLine($id)
-    // {
-    //     return $this->db->select(
-    //         'SELECT
-    //             line_id
-    //         FROM
-    //             useplan_to_line
-    //         WHERE
-    //             useplan_id = :useplanID',
-    //         array(
-    //             ':useplanID' => $id
-    //         )
-    //     );
-    // }
     
     /**
-     * Get train details
+     * Get useplan data
      * 
      * @return array useplan data
      */
@@ -582,7 +560,7 @@ class Dashboard_Model extends Model
                 LEFT JOIN useplan_to_line AS utl ON (utl.useplan_id = u.useplan_id)
                 LEFT JOIN `line` AS l ON (l.line_id = utl.line_id)
             ORDER BY
-                u.useplan_date, u.useplan_id, r.number'
+                u.useplan_date'
         );
 
         $stmt->execute();
