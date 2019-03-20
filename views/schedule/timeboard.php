@@ -4,8 +4,16 @@
             <?php
             if ($this->no_entry) : ?>
                 <h1>Sorry!</h1>
-                <p class="sorry">Leider konnte zu Ihrer Anfrage keine Verbindung gefunden werden.<br>
+                <p>Leider konnte zu Ihrer Anfrage keine Verbindung gefunden werden.<br>
                 Möglicherweise möchten Sie Ihre Reise an einem Datum unternehmen, an dem Start oder Ziel gar nicht oder nicht mit dem gewählten Verkehrsmittel angefahren werden (Haltestellen werden z. B. am Wochenende manchmal nicht bedient).<br>
+                </p>
+                <div class="buttons no-print">
+                    <a class="btn btn-primary" href="javascript:history.back();"><i class="fa fa-chevron-left"></i> Zurück</a>
+                </div>
+            <?php
+            elseif ($this->same_stations) : ?>
+                <h1>Sorry!</h1>
+                <p>Die Start Station und die End Station sind identisch!
                 </p>
                 <div class="buttons no-print">
                     <a class="btn btn-primary" href="javascript:history.back();"><i class="fa fa-chevron-left"></i> Zurück</a>
